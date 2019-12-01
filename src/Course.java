@@ -16,6 +16,7 @@ public class Course {
 
     public Course(String name, List<Criteria> criteria, String semester, String status, String year) {
         this.name = name;
+        flat(criteria);
         this.criteria = criteria;
         this.assignments = new ArrayList<>();
         Criteria bonus = new Criteria(this, "Bonus", 0);
@@ -28,6 +29,14 @@ public class Course {
         this.year = year;
         this.curve = 0;
         this.finalGrade = new HashMap<>();
+    }
+
+    private void flat(List<Criteria> criteria) {
+        double total = 0;
+        for (Criteria c: criteria)
+            total += c.getPercentage();
+        for (Criteria c: criteria)
+            c.setPercentage(c.getPercentage() / total);
     }
 
     public boolean addStudentsFromFile(String path) {
@@ -92,6 +101,19 @@ public class Course {
         if (temp == null)
             return;
         assignments.add(new Assignment(name, temp, percentage, this, due, new Date(), totalPoint));
+        updateAssignmentPercentage(criteria);
+    }
+
+    public void updateAssignmentPercentage(String criteria) {
+        double total = 0;
+        for (Assignment ass: assignments) {
+            if (ass.getCriteria().getLabel().equals(criteria))
+                total += ass.getPercentage();
+        }
+        for (Assignment ass: assignments) {
+            if (ass.getCriteria().getLabel().equals(criteria))
+                ass.setPercentage(ass.getPercentage() / total);
+        }
     }
 
     public void giveFinalGrade(HashMap<String, Character> finalGrade) {
@@ -137,6 +159,7 @@ public class Course {
         if (temp == null)
             return;
         Assignment father = new Assignment(name, temp, percentage, this, due, new Date(), totalPoint);
+        assignments.add(father);
         String part = "part";
         for (int i = 1; i <= partPercentage.size(); i++) {
             String cur = part + i;
@@ -144,14 +167,13 @@ public class Course {
                     totalPoint * partPercentage.get(i), father);
             father.setChildren(child);
         }
+        updateAssignmentPercentage(criteria);
     }
 
-    public HashMap<String, Double> getStudentOverall(List<String> unselect, String kind) {
+    public HashMap<String, Double> getStudentOverall(String kind) {
         HashMap<String, Double> rst = new HashMap<>();
         if (kind.equals(Config.ALL)) {
             for (Student s: students) {
-                if (unselect.contains(s.getName().getName()))
-                    continue;
                 double overall = 0.0;
                 for (Criteria c: criteria)
                     overall += c.getPercentage() * grabGradOfOneStudentForOneCriteria(s, c.getLabel());
@@ -160,7 +182,7 @@ public class Course {
         }
         else if(kind.equals(Config.GRADUATE)) {
             for (Student s: students) {
-                if (unselect.contains(s.getName().getName()) || s.getKind().equals(Config.UNDERGRADUATE))
+                if (s.getKind().equals(Config.UNDERGRADUATE))
                     continue;
                 double overall = 0.0;
                 for (Criteria c: criteria)
@@ -170,7 +192,7 @@ public class Course {
         }
         else {
             for (Student s: students) {
-                if (unselect.contains(s.getName().getName()) || s.getKind().equals(Config.GRADUATE))
+                if (s.getKind().equals(Config.GRADUATE))
                     continue;
                 double overall = 0.0;
                 for (Criteria c: criteria)
@@ -374,7 +396,7 @@ public class Course {
         number.add(students.size());
         int graduate = 0;
         for (Student s: students) {
-            if (s.getKind().equals("Graduate"))
+            if (s.getKind().equals(Config.GRADUATE))
                 graduate++;
         }
         number.add(students.size() - graduate);
@@ -392,6 +414,8 @@ public class Course {
         }
         if (temp == null)
             criteria.add(new Criteria(this, name, percentage));
+        else
+            temp.setPercentage(percentage);
         double totalPercentage = 0;
         for (Criteria c: criteria)
             totalPercentage += c.getPercentage();

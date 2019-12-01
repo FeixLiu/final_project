@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,6 +8,14 @@ public class GradingSystem {
     private List<Course> inactive;
     private List<Template> templates;
     private Course currentView;
+
+    public GradingSystem() {
+        this.active = new ArrayList<>();
+        this.inactive = new ArrayList<>();
+        this.templates = new ArrayList<>();
+        pass = new Password("123456");
+        currentView = null;
+    }
 
     public GradingSystem(List<Course> active, List<Course> inactive, List<Template> templates) {
         this.active = active;
@@ -37,10 +46,6 @@ public class GradingSystem {
 
     public void returnMain() {
         currentView = null;
-    }
-
-    public void addCourse(String name, List<Criteria> criteria, String semester, String status, String year) {
-        active.add(new Course(name, criteria, semester, status, year));
     }
 
     public void archiveCourse(String name, String year, String semester) {
@@ -148,8 +153,18 @@ public class GradingSystem {
         return currentView.getStudents();
     }
 
-    public HashMap<String, Double> getStudentOverall(List<String> unselect, String kind) {
-        return currentView.getStudentOverall(unselect, kind);
+    public List<Double> getStudentStatistical(List<String> unselect, HashMap<String, Double> currentStudent) {
+        for (String name: unselect)
+            currentStudent.remove(name);
+        List<Double> rst = new ArrayList<>();
+        rst.add(Statistical.average(currentStudent));
+        rst.add(Statistical.median(currentStudent));
+        rst.add(Statistical.standardDev(currentStudent));
+        return rst;
+    }
+
+    public HashMap<String, Double> getStudentOverall(String kind) {
+        return currentView.getStudentOverall(kind);
     }
 
     public HashMap<String, Double> getBonus() {
