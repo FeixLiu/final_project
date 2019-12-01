@@ -1,0 +1,183 @@
+import java.util.HashMap;
+import java.util.List;
+
+public class GradingSystem {
+    private Password pass;
+    private List<Course> active;
+    private List<Course> inactive;
+    private List<Template> templates;
+    private Course currentView;
+
+    public GradingSystem(List<Course> active, List<Course> inactive, List<Template> templates) {
+        this.active = active;
+        this.inactive = inactive;
+        this.templates = templates;
+        pass = new Password("123456");
+        currentView = null;
+    }
+
+    public boolean logIn(String pass) {
+        return this.pass.checkPass(pass);
+    }
+
+    public void chooseCourse(String name, String year, String semester) {
+        for(Course c: active) {
+            if(c.getName().equals(name) && c.getYear().equals(year) && c.getSemester().equals(semester)) {
+                currentView = c;
+                return;
+            }
+        }
+        for(Course c: inactive) {
+            if(c.getName().equals(name) && c.getYear().equals(year) && c.getSemester().equals(semester)) {
+                currentView = c;
+                return;
+            }
+        }
+    }
+
+    public void returnMain() {
+        currentView = null;
+    }
+
+    public void addCourse(String name, List<Criteria> criteria, String semester, String status, String year) {
+        active.add(new Course(name, criteria, semester, status, year));
+    }
+
+    public void archiveCourse(String name, String year, String semester) {
+        Course temp = null;
+        for(Course c: active) {
+            if(c.getName().equals(name) && c.getYear().equals(year) && c.getSemester().equals(semester)) {
+                temp = c;
+                break;
+            }
+        }
+        if (temp != null) {
+            inactive.add(temp);
+            active.remove(temp);
+        }
+    }
+
+    public boolean addStudentsFromFile(String path) {
+        return currentView.addStudentsFromFile(path);
+    }
+
+    public boolean addOneStudent(Name name, Id id, Email email, String kind) {
+        if (currentView.getStatus().equals(Config.INACTIVE_COURSE))
+            return false;
+        currentView.addOneStudent(name, id, email, kind);
+        return true;
+    }
+
+    public HashMap<Assignment, List<Double>> getAllAssignment() {
+        return currentView.getAssignments();
+    }
+
+    public List<Student> modifyStudentStatus(String id, String status) {
+        return currentView.modifyStudentStatus(id, status);
+    }
+
+    public HashMap<Assignment, List<Double>> addSingleAssignment(String name, String criteria,
+                                    String year, String month, String day,
+                                    double totalPoint, double percentage) {
+        Date due = new Date(year, month, day);
+        currentView.addSingleAssignment(name, criteria, due, totalPoint, percentage);
+        return currentView.getAssignments();
+    }
+
+    public HashMap<Assignment, List<Double>> addMultiAssignment(String name, String criteria, List<Double> partPercentage,
+                                                                 String year, String month, String day,
+                                                                 double totalPoint, double percentage) {
+        Date due = new Date(year, month, day);
+        currentView.addMultiAssignment(name, criteria, due, totalPoint, percentage, partPercentage);
+        return currentView.getAssignments();
+    }
+
+    public HashMap<String, String> getComment() {
+        return currentView.getComment();
+    }
+
+    public HashMap<String, HashMap<String, Double>> grabAllGrad() {
+        return currentView.grabAllGrad();
+    }
+
+    public HashMap<String, HashMap<String, Double>> grabByCriteria(String criteria) {
+        return currentView.grabByCriteria(criteria);
+    }
+
+    public void giveGrade(HashMap<String, HashMap<String, Double>> grade, String criteria, String name) {
+        currentView.giveGrade(grade, criteria, name);
+    }
+
+    public void giveComment(HashMap<String, String> comments) {
+        currentView.giveComment(comments);
+    }
+
+    public HashMap<String, HashMap<String, Double>> grabByCriteriaAndName(String criteria, String name) {
+        return currentView.grabByCriteriaAndName(criteria, name);
+    }
+
+    public List<Student> deleteStudent(String id) {
+        return currentView.deleteStudent(id);
+    }
+
+    public void addCourse(String name, List<Criteria> criteria, String semester, String year) {
+        active.add(new Course(name, criteria, semester, Config.ACTIVE_COURSE, year));
+    }
+
+    public List<Template> getTemplates() {
+        return templates;
+    }
+
+    public List<Integer> getCourseStudentsNumber() {
+        return currentView.studentsNumber();
+    }
+
+    public List<Criteria> getCourseCriteria() {
+        return currentView.getCriteria();
+    }
+
+    public List<Criteria> modifyCriteria(String name, double percentage) {
+        return currentView.modifyCriteria(name, percentage);
+    }
+
+    public List<Criteria> deleteCriteria(String name) {
+        return currentView.deleteCriteria(name);
+    }
+
+    public List<Student> getAllStudent() {
+        return currentView.getStudents();
+    }
+
+    public HashMap<String, Double> getStudentOverall(List<String> unselect, String kind) {
+        return currentView.getStudentOverall(unselect, kind);
+    }
+
+    public HashMap<String, Double> getBonus() {
+        return currentView.getBonus();
+    }
+
+    public void giveBonus(String name, double bouns) {
+        currentView.giveBonus(name, bouns);
+    }
+
+    public void giveFinalGrade(HashMap<String, Character> finalGrade) {
+        currentView.giveFinalGrade(finalGrade);
+    }
+
+    public void saveAsTemplate(String name) {
+        List<Criteria> criteria = currentView.getCriteria();
+        templates.add(new Template(name, criteria));
+    }
+
+    public void exportAsFile(String path) {
+        currentView.exportAsFile(path);
+    }
+
+    public void modifyAssignmentPercentage(String name, double percentage) {
+        currentView.modifyAssignmentPercentage(name, percentage);
+    }
+
+    public void modifySubAssignmentPercentage(String name, List<Double> percentage) {
+        currentView.modifySubAssignmentPercentage(name, percentage);
+    }
+}
