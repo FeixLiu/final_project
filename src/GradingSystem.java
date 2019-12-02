@@ -59,6 +59,7 @@ public class GradingSystem {
         if (temp != null) {
             inactive.add(temp);
             active.remove(temp);
+            temp.setStatus(Config.INACTIVE_COURSE);
         }
     }
 
@@ -163,7 +164,8 @@ public class GradingSystem {
         return rst;
     }
 
-    public HashMap<String, Double> getStudentOverall(String kind) {
+    public HashMap<String, Double> getStudentOverall(String kind, double curve) {
+        currentView.setCurve(curve);
         return currentView.getStudentOverall(kind);
     }
 

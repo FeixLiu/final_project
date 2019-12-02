@@ -177,7 +177,7 @@ public class Course {
                 double overall = 0.0;
                 for (Criteria c: criteria)
                     overall += c.getPercentage() * grabGradOfOneStudentForOneCriteria(s, c.getLabel());
-                rst.put(s.getName().getName(), overall);
+                rst.put(s.getName().getName(), Math.min(overall + curve / 100, 1));
             }
         }
         else if(kind.equals(Config.GRADUATE)) {
@@ -187,7 +187,7 @@ public class Course {
                 double overall = 0.0;
                 for (Criteria c: criteria)
                     overall += c.getPercentage() * grabGradOfOneStudentForOneCriteria(s, c.getLabel());
-                rst.put(s.getName().getName(), overall);
+                rst.put(s.getName().getName(), Math.min(overall + curve / 100, 1));
             }
         }
         else {
@@ -197,7 +197,7 @@ public class Course {
                 double overall = 0.0;
                 for (Criteria c: criteria)
                     overall += c.getPercentage() * grabGradOfOneStudentForOneCriteria(s, c.getLabel());
-                rst.put(s.getName().getName(), overall);
+                rst.put(s.getName().getName(), Math.min(overall + curve / 100, 1));
             }
         }
         return rst;
@@ -453,6 +453,10 @@ public class Course {
 
     public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public double getCurve() {
