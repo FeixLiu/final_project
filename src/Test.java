@@ -73,7 +73,7 @@ public class Test {
         comment = gs.getComment();
         gs.saveAsTemplate("Test");
         List<Template> templates = gs.getTemplates();
-        gs.exportAsFile("./src/final.csv");
+        gs.exportAsFile("final.csv");
     }
 
     private static void outputGrade(HashMap<String, HashMap<String, Double>> grade) {

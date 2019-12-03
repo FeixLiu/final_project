@@ -289,7 +289,7 @@ public class Course {
             for (Criteria c: criteria)
                 head.append(c.getLabel()).append(",");
             head.append("Overall").append(",");
-            head.append("Final Grade");
+            head.append("Final Grade\n");
             bufferWriter.write(head.toString());
             for (Student s: students) {
                 StringBuilder sb = new StringBuilder();
@@ -298,6 +298,7 @@ public class Course {
                 for (double score: temp.values())
                     sb.append(score).append(",");
                 sb.append(finalGrade.get(s));
+                sb.append("\n");
                 bufferWriter.write(sb.toString());
             }
             bufferWriter.close();
