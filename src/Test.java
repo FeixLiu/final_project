@@ -58,6 +58,7 @@ public class Test {
         grade = gs.grabByCriteria("Exam");
         grade = gs.grabAllGrad();
         HashMap<String, Double> overall = gs.getStudentOverall(Config.ALL, 10);
+        gs.getCurve();
         List<String> unselect = new ArrayList<>();
         List<Double> statistical = gs.getStudentStatistical(unselect, overall);
         HashMap<String, Character> finalGrade = new HashMap<>();

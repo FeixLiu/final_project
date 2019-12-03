@@ -99,6 +99,10 @@ public class GradingSystem {
         return currentView.getAssignments();
     }
 
+    public double getCurve() {
+        return currentView.getCurve();
+    }
+
     public HashMap<Assignment, List<Double>> addMultiAssignment(String name, String criteria, List<Double> partPercentage,
                                                                  String year, String month, String day,
                                                                  double totalPoint, double percentage) {
