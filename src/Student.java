@@ -42,8 +42,8 @@ public class Student {
         return status;
     }
 
-    public void setStatus(String kind) {
-        this.kind = kind;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setComments(String comments) {

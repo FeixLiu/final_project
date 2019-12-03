@@ -29,19 +29,28 @@ public class GradingSystem {
         return this.pass.checkPass(pass);
     }
 
-    public void chooseCourse(String name, String year, String semester) {
+    public boolean chooseCourse(String name, String year, String semester) {
         for(Course c: active) {
             if(c.getName().equals(name) && c.getYear().equals(year) && c.getSemester().equals(semester)) {
                 currentView = c;
-                return;
+                return true;
             }
         }
         for(Course c: inactive) {
             if(c.getName().equals(name) && c.getYear().equals(year) && c.getSemester().equals(semester)) {
                 currentView = c;
-                return;
+                return true;
             }
         }
+        return false;
+    }
+
+    public List<Course> getActive() {
+        return active;
+    }
+
+    public List<Course> getInactive() {
+        return inactive;
     }
 
     public void returnMain() {
@@ -127,7 +136,10 @@ public class GradingSystem {
     }
 
     public void addCourse(String name, List<Criteria> criteria, String semester, String year) {
-        active.add(new Course(name, criteria, semester, Config.ACTIVE_COURSE, year));
+        Course course = new Course(name, criteria, semester, Config.ACTIVE_COURSE, year);
+        active.add(course);
+        for (Criteria cri: criteria)
+            cri.setCourse(course);
     }
 
     public List<Template> getTemplates() {
@@ -143,7 +155,7 @@ public class GradingSystem {
     }
 
     public List<Criteria> modifyCriteria(String name, double percentage) {
-        return currentView.modifyCriteria(name, percentage);
+        return currentView.modifyCriteria(name, percentage / 100);
     }
 
     public List<Criteria> deleteCriteria(String name) {
@@ -174,11 +186,15 @@ public class GradingSystem {
     }
 
     public void giveBonus(String name, double bouns) {
-        currentView.giveBonus(name, bouns);
+        currentView.giveBonus(name, bouns / 100);
     }
 
     public void giveFinalGrade(HashMap<String, Character> finalGrade) {
         currentView.giveFinalGrade(finalGrade);
+    }
+
+    public HashMap<Student, Character> getFinalGrade() {
+        return currentView.getFinalGrade();
     }
 
     public void saveAsTemplate(String name) {
@@ -190,11 +206,11 @@ public class GradingSystem {
         currentView.exportAsFile(path);
     }
 
-    public void modifyAssignmentPercentage(String name, double percentage) {
-        currentView.modifyAssignmentPercentage(name, percentage);
+    public void modifyAssignmentPercentage(String name, double percentage, String criteria) {
+        currentView.modifyAssignmentPercentage(name, percentage, criteria);
     }
 
-    public void modifySubAssignmentPercentage(String name, List<Double> percentage) {
-        currentView.modifySubAssignmentPercentage(name, percentage);
+    public void modifySubAssignmentPercentage(String name, List<Double> percentage, String criteria) {
+        currentView.modifySubAssignmentPercentage(name, percentage, criteria);
     }
 }

@@ -3,10 +3,19 @@ public class Criteria {
     private String label;
     private double percentage;
 
+    public Criteria(String label, double percentage) {
+        this.label = label;
+        this.percentage = percentage;
+    }
+
     public Criteria(Course course, String label, double percentage) {
         this.course = course;
         this.label = label;
         this.percentage = percentage;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Course getCourse() {

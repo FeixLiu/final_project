@@ -14,8 +14,8 @@ public class Statistical {
         List<Double> allGrade = new ArrayList<>(all.values());
         Collections.sort(allGrade);
         if (allGrade.size() % 2 != 0)
-            return allGrade.get(allGrade.size() / 2 + 1);
-        return (allGrade.get(allGrade.size() / 2) + allGrade.get(allGrade.size() / 2 + 1)) / 2;
+            return allGrade.get(allGrade.size() / 2);
+        return (allGrade.get(allGrade.size() / 2) + allGrade.get(allGrade.size() / 2 - 1)) / 2;
     }
 
     public static double standardDev(Assignment assignment) {
@@ -38,8 +38,8 @@ public class Statistical {
         List<Double> allGrade = new ArrayList<>(student.values());
         Collections.sort(allGrade);
         if (allGrade.size() % 2 != 0)
-            return allGrade.get(allGrade.size() / 2 + 1);
-        return (allGrade.get(allGrade.size() / 2) + allGrade.get(allGrade.size() / 2 + 1)) / 2;
+            return allGrade.get(allGrade.size() / 2);
+        return (allGrade.get(allGrade.size() / 2) + allGrade.get(allGrade.size() / 2 - 1)) / 2;
     }
 
     public static double standardDev(HashMap<String, Double> student) {

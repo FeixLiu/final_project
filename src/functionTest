@@ -1,0 +1,37 @@
+logIn √
+adding course √
+modify criteria of course
+    add √
+    modify √
+    delete √
+archive course √
+add student from file √
+delete a student √
+modify student's status √
+add one student √
+lately add one student √
+get student number √
+add single part assignment √
+add multi part assignment √
+giveBonus √
+getBonus √
+give grade to single part assignment
+    percentage √
+    lose credit √
+give grade to multi part assignment
+    percentage √
+    lose credit √
+grabByCriteriaAndName √
+grabAllGrad √
+grabByCriteria √
+getCurveGrad
+    select all √
+    select one kind √
+getStatistical
+    select all √
+    unselect √
+save as template √
+get template √
+give comment √
+get comment √
+save as file

@@ -74,9 +74,13 @@ public class Assignment {
         for (Student stu: grade.keySet()) {
             if (!stu.getName().getName().equals(s.getName().getName()))
                 continue;
-            return grade.get(stu) * percentage;
+            return grade.get(stu) * percentage / 100;
         }
         return 0;
+    }
+
+    public void deleteStudent(Student temp) {
+        grade.remove(temp);
     }
 
     public void setOneGradeByName(String name, double grade) {

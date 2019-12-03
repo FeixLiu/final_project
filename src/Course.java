@@ -17,11 +17,20 @@ public class Course {
     public Course(String name, List<Criteria> criteria, String semester, String status, String year) {
         this.name = name;
         flat(criteria);
-        this.criteria = criteria;
+        this.criteria = new ArrayList<>(criteria);
         this.assignments = new ArrayList<>();
-        Criteria bonus = new Criteria(this, "Bonus", 0);
-        criteria.add(bonus);
-        Assignment bonusAssignment = new Assignment("Bonus Assignment", bonus, 0, this, new Date(), new Date(), 0);
+        Criteria bonus = null;
+        for (Criteria cri : this.criteria) {
+            if (cri.getLabel().equals("Bonus")) {
+                bonus = cri;
+                break;
+            }
+        }
+        if (bonus == null) {
+            bonus = new Criteria(this, "Bonus", 0);
+            this.criteria.add(bonus);
+        }
+        Assignment bonusAssignment = new Assignment("Bonus Assignment", bonus, 100, this, new Date("2020", "5", "30"), new Date(), 0);
         assignments.add(bonusAssignment);
         this.students = new ArrayList<>();
         this.semester = semester;
@@ -42,7 +51,7 @@ public class Course {
     public boolean addStudentsFromFile(String path) {
         ArrayList<String> arrayList = new ArrayList<>();
         try {
-            FileReader fr = new FileReader("./src/a.csv");
+            FileReader fr = new FileReader(path);
             BufferedReader bf = new BufferedReader(fr);
             String str;
             while ((str = bf.readLine()) != null) {
@@ -100,7 +109,10 @@ public class Course {
         }
         if (temp == null)
             return;
-        assignments.add(new Assignment(name, temp, percentage, this, due, new Date(), totalPoint));
+        Assignment assignment = new Assignment(name, temp, percentage, this, due, new Date(), totalPoint);
+        assignments.add(assignment);
+        for (Student s: students)
+            assignment.setOneGrade(s, 0);
         updateAssignmentPercentage(criteria);
     }
 
@@ -160,12 +172,16 @@ public class Course {
             return;
         Assignment father = new Assignment(name, temp, percentage, this, due, new Date(), totalPoint);
         assignments.add(father);
+        for (Student s: students)
+            father.setOneGrade(s, 0);
         String part = "part";
         for (int i = 1; i <= partPercentage.size(); i++) {
             String cur = part + i;
-            Assignment child = new Assignment(cur, temp, partPercentage.get(i), this, due, new Date(),
-                    totalPoint * partPercentage.get(i), father);
+            Assignment child = new Assignment(cur, temp, partPercentage.get(i - 1), this, due, new Date(),
+                    totalPoint * partPercentage.get(i - 1), father);
             father.setChildren(child);
+            for (Student s: students)
+                child.setOneGrade(s, 0);
         }
         updateAssignmentPercentage(criteria);
     }
@@ -208,7 +224,7 @@ public class Course {
         for (Student s: students) {
             HashMap<String, Double> temp = new HashMap<>();
             for (Criteria c: criteria)
-                temp.put(c.getLabel(), grabGradOfOneStudentForOneCriteria(s, c.getLabel()));
+                temp.put(c.getLabel(), grabGradOfOneStudentForOneCriteria(s, c.getLabel()) * 100);
             double overall = 0;
             for (Criteria c: criteria)
                 overall += c.getPercentage() * temp.get(c.getLabel());
@@ -235,12 +251,12 @@ public class Course {
                 continue;
             if (ass.getChildren().size() == 0) {
                 for (Student s: students) {
-                    double percentage = grade.get(s.getName().getName()).get("Percentage");
-                    double lose = grade.get(s.getName().getName()).get("" + ass.getTotal());
+                    double percentage = grade.get(s.getName().getName()).get("percentage");
+                    double lose = grade.get(s.getName().getName()).get("total point " + ass.getTotal());
                     if (lose < 0)
-                        ass.setOneGrade(s, (ass.getTotal() + lose) / ass.getTotal());
+                        ass.setOneGrade(s, (ass.getTotal() + lose) / ass.getTotal() * 100);
                     else
-                        ass.setOneGrade(s, Math.max(0, Math.min(percentage, 1)));
+                        ass.setOneGrade(s, Math.max(0, Math.min(percentage, 100)));
                 }
             }
             else {
@@ -248,11 +264,11 @@ public class Course {
                 for (Assignment assignment: child) {
                     for (Student s: students) {
                         double percentage = grade.get(s.getName().getName()).get(assignment.getName() + " percentage");
-                        double lose = grade.get(s.getName().getName()).get(assignment.getName() + " " + assignment.getTotal());
+                        double lose = grade.get(s.getName().getName()).get(assignment.getName() + " total point " + assignment.getTotal());
                         if (lose < 0)
-                            assignment.setOneGrade(s, (assignment.getTotal() + lose) / assignment.getTotal());
+                            assignment.setOneGrade(s, (assignment.getTotal() + lose) / assignment.getTotal() * 100);
                         else
-                            assignment.setOneGrade(s, Math.max(0, Math.min(percentage, 1)));
+                            assignment.setOneGrade(s, Math.max(0, Math.min(percentage, 100)));
                     }
                 }
                 ass.updateGrade();
@@ -289,31 +305,24 @@ public class Course {
         }
     }
 
-    public void modifyAssignmentPercentage(String name, double percentage) {
-        Criteria criteria = null;
-        for (Assignment assignment: assignments) {
-            if (assignment.getName().equals(name)) {
-                criteria = assignment.getCriteria();
+    public void modifyAssignmentPercentage(String name, double percentage, String criteria) {
+        for (Assignment assignment: assignments)
+            if (assignment.getName().equals(name) && assignment.getCriteria().getLabel().equals(criteria))
                 assignment.setPercentage(percentage);
-                break;
-            }
-        }
-        if (criteria == null)
-            return;
         double total = 0.0;
         for (Assignment assignment: assignments) {
-            if (assignment.getCriteria().getLabel().equals(criteria.getLabel()))
+            if (assignment.getCriteria().getLabel().equals(criteria))
                 total += assignment.getPercentage();
         }
         for (Assignment assignment: assignments) {
-            if (assignment.getCriteria().getLabel().equals(criteria.getLabel()))
+            if (assignment.getCriteria().getLabel().equals(criteria))
                 assignment.setPercentage(assignment.getPercentage() / total);
         }
     }
 
-    public void modifySubAssignmentPercentage(String name, List<Double> percentage) {
+    public void modifySubAssignmentPercentage(String name, List<Double> percentage, String criteria) {
         for (Assignment assignment: assignments) {
-            if (assignment.getName().equals(name)) {
+            if (assignment.getName().equals(name) && assignment.getCriteria().getLabel().equals(criteria)) {
                 assignment.updateChildren(percentage);
                 break;
             }
@@ -351,14 +360,14 @@ public class Course {
                 if (!ass.getCriteria().getLabel().equals(cri) && !ass.getName().equals(name))
                     continue;
                 if (ass.getChildren().size() == 0) {
-                    temp.put("Percentage", ass.getOneStudent(s));
-                    temp.put("" + ass.getTotal(), ass.getOneStudent(s) * ass.getTotal());
+                    temp.put("percentage", ass.getOneStudent(s));
+                    temp.put("total point " + ass.getTotal(), ass.getOneStudent(s) * ass.getTotal() / 100);
                 }
                 else {
                     List<Assignment> child = ass.getChildren();
                     for (Assignment assignment: child) {
                         temp.put(assignment.getName() + " percentage", assignment.getOneStudent(s));
-                        temp.put(assignment.getName() + " " + assignment.getTotal(), assignment.getOneStudent(s) * assignment.getTotal());
+                        temp.put(assignment.getName() + " total point " + assignment.getTotal(), assignment.getOneStudent(s) * assignment.getTotal() / 100);
                     }
                 }
             }
@@ -388,7 +397,14 @@ public class Course {
         if (temp == null)
             return getStudents();
         students.remove(temp);
+        deleteStudent(temp);
         return getStudents();
+    }
+
+    private void deleteStudent(Student temp) {
+        finalGrade.remove(temp);
+        for (Assignment ass: assignments)
+            ass.deleteStudent(temp);
     }
 
     public List<Integer> studentsNumber() {
