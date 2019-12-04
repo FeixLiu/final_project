@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.CourseMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ModifyCriteriaController">
    <left>
       <VBox prefHeight="768.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
@@ -88,7 +88,7 @@
                   </Button>
                </children>
             </VBox>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goBack" prefHeight="68.0" prefWidth="161.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
+            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="68.0" prefWidth="161.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -167,22 +167,17 @@
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <Button layoutX="218.0" layoutY="12.0" mnemonicParsing="false" onAction="#modifyCriteria" prefHeight="73.0" prefWidth="63.0" style="-fx-background-color: transparent; -fx-border-width: 0 0 0 0;">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
+                        <Button layoutX="80.0" layoutY="109.0" mnemonicParsing="false" text="Add" onAction="#addOne">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="25.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="45.0" fitWidth="36.0" layoutX="224.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@Icon/baseline_create_black_18dp.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
-                        <FlowPane fx:id="criteriaPane" layoutX="300.0" layoutY="15.0" prefHeight="360.0" prefWidth="300.0" />
+                        <Button layoutX="78.0" layoutY="165.0" mnemonicParsing="false" text="Save" onAction="#goBack">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Button>
+                        <FlowPane fx:id="criteriaPane" layoutX="300.0" layoutY="15.0" prefHeight="360.0" prefWidth="360.0" />
                      </children></AnchorPane>
               </items>
             </SplitPane>
