@@ -16,8 +16,8 @@
          <children>
             <HBox layoutX="112.0" layoutY="100.0" prefHeight="65.0" prefWidth="800.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="400.0" style="-fx-background-color: white; -fx-border-width: 1 0 1 1; -fx-border-color: black; -fx-font-size: 20px; -fx-border-radius: 15 0 0 15; -fx-background-radius: 15 0 0 15; -fx-background-color: #ccc;" text="Active Courses" />
-                  <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="400.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1px; -fx-font-size: 20px; -fx-border-radius: 0 15 15 0; -fx-background-radius: 0 15 15 0;" text="Inactive Courses" />
+                  <Button fx:id="Active" mnemonicParsing="false" prefHeight="65.0" prefWidth="400.0" style="-fx-background-color: white; -fx-border-width: 1 0 1 1; -fx-border-color: black; -fx-font-size: 20px; -fx-border-radius: 15 0 0 15; -fx-background-radius: 15 0 0 15; -fx-background-color: #ccc;" text="Active Courses" />
+                  <Button fx:id="Inactive" mnemonicParsing="false" prefHeight="65.0" prefWidth="400.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1px; -fx-font-size: 20px; -fx-border-radius: 0 15 15 0; -fx-background-radius: 0 15 15 0;" text="Inactive Courses" onAction="#inactive"/>
                </children>
             </HBox>
          </children>
