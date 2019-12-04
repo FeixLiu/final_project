@@ -1,10 +1,28 @@
 #System Entrance
-##start()
+##getActive()
 #####Using scene:
     at the begin of the program, load all the information into the memeory
-    calling the constructor with parameters of GradingSystem class
+    calling the constructor with parameters of gradingSystem class
 #####Parameters:
     None
+#####Return:
+    List<Course> the list of active course
+##getInactive()
+#####Using scene:
+    at the begin of the program, load all the information into the memeory
+    calling the constructor with parameters of gradingSystem class
+#####Parameters:
+    None
+#####Return:
+    List<Course> the list of inactive course
+##getTemplate()
+#####Using scene:
+    at the begin of the program, load all the information into the memeory
+    calling the constructor with parameters of gradingSystem class
+#####Parameters:
+    None
+#####Return:
+    List<Template> the list of tempaltes
 
 
 #Course Relating
@@ -21,7 +39,7 @@
     create a course
 #####Parameters:
     name: the name of the course<br>
-    criteria: the criteira of the course
+    criteria: the criteira of the course<br>
     semester: the semester of the course<br>
     year: the year of the course<br>
 

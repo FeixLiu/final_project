@@ -15,7 +15,7 @@ public class Test {
         gs.archiveCourse("591", "2018", "Fall");
         gs.chooseCourse("591", "2019", "Fall");
         gs.deleteCriteria("Test");
-        gs.modifyCriteria("Exam", 60);
+        gs.modifyCriteria("Exam", 80);
         List<Criteria> cri = gs.getCourseCriteria();
         gs.addStudentsFromFile("./src/student.csv");
         gs.addOneStudent(new Name("Xiaoyu", "An"), new Id("101112"), new Email("xyan@bu.edu"), Config.GRADUATE);
@@ -24,10 +24,12 @@ public class Test {
         List<Integer> number = gs.getCourseStudentsNumber();
         gs.giveBonus("Yuang Liu", 12);
         HashMap<String, Double> bonus = gs.getBonus();
-        gs.addSingleAssignment("First", "Assignment", "2019", "12", "21", 20, 100);
-        gs.modifyAssignmentPercentage("First", 100, "Assignment");
-        List<Double> part = new ArrayList<>(); part.add(60.0); part.add(40.0);
-        gs.addMultiAssignment("Midterm", "Exam", part, "2019", "12", "30", 50, 100);
+        gs.addSingleAssignment("First", "Assignment", "2019", "12", "21", 20, 70);
+        gs.addSingleAssignment("Second", "Assignment", "2019", "12", "21", 20, 50);
+        gs.modifyAssignmentPercentage("First", 50, "Assignment");
+        List<Double> part = new ArrayList<>(); part.add(60.0); part.add(60.0);
+        gs.addMultiAssignment("Midterm", "Exam", part, "2019", "12", "30", 50, 80);
+        gs.addMultiAssignment("Final", "Exam", part, "2019", "12", "30", 50, 80);
         gs.modifySubAssignmentPercentage("Midterm", part,"Exam");
         HashMap<String, HashMap<String, Double>> grade = gs.grabByCriteriaAndName("Assignment", "First");
         double percentage = 75;
@@ -41,6 +43,7 @@ public class Test {
             percentage -= 10;
         }
         gs.giveGrade(grade, "Assignment", "First");
+        grade = gs.grabByCriteriaAndName("Assignment", "First");
         grade = gs.grabByCriteria("Assignment");
         grade = gs.grabByCriteriaAndName("Exam", "Midterm");
         double lose = -5;
@@ -55,6 +58,7 @@ public class Test {
         }
         gs.giveGrade(grade, "Exam", "Midterm");
         gs.addOneStudent(new Name("Jun", "Xiao"), new Id("789"), new Email("junxiao@bu.edu"), Config.UNDERGRADUATE);
+        grade = gs.grabByCriteriaAndName("Exam", "Midterm");
         grade = gs.grabByCriteria("Exam");
         grade = gs.grabAllGrad();
         HashMap<String, Double> overall = gs.getStudentOverall(Config.ALL, 10);

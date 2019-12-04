@@ -74,7 +74,7 @@ public class Assignment {
         for (Student stu: grade.keySet()) {
             if (!stu.getName().getName().equals(s.getName().getName()))
                 continue;
-            return grade.get(stu) * percentage / 100;
+            return grade.get(stu) * percentage;
         }
         return 0;
     }

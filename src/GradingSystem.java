@@ -92,8 +92,8 @@ public class GradingSystem {
     }
 
     public HashMap<Assignment, List<Double>> addSingleAssignment(String name, String criteria,
-                                    String year, String month, String day,
-                                    double totalPoint, double percentage) {
+                                                                 String year, String month, String day,
+                                                                 double totalPoint, double percentage) {
         Date due = new Date(year, month, day);
         currentView.addSingleAssignment(name, criteria, due, totalPoint, percentage);
         return currentView.getAssignments();
@@ -104,8 +104,8 @@ public class GradingSystem {
     }
 
     public HashMap<Assignment, List<Double>> addMultiAssignment(String name, String criteria, List<Double> partPercentage,
-                                                                 String year, String month, String day,
-                                                                 double totalPoint, double percentage) {
+                                                                String year, String month, String day,
+                                                                double totalPoint, double percentage) {
         Date due = new Date(year, month, day);
         currentView.addMultiAssignment(name, criteria, due, totalPoint, percentage, partPercentage);
         return currentView.getAssignments();
@@ -159,7 +159,8 @@ public class GradingSystem {
     }
 
     public List<Criteria> modifyCriteria(String name, double percentage) {
-        return currentView.modifyCriteria(name, percentage / 100);
+        //return currentView.modifyCriteria(name, percentage / 100);
+        return currentView.modifyCriteria(name, percentage);
     }
 
     public List<Criteria> deleteCriteria(String name) {
@@ -190,7 +191,8 @@ public class GradingSystem {
     }
 
     public void giveBonus(String name, double bouns) {
-        currentView.giveBonus(name, bouns / 100);
+        currentView.giveBonus(name, bouns);
+        //currentView.giveBonus(name, bouns / 100);
     }
 
     public void giveFinalGrade(HashMap<String, Character> finalGrade) {
