@@ -6,12 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class ActiveCoursesController {
     Scene courseMenu;
+    private FlowPane flowPane;
 
     @FXML
     Button Inactive;
@@ -20,6 +22,10 @@ public class ActiveCoursesController {
 
     public void setGs(GradingSystem gs) {
         this.gs = gs;
+    }
+
+    public void test() throws IOException {
+        Button test = new Button("test");
     }
 
     public void inactive() throws IOException {
