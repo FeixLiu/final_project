@@ -1,3 +1,5 @@
+package LOGIC;
+
 public class Criteria {
     private Course course;
     private String label;

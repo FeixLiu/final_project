@@ -1,3 +1,5 @@
+package LOGIC;
+
 public class Config {
     public static final String NORMAL_STUDENT = "Enrolled";
     public static final String DROP_STUDENT = "Drop";

@@ -1,3 +1,5 @@
+package LOGIC;
+
 public class Name {
     private String first;
     private String last;

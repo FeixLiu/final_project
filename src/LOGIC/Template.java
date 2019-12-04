@@ -1,3 +1,5 @@
+package LOGIC;
+
 import java.util.List;
 
 public class Template {

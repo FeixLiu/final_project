@@ -1,3 +1,5 @@
+package LOGIC;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,14 +9,14 @@ public class Test {
         GradingSystem gs = new GradingSystem();
         gs.logIn("123456");
         Criteria a = new Criteria("Exam", 30);
-        Criteria b = new Criteria("Assignment", 20);
-        Criteria c = new Criteria("Test", 50);
+        Criteria b = new Criteria("LOGIC.Assignment", 20);
+        Criteria c = new Criteria("LOGIC.Test", 50);
         List<Criteria> criteria = new ArrayList<>();criteria.add(a); criteria.add(b); criteria.add(c);
         gs.addCourse("591", criteria, "Fall", "2019");
         gs.addCourse("591", criteria, "Fall", "2018");
         gs.archiveCourse("591", "2018", "Fall");
         gs.chooseCourse("591", "2019", "Fall");
-        gs.deleteCriteria("Test");
+        gs.deleteCriteria("LOGIC.Test");
         gs.modifyCriteria("Exam", 80);
         List<Criteria> cri = gs.getCourseCriteria();
         gs.addStudentsFromFile("./src/student.csv");
@@ -24,14 +26,14 @@ public class Test {
         List<Integer> number = gs.getCourseStudentsNumber();
         gs.giveBonus("Yuang Liu", 12);
         HashMap<String, Double> bonus = gs.getBonus();
-        gs.addSingleAssignment("First", "Assignment", "2019", "12", "21", 20, 70);
-        gs.addSingleAssignment("Second", "Assignment", "2019", "12", "21", 20, 50);
-        gs.modifyAssignmentPercentage("First", 50, "Assignment");
+        gs.addSingleAssignment("First", "LOGIC.Assignment", "2019", "12", "21", 20, 70);
+        gs.addSingleAssignment("Second", "LOGIC.Assignment", "2019", "12", "21", 20, 50);
+        gs.modifyAssignmentPercentage("First", 50, "LOGIC.Assignment");
         List<Double> part = new ArrayList<>(); part.add(60.0); part.add(60.0);
         gs.addMultiAssignment("Midterm", "Exam", part, "2019", "12", "30", 50, 80);
         gs.addMultiAssignment("Final", "Exam", part, "2019", "12", "30", 50, 80);
         gs.modifySubAssignmentPercentage("Midterm", part,"Exam");
-        HashMap<String, HashMap<String, Double>> grade = gs.grabByCriteriaAndName("Assignment", "First");
+        HashMap<String, HashMap<String, Double>> grade = gs.grabByCriteriaAndName("LOGIC.Assignment", "First");
         double percentage = 75;
         for (String name: grade.keySet()) {
             HashMap<String, Double> temp = grade.get(name);
@@ -42,9 +44,9 @@ public class Test {
             grade.replace(name, temp);
             percentage -= 10;
         }
-        gs.giveGrade(grade, "Assignment", "First");
-        grade = gs.grabByCriteriaAndName("Assignment", "First");
-        grade = gs.grabByCriteria("Assignment");
+        gs.giveGrade(grade, "LOGIC.Assignment", "First");
+        grade = gs.grabByCriteriaAndName("LOGIC.Assignment", "First");
+        grade = gs.grabByCriteria("LOGIC.Assignment");
         grade = gs.grabByCriteriaAndName("Exam", "Midterm");
         double lose = -5;
         for (String name: grade.keySet()) {
@@ -76,7 +78,7 @@ public class Test {
         comment.put("Jun Xiao", "EXCEL");
         gs.giveComment(comment);
         comment = gs.getComment();
-        gs.saveAsTemplate("Test");
+        gs.saveAsTemplate("LOGIC.Test");
         List<Template> templates = gs.getTemplates();
         gs.exportAsFile("final.csv");
     }
@@ -92,9 +94,9 @@ public class Test {
     private static void outputAssignmentGrade(GradingSystem gs) {
         for (Assignment assignment: gs.getAllAssignment().keySet()) {
             HashMap<Student, Double> grade = assignment.getGrade();
-            System.out.println("Assignment:\t" + assignment.getName());
+            System.out.println("LOGIC.Assignment:\t" + assignment.getName());
             for (Student student: grade.keySet()) {
-                System.out.println("Name:\t" + student.getName().getName());
+                System.out.println("LOGIC.Name:\t" + student.getName().getName());
                 System.out.println("Grade:\t" + grade.get(student));
             }
             List<Assignment> child = assignment.getChildren();
@@ -102,9 +104,9 @@ public class Test {
                 System.out.println("Child grade\n");
                 for (Assignment ass: child) {
                     grade = ass.getGrade();
-                    System.out.println("Assignment:\t" + ass.getName());
+                    System.out.println("LOGIC.Assignment:\t" + ass.getName());
                     for (Student student : grade.keySet()) {
-                        System.out.println("Name:\t" + student.getName().getName());
+                        System.out.println("LOGIC.Name:\t" + student.getName().getName());
                         System.out.println("Grade:\t" + grade.get(student));
                     }
                     System.out.println();

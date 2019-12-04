@@ -1,3 +1,5 @@
+package LOGIC;
+
 public class Email {
     private String email;
 

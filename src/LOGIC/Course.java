@@ -1,6 +1,7 @@
+package LOGIC;
+
 import java.io.*;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ public class Course {
             bonus = new Criteria(this, "Bonus", 0);
             this.criteria.add(bonus);
         }
-        Assignment bonusAssignment = new Assignment("Bonus Assignment", bonus, 100, this, new Date("2020", "5", "30"), new Date(), 0);
+        Assignment bonusAssignment = new Assignment("Bonus LOGIC.Assignment", bonus, 100, this, new Date("2020", "5", "30"), new Date(), 0);
         assignments.add(bonusAssignment);
         this.students = new ArrayList<>();
         this.semester = semester;
@@ -179,7 +180,7 @@ public class Course {
         String part = "part";
         for (int i = 1; i <= partPercentage.size(); i++) {
             String cur = part + i;
-//            Assignment child = new Assignment(cur, temp, partPercentage.get(i - 1), this, due, new Date(),
+//            LOGIC.Assignment child = new LOGIC.Assignment(cur, temp, partPercentage.get(i - 1), this, due, new LOGIC.Date(),
 //                    totalPoint * partPercentage.get(i - 1), father);
             Assignment child = new Assignment(cur, temp, partPercentage.get(i - 1), this, due, new Date(),
                     totalPoint * partPercentage.get(i - 1) / total, father);
@@ -303,7 +304,7 @@ public class Course {
             }
             FileWriter fileWriter = new FileWriter(file.getName(),true);
             BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
-            StringBuilder head = new StringBuilder("Name,");
+            StringBuilder head = new StringBuilder("LOGIC.Name,");
             for (Criteria c: criteria)
                 head.append(c.getLabel()).append(",");
             head.append("Overall").append(",");
@@ -330,11 +331,11 @@ public class Course {
             if (assignment.getName().equals(name) && assignment.getCriteria().getLabel().equals(criteria))
                 assignment.setPercentage(percentage);
 //        double total = 0.0;
-//        for (Assignment assignment: assignments) {
+//        for (LOGIC.Assignment assignment: assignments) {
 //            if (assignment.getCriteria().getLabel().equals(criteria))
 //                total += assignment.getPercentage();
 //        }
-//        for (Assignment assignment: assignments) {
+//        for (LOGIC.Assignment assignment: assignments) {
 //            if (assignment.getCriteria().getLabel().equals(criteria))
 //                assignment.setPercentage(assignment.getPercentage() / total);
 //        }
@@ -461,9 +462,9 @@ public class Course {
         else
             temp.setPercentage(percentage);
 //        double totalPercentage = 0;
-//        for (Criteria c: criteria)
+//        for (LOGIC.Criteria c: criteria)
 //            totalPercentage += c.getPercentage();
-//        for (Criteria c: criteria)
+//        for (LOGIC.Criteria c: criteria)
 //            c.setPercentage(c.getPercentage() / totalPercentage);
         return this.getCriteria();
     }
@@ -480,9 +481,9 @@ public class Course {
             return this.getCriteria();
         criteria.remove(temp);
 //        double totalPercentage = 0;
-//        for (Criteria c: criteria)
+//        for (LOGIC.Criteria c: criteria)
 //            totalPercentage += c.getPercentage();
-//        for (Criteria c: criteria)
+//        for (LOGIC.Criteria c: criteria)
 //            c.setPercentage(c.getPercentage() / totalPercentage);
         return this.getCriteria();
     }
