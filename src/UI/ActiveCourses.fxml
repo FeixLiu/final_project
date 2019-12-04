@@ -35,20 +35,7 @@
    <center>
       <FlowPane fx:id="flowpane" hgap="30.0" prefHeight="456.0" prefWidth="800.0" vgap="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="120.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black;" text="CS000">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#test" prefHeight="120.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black;" text="CS000">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#test" prefHeight="120.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black;">
+            <Button mnemonicParsing="false" onAction="#addCourse" prefHeight="120.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black;">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>

@@ -1,15 +1,22 @@
 package UI;
 
+import LOGIC.Course;
+import LOGIC.Criteria;
 import LOGIC.GradingSystem;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class ActiveCoursesController {
     Scene courseMenu;
@@ -26,9 +33,43 @@ public class ActiveCoursesController {
         this.gs = gs;
     }
 
-    public void test() throws IOException {
-        Button test = new Button("test");
-        flowpane.
+    public void initial(){
+        List<Course> actives = gs.getActive();
+        for (Course active: actives) {
+            Button course = new Button();
+            course.setFont(new Font(18));
+            course.setPrefHeight(120);
+            course.setPrefWidth(160);
+            course.setMnemonicParsing(false);
+            course.setText(active.getName() + "\n" + active.getYear() + "\n" + active.getSemester());
+            course.setStyle("-fx-background-color: white; -fx-border-color: black;");
+            course.setOnAction(actionEvent -> {
+                try {
+                    chooseCourse(active.getName() + "\n" + active.getYear() + "\n" + active.getSemester());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            flowpane.getChildren().add(course);
+        }
+    }
+
+    public void chooseCourse(String name) throws IOException {
+        String[] info = name.split("\n");
+        gs.chooseCourse(info[0], info[1], info[2]);
+        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("CourseMenu.fxml"));
+        Parent active_fxml = courseMenu.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        CourseMenuController courseMenuController = courseMenu.getController();
+        courseMenuController.setGs(gs);
+        courseMenuController.setParent(Inactive.getScene());
+        courseMenuController.initializer();
+        Stage window = (Stage) Inactive.getScene().getWindow();
+        window.setScene(active);
+    }
+
+    public void addCourse() throws IOException {
+
     }
 
     public void inactive() throws IOException {

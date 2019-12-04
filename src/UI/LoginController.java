@@ -36,6 +36,7 @@ public class LoginController {
             Scene active = new Scene(active_fxml, 1024, 768);
             ActiveCoursesController activeCoursesController = activeCourse.getController();
             activeCoursesController.setGs(gs);
+            activeCoursesController.initial();
             Stage window = (Stage) login.getScene().getWindow();
             window.setScene(active);
         }

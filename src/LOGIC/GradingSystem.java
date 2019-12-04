@@ -137,6 +137,10 @@ public class GradingSystem {
         return currentView.grabByCriteriaAndName(criteria, name);
     }
 
+    public String getCurrentName() {
+        return currentView.getName();
+    }
+
     public List<Student> deleteStudent(String id) {
         return currentView.deleteStudent(id);
     }
