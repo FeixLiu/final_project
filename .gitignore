@@ -5,3 +5,9 @@ out/*
 grading.iml
 ./grading.iml
 src/Test.java
+.DS_Store
+.DS_Store/*
+src/.DS_Store
+src/.DS_Store/*
+src/UI/.DS_Store
+src/UI/.DS_Store/*

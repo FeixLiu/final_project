@@ -33,7 +33,7 @@
       <AnchorPane prefHeight="112.0" prefWidth="1024.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <FlowPane hgap="30.0" prefHeight="456.0" prefWidth="800.0" vgap="30.0" BorderPane.alignment="CENTER">
+      <FlowPane fx:id="flowpane" hgap="30.0" prefHeight="456.0" prefWidth="800.0" vgap="30.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" prefHeight="120.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black;" text="CS000">
                <font>

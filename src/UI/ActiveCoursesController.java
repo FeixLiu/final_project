@@ -13,7 +13,9 @@ import java.io.IOException;
 
 public class ActiveCoursesController {
     Scene courseMenu;
-    private FlowPane flowPane;
+
+    @FXML
+    FlowPane flowpane;
 
     @FXML
     Button Inactive;
@@ -26,6 +28,7 @@ public class ActiveCoursesController {
 
     public void test() throws IOException {
         Button test = new Button("test");
+        flowpane.
     }
 
     public void inactive() throws IOException {
