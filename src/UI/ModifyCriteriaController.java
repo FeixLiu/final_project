@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,13 +47,14 @@ public class ModifyCriteriaController {
     }
 
     public void initializer() {
-        courseName.setText(gs.getCurrent().getName());
+        courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
         courseStatus.setText(gs.getCurrent().getStatus());
         List<Integer> info = gs.getCourseStudentsNumber();
         students.setText(String.valueOf(info.get(0)));
         under.setText(String.valueOf(info.get(1)));
         graduate.setText(String.valueOf(info.get(2)));
         List<Criteria> allCriteria = gs.getCourseCriteria();
+        allCriteria.sort((o1, o2) -> Double.compare(o2.getPercentage(), o1.getPercentage()));
         for (Criteria criteria: allCriteria) {
             Label cri = new Label();
             cri.setText(criteria.getLabel());

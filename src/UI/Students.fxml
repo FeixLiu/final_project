@@ -14,13 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.StudentsController">
    <left>
       <VBox prefHeight="768.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="700.0" prefWidth="160.0" style="-fx-border-color: black;">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" style="-fx-background-color: white;" text="CS000">
+                  <Button fx:id="courseName" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#courseMenu" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-width: 0 0 1 0" text="CS000">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -87,11 +87,11 @@
                   </Button>
                </children>
             </VBox>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
+            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goBack" prefHeight="68.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Icon/baseline_arrow_back_black_24dp.png" />
+                        <Image url="@Icon/icons8-assignment-return-100.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -122,8 +122,8 @@
                   </Text>
                   <MenuButton layoutX="728.0" layoutY="45.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="90.0" style="-fx-background-color: white;" text="BUID">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                      <MenuItem mnemonicParsing="false" text="Full Name" />
+                      <MenuItem mnemonicParsing="false" text="Email" />
                     </items>
                      <font>
                         <Font size="14.0" />

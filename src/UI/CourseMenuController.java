@@ -14,6 +14,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CourseMenuController {
@@ -54,14 +56,27 @@ public class CourseMenuController {
         window.setScene(active);
     }
 
+    public void goStudent() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        StudentsController studentsController = modify.getController();
+        studentsController.setGs(gs);
+        studentsController.setParent(parent);
+        studentsController.initializer();
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
+
     public void initializer() {
-        courseName.setText(gs.getCurrent().getName());
+        courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
         courseStatus.setText(gs.getCurrent().getStatus());
         List<Integer> info = gs.getCourseStudentsNumber();
         students.setText(String.valueOf(info.get(0)));
         under.setText(String.valueOf(info.get(1)));
         graduate.setText(String.valueOf(info.get(2)));
         List<Criteria> allCriteria = gs.getCourseCriteria();
+        allCriteria.sort((o1, o2) -> Double.compare(o2.getPercentage(), o1.getPercentage()));
         for (Criteria criteria: allCriteria) {
             Label cri = new Label();
             cri.setText(criteria.getLabel() + ": ");
