@@ -146,7 +146,7 @@ public class InActiveCoursesController {
         Scene active = new Scene(active_fxml, 1024, 768);
         InActiveCoursesController inactiveCoursesController = inactiveCourse.getController();
         inactiveCoursesController.setGs(gs);
-        inactiveCoursesController.setActive(Inactive.getScene());
+        inactiveCoursesController.setActive(this.active);
         List<String> temp = new ArrayList<>();
         for (int i = index; i < menu.size(); i++)
             temp.add(menu.get(i));
@@ -165,7 +165,7 @@ public class InActiveCoursesController {
         Scene active = new Scene(active_fxml, 1024, 768);
         CourseMenuController courseMenuController = courseMenu.getController();
         courseMenuController.setGs(gs);
-        courseMenuController.setParent(Inactive.getScene());
+        courseMenuController.setParent(this.active);
         courseMenuController.initializer();
         Stage window = (Stage) Inactive.getScene().getWindow();
         window.setScene(active);

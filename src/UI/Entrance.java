@@ -39,12 +39,6 @@ public class Entrance extends Application {
         criteria = new ArrayList<>();criteria.add(a); criteria.add(b); criteria.add(c);
         gs.addCourse("640", criteria, "Fall", "2019");
 
-
-        gs.chooseCourse("591", "2019", "Fall");
-        gs.addStudentsFromFile("./src/student.csv");
-        gs.returnMain();
-
-
         FXMLLoader login_loader = new FXMLLoader(getClass().getResource("Login.fxml"));
         Parent login_fxml = login_loader.load();
         Scene login = new Scene(login_fxml, 600, 400);

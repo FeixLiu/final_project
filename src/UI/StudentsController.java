@@ -13,8 +13,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
@@ -142,6 +144,32 @@ public class StudentsController {
         addOneStudentsController.initializer(order);
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
+    }
+
+    public void importFromFile() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose csv file.");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("csv files (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        Stage stage = new Stage();
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            gs.addStudentsFromFile(file.getPath());
+            FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+            Parent active_fxml = modify.load();
+            Scene active = new Scene(active_fxml, 1024, 768);
+            StudentsController studentsController = modify.getController();
+            studentsController.setGs(gs);
+            studentsController.setParent(parent);
+            String[] order = new String[3];
+            order[0] = menuButton.getText();
+            order[1] = text1.getText();
+            order[2] = text2.getText();
+            studentsController.initializer(order);
+            Stage window = (Stage) courseName.getScene().getWindow();
+            window.setScene(active);
+        }
     }
 
     public void clickOne() throws IOException {

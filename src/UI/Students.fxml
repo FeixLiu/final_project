@@ -184,7 +184,7 @@
             <AnchorPane prefHeight="227.0" prefWidth="864.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
                   <Button onAction="#addOne" layoutX="38.0" layoutY="142.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" text="Add One Student" />
-                  <Button layoutX="38.0" layoutY="85.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" text="Import from CSV" />
+                  <Button onAction="#importFromFile" layoutX="38.0" layoutY="85.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" text="Import from CSV" />
                </children>
             </AnchorPane>
          </bottom>
