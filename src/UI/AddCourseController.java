@@ -46,7 +46,7 @@ public class AddCourseController {
     @FXML
     Button addOne;
 
-    public void initial(List<Criteria> toShow) {
+    public void initial(List<Criteria> toShow, String name) {
         List<Template> templates = gs.getTemplates();
         templates.sort(((o1, o2) -> {
             char[] chars1 = o1.getName().toCharArray();
@@ -67,9 +67,11 @@ public class AddCourseController {
                 return 1;
             return 0;
         }));
-        menuButton.setText("Choose the template here");
+        menuButton.setText(name);
         for (Template template: templates) {
             String tempName = template.getName();
+            if (tempName.equals(name))
+                continue;
             MenuItem im = new MenuItem(tempName);
             im.setOnAction(actionEvent -> {
                 try {
@@ -129,7 +131,7 @@ public class AddCourseController {
         AddCourseController modifyCriteriaController = modify.getController();
         modifyCriteriaController.setGs(gs);
         modifyCriteriaController.setParent(parent);
-        modifyCriteriaController.initial(toshow);
+        modifyCriteriaController.initial(toshow, name);
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
     }
@@ -165,7 +167,7 @@ public class AddCourseController {
         AddCourseController modifyCriteriaController = modify.getController();
         modifyCriteriaController.setGs(gs);
         modifyCriteriaController.setParent(parent);
-        modifyCriteriaController.initial(all);
+        modifyCriteriaController.initial(all, menuButton.getText());
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
     }
