@@ -76,7 +76,7 @@ public class ActiveCoursesController {
         AddCourseController courseMenuController = courseMenu.getController();
         courseMenuController.setGs(gs);
         courseMenuController.setParent(Inactive.getScene());
-        courseMenuController.initial(new ArrayList<>(), "");
+        courseMenuController.initial(new ArrayList<>(), "", new ArrayList<>());
         Stage window = (Stage) Inactive.getScene().getWindow();
         window.setScene(active);
     }

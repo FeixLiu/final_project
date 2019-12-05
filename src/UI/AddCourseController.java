@@ -46,7 +46,12 @@ public class AddCourseController {
     @FXML
     Button addOne;
 
-    public void initial(List<Criteria> toShow, String name) {
+    public void initial(List<Criteria> toShow, String name, List<String> show) {
+        if (show.size() != 0) {
+            courseName.setText(show.get(0));
+            year.setText(show.get(1));
+            semester.setText(show.get(2));
+        }
         List<Template> templates = gs.getTemplates();
         templates.sort(((o1, o2) -> {
             char[] chars1 = o1.getName().toCharArray();
@@ -131,7 +136,11 @@ public class AddCourseController {
         AddCourseController modifyCriteriaController = modify.getController();
         modifyCriteriaController.setGs(gs);
         modifyCriteriaController.setParent(parent);
-        modifyCriteriaController.initial(toshow, name);
+        List<String> show = new ArrayList<>();
+        show.add(courseName.getText());
+        show.add(year.getText());
+        show.add(semester.getText());
+        modifyCriteriaController.initial(toshow, name, show);
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
     }
@@ -167,7 +176,11 @@ public class AddCourseController {
         AddCourseController modifyCriteriaController = modify.getController();
         modifyCriteriaController.setGs(gs);
         modifyCriteriaController.setParent(parent);
-        modifyCriteriaController.initial(all, menuButton.getText());
+        List<String> show = new ArrayList<>();
+        show.add(courseName.getText());
+        show.add(year.getText());
+        show.add(semester.getText());
+        modifyCriteriaController.initial(all, menuButton.getText(), show);
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
     }
