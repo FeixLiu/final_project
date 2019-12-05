@@ -2,6 +2,7 @@ package UI;
 
 import LOGIC.Criteria;
 import LOGIC.GradingSystem;
+import LOGIC.Template;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -109,6 +110,15 @@ public class ModifyCriteriaController {
         modifyCriteriaController.initializer();
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
+    }
+
+    public void saveTemplate() throws IOException {
+        String name = courseName.getText();
+        name = name.replace('\n', ',');
+        gs.saveAsTemplate(name);
+        for (Template template: gs.getTemplates())
+            System.out.println(template.getName());
+        goBack();
     }
 
     public void goBack() throws IOException {

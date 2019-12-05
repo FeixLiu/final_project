@@ -167,17 +167,22 @@
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <Button layoutX="80.0" layoutY="109.0" mnemonicParsing="false" text="Add" onAction="#addOne">
+                        <Button layoutX="80.0" layoutY="109.0" mnemonicParsing="false" onAction="#addOne" text="Add">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Button>
-                        <Button layoutX="78.0" layoutY="165.0" mnemonicParsing="false" text="Save" onAction="#goBack">
+                        <Button layoutX="75.0" layoutY="164.0" mnemonicParsing="false" onAction="#goBack" text="Save">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Button>
                         <FlowPane fx:id="criteriaPane" layoutX="300.0" layoutY="15.0" prefHeight="360.0" prefWidth="360.0" />
+                        <Button layoutX="14.0" layoutY="274.0" mnemonicParsing="false" onAction="#saveTemplate" text="Save as template">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Button>
                      </children></AnchorPane>
               </items>
             </SplitPane>
