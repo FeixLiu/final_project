@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -72,6 +69,14 @@ public class AddCourseController {
             String tempName = template.getName();
             if (tempName.equals(templateName))
                 continue;
+            MenuItem im = new MenuItem(tempName);
+            im.setOnAction(actionEvent -> {
+                try {
+                    reload(tempName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             // add the temp name to the drop down list
         }
         toShow.sort((o1, o2) -> Double.compare(o2.getPercentage(), o1.getPercentage()));
@@ -103,6 +108,29 @@ public class AddCourseController {
             criteriaPane.getChildren().add(percentage);
             criteriaPane.getChildren().add(delete);
         }
+    }
+
+    public void reload(String name) throws IOException {
+        List<Template> all = gs.getTemplates();
+        Template temp = null;
+        for (Template template: all) {
+            if (template.getName().equals(name)) {
+                temp = template;
+                break;
+            }
+        }
+        List<Criteria> toshow = null;
+        if (temp != null)
+            toshow = temp.getCriteria();
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        AddCourseController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGs(gs);
+        modifyCriteriaController.setParent(parent);
+        modifyCriteriaController.initial(toshow, name);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
     }
 
     public void deleteCriteria(String dont, List<Criteria> all) throws IOException {
