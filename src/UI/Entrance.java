@@ -41,7 +41,7 @@ public class Entrance extends Application {
 
         FXMLLoader login_loader = new FXMLLoader(getClass().getResource("Login.fxml"));
         Parent login_fxml = login_loader.load();
-        Scene login = new Scene(login_fxml, 600, 400);
+        Scene login = new Scene(login_fxml, 1024, 768);
         LoginController login_control = (LoginController) login_loader.getController();
 
         login_control.setGs(gs);
@@ -49,7 +49,7 @@ public class Entrance extends Application {
         primaryStage.setTitle("Grading System Welcome");
         primaryStage.setScene(login);
         primaryStage.setWidth(1024.0);
-        primaryStage.setHeight(768.0);
+        primaryStage.setHeight(780);
         primaryStage.show();
     }
 }
