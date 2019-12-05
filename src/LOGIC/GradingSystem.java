@@ -210,6 +210,9 @@ public class GradingSystem {
     }
 
     public void saveAsTemplate(String name) {
+        for (Template template: templates)
+            if (template.getName().equals(name))
+                return;
         List<Criteria> criteria = currentView.getCriteria();
         templates.add(new Template(name, criteria));
     }

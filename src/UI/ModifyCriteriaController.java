@@ -95,8 +95,13 @@ public class ModifyCriteriaController {
         percentage.setPrefHeight(40);
         percentage.setPrefWidth(100);
         percentage.setFont(new Font(25));
+        Button delete = new Button();
+        delete.setStyle("-fx-background-color: transparent; -fx-border-width: 0 0 0 0;");
+        delete.setPrefHeight(40);
+        delete.setPrefWidth(50);
         criteriaPane.getChildren().add(cri);
         criteriaPane.getChildren().add(percentage);
+        criteriaPane.getChildren().add(delete);
     }
 
     public void deleteCriteria(String name) throws IOException {
@@ -116,8 +121,6 @@ public class ModifyCriteriaController {
         String name = courseName.getText();
         name = name.replace('\n', ',');
         gs.saveAsTemplate(name);
-        for (Template template: gs.getTemplates())
-            System.out.println(template.getName());
         goBack();
     }
 

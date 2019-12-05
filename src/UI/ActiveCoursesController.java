@@ -70,7 +70,15 @@ public class ActiveCoursesController {
     }
 
     public void addCourse() throws IOException {
-
+        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
+        Parent active_fxml = courseMenu.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        AddCourseController courseMenuController = courseMenu.getController();
+        courseMenuController.setGs(gs);
+        courseMenuController.setParent(Inactive.getScene());
+        courseMenuController.initial(new ArrayList<>());
+        Stage window = (Stage) Inactive.getScene().getWindow();
+        window.setScene(active);
     }
 
     public void inactive() throws IOException {

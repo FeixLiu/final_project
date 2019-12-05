@@ -43,8 +43,10 @@ public class AddCourseController {
     FlowPane criteriaPane;
     @FXML
     MenuButton menuButton;
+    @FXML
+    Button addOne;
 
-    public void initial(List<Criteria> toShow, String templateName) {
+    public void initial(List<Criteria> toShow) {
         List<Template> templates = gs.getTemplates();
         templates.sort(((o1, o2) -> {
             char[] chars1 = o1.getName().toCharArray();
@@ -65,10 +67,9 @@ public class AddCourseController {
                 return 1;
             return 0;
         }));
+        menuButton.setText("Choose the template here");
         for (Template template: templates) {
             String tempName = template.getName();
-            if (tempName.equals(templateName))
-                continue;
             MenuItem im = new MenuItem(tempName);
             im.setOnAction(actionEvent -> {
                 try {
@@ -77,7 +78,7 @@ public class AddCourseController {
                     e.printStackTrace();
                 }
             });
-            // add the temp name to the drop down list
+            menuButton.getItems().add(im);
         }
         toShow.sort((o1, o2) -> Double.compare(o2.getPercentage(), o1.getPercentage()));
         for (Criteria criteria: toShow) {
@@ -128,9 +129,27 @@ public class AddCourseController {
         AddCourseController modifyCriteriaController = modify.getController();
         modifyCriteriaController.setGs(gs);
         modifyCriteriaController.setParent(parent);
-        modifyCriteriaController.initial(toshow, name);
+        modifyCriteriaController.initial(toshow);
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
+    }
+
+    public void addOne() {
+        TextField cri = new TextField();
+        cri.setPrefHeight(40);
+        cri.setPrefWidth(200);
+        cri.setFont(new Font(25));
+        TextField percentage = new TextField();
+        percentage.setPrefHeight(40);
+        percentage.setPrefWidth(100);
+        percentage.setFont(new Font(25));
+        Button delete = new Button();
+        delete.setStyle("-fx-background-color: transparent; -fx-border-width: 0 0 0 0;");
+        delete.setPrefHeight(40);
+        delete.setPrefWidth(50);
+        criteriaPane.getChildren().add(cri);
+        criteriaPane.getChildren().add(percentage);
+        criteriaPane.getChildren().add(delete);
     }
 
     public void deleteCriteria(String dont, List<Criteria> all) throws IOException {
@@ -146,21 +165,34 @@ public class AddCourseController {
         AddCourseController modifyCriteriaController = modify.getController();
         modifyCriteriaController.setGs(gs);
         modifyCriteriaController.setParent(parent);
-        modifyCriteriaController.initial(all, menuButton.getText());
+        modifyCriteriaController.initial(all);
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
     }
 
-    public void save() {
+    public void save() throws IOException {
         String name = courseName.getText();
         String year = this.year.getText();
         String semester = this.semester.getText();
+        if (name.length() == 0 || year.length() == 0 || semester.length() == 0) {
+            goBack();
+            return;
+        }
         ObservableList<Node> nodes = criteriaPane.getChildren();
         HashMap<String, Double> criteria = new HashMap<>();
         List<Criteria> temp = new ArrayList<>();
+        String tempName = menuButton.getText();
+        List<Template> templates = gs.getTemplates();
+        List<Criteria> choose = new ArrayList<>();
+        for (Template template: templates)
+            if (template.getName().equals(tempName))
+                choose = template.getCriteria();
         for (int i = 0; i < nodes.size(); i = i + 3) {
             try {
-                criteria.put(((Label) nodes.get(i)).getText(), Double.parseDouble(((TextField) nodes.get(i + 1)).getText()));
+                if (i / 3 < choose.size())
+                    criteria.put(((Label) nodes.get(i)).getText(), Double.parseDouble(((TextField) nodes.get(i + 1)).getText()));
+                else
+                    criteria.put(((TextField) nodes.get(i)).getText(), Double.parseDouble(((TextField) nodes.get(i + 1)).getText()));
             }
             catch (Exception ignored) {
             }
@@ -169,6 +201,14 @@ public class AddCourseController {
             temp.add(new Criteria(cri, criteria.get(cri)));
         }
         gs.addCourse(name, temp, semester, year);
+        FXMLLoader activeCourse = new FXMLLoader(getClass().getResource("ActiveCourses.fxml"));
+        Parent active_fxml = activeCourse.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        ActiveCoursesController activeCoursesController = activeCourse.getController();
+        activeCoursesController.setGs(gs);
+        activeCoursesController.initial();
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
     }
 
     public void goBack() {
