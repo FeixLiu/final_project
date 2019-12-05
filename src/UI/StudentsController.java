@@ -6,9 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -36,15 +34,36 @@ public class StudentsController {
     Button courseName;
     @FXML
     VBox mainPane;
+    @FXML
+    MenuButton menuButton;
+    @FXML
+    MenuItem text1;
+    @FXML
+    MenuItem text2;
 
-    public void initializer() {
+    public void initializer(String[] order) {
         courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
+        menuButton.setText(order[0]);
+        text1.setText(order[1]);
+        text2.setText(order[2]);
         List<Student> students = gs.getAllStudent();
         students.sort(new Comparator<Student>() {
             @Override
             public int compare(Student o1, Student o2) {
-                String s1 = o1.getId().getId();
-                String s2 = o2.getId().getId();
+                String s1;
+                String s2;
+                if (order[0].equals("BUID")) {
+                    s1 = o1.getId().getId();
+                    s2 = o2.getId().getId();
+                }
+                else if (order[0].equals("Email")) {
+                    s1 = o1.getEmail().getEmail();
+                    s2 = o2.getEmail().getEmail();
+                }
+                else {
+                    s1 = o1.getName().getName();
+                    s2 = o2.getName().getName();
+                }
                 char[] chars1 = s1.toCharArray();
                 char[] chars2 = s2.toCharArray();
                 int i=0;
@@ -111,6 +130,38 @@ public class StudentsController {
             info.getChildren().add(edit);
             mainPane.getChildren().add(info);
         }
+    }
+
+    public void clickOne() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        StudentsController studentsController = modify.getController();
+        studentsController.setGs(gs);
+        studentsController.setParent(parent);
+        String[] order = new String[3];
+        order[0] = text1.getText();
+        order[1] = text2.getText();
+        order[2] = menuButton.getText();
+        studentsController.initializer(order);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
+
+    public void clickTwo() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        StudentsController studentsController = modify.getController();
+        studentsController.setGs(gs);
+        studentsController.setParent(parent);
+        String[] order = new String[3];
+        order[0] = text2.getText();
+        order[1] = menuButton.getText();
+        order[2] = text1.getText();
+        studentsController.initializer(order);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
     }
 
     public void courseMenu() throws IOException {

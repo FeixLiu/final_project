@@ -63,7 +63,11 @@ public class CourseMenuController {
         StudentsController studentsController = modify.getController();
         studentsController.setGs(gs);
         studentsController.setParent(parent);
-        studentsController.initializer();
+        String[] order = new String[3];
+        order[0] = "BUID";
+        order[1] = "Full Name";
+        order[2] = "Email";
+        studentsController.initializer(order);
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
     }
