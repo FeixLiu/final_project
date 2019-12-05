@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -79,6 +80,33 @@ public class ActiveCoursesController {
         InActiveCoursesController inactiveCoursesController = inactiveCourse.getController();
         inactiveCoursesController.setGs(gs);
         inactiveCoursesController.setActive(Inactive.getScene());
+        List<Course> inactive = gs.getInactive();
+        List<String> menu = new ArrayList<>();
+        for (Course course: inactive) {
+            String info = course.getYear() + " " + course.getSemester();
+            if (!menu.contains(info))
+                menu.add(info);
+        }
+        menu.sort((o1, o2) -> {
+            char[] chars1 = o1.toCharArray();
+            char[] chars2 = o2.toCharArray();
+            int i=0;
+            while(i<chars1.length && i<chars2.length){
+                if(chars1[i]>chars2[i]){
+                    return -1;
+                }else if(chars1[i]<chars2[i]){
+                    return 1;
+                }else{
+                    i++;
+                }
+            }
+            if(i==chars1.length)
+                return 1;
+            if(i== chars2.length)
+                return -1;
+            return 0;
+        });
+        inactiveCoursesController.initial(menu);
         Stage window = (Stage) Inactive.getScene().getWindow();
         window.setScene(active);
     }

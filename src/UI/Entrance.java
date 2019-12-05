@@ -22,6 +22,12 @@ public class Entrance extends Application {
         List<Criteria> criteria = new ArrayList<>();criteria.add(a); criteria.add(b); criteria.add(c);
         gs.addCourse("591", criteria, "Fall", "2018");
         gs.archiveCourse("591", "2018", "Fall");
+        gs.addCourse("640", criteria, "Fall", "2018");
+        gs.archiveCourse("640", "2018", "Fall");
+        gs.addCourse("591", criteria, "Fall", "2017");
+        gs.archiveCourse("591", "2017", "Fall");
+        gs.addCourse("591", criteria, "Spring", "2016");
+        gs.archiveCourse("591", "2016", "Spring");
         a = new Criteria("Exam", 30);
         b = new Criteria("Assignment", 20);
         c = new Criteria("Test", 50);
