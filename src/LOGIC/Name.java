@@ -20,4 +20,12 @@ public class Name {
     public String getName() {
         return first + " " + last;
     }
+
+    public void setFirst(String first) {
+        this.first = first;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
+    }
 }

@@ -102,6 +102,36 @@ public class Course {
         return getStudents();
     }
 
+    public List<Student> modifyStudentYear(String id, String year) {
+        for (Student s: students) {
+            if (s.getId().getId().equals(id)) {
+                s.setYear(year);
+                break;
+            }
+        }
+        return getStudents();
+    }
+
+    public List<Student> modifyStudentEmail(String id, String email) {
+        for (Student s: students) {
+            if (s.getId().getId().equals(id)) {
+                s.setEmail(email);
+                break;
+            }
+        }
+        return getStudents();
+    }
+
+    public List<Student> modifyStudentName(String id, String name) {
+        for (Student s: students) {
+            if (s.getId().getId().equals(id)) {
+                s.setName(name);
+                break;
+            }
+        }
+        return getStudents();
+    }
+
     public void addSingleAssignment(String name, String criteria, Date due, double totalPoint, double percentage) {
         Criteria temp = null;
         for (Criteria c: this.criteria) {

@@ -44,6 +44,29 @@ public class Student {
         return status;
     }
 
+    public void setName(String name) {
+        String[] names = name.split(" ");
+        if (names.length == 1) {
+            this.name.setFirst("");
+            this.name.setLast(names[0]);
+        }
+        else {
+            StringBuilder temp = new StringBuilder();
+            for (int i = 0; i < names.length - 1; i++)
+                temp.append(names[i]);
+            this.name.setFirst(temp.toString());
+            this.name.setLast(names[names.length - 1]);
+        }
+    }
+
+    public void setYear(String kind) {
+        this.kind = kind;
+    }
+
+    public void setEmail(String email) {
+        this.email.setEmail(email);
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }

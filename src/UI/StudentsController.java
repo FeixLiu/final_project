@@ -1,5 +1,6 @@
 package UI;
 
+import LOGIC.Config;
 import LOGIC.GradingSystem;
 import LOGIC.Student;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -42,6 +44,25 @@ public class StudentsController {
     MenuItem text1;
     @FXML
     MenuItem text2;
+    @FXML
+    AnchorPane modifyPane;
+    @FXML
+    Label buid;
+    @FXML
+    TextField name;
+    @FXML
+    TextField email;
+    @FXML
+    TextField year;
+    @FXML
+    TextField enroll;
+    @FXML
+    Button save;
+    @FXML
+    Button delete;
+    @FXML
+    Button cancel;
+
 
     public void initializer(String[] order) {
         courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
@@ -119,6 +140,9 @@ public class StudentsController {
             edit.setPrefHeight(25);
             edit.setPrefWidth(40);
             edit.setGraphic(new ImageView(im));
+            edit.setOnAction(actionEvent -> {
+                this.edit(s.getId().getId());
+            });
             info.getChildren().add(buid);
             info.getChildren().add(fullname);
             info.getChildren().add(email);
@@ -127,6 +151,120 @@ public class StudentsController {
             info.getChildren().add(edit);
             mainPane.getChildren().add(info);
         }
+    }
+
+    public void edit(String id) {
+        buid.setText(id);
+        List<Student> students = gs.getAllStudent();
+        Student temp = null;
+        for (Student student: students) {
+            if (student.getId().getId().equals(id))
+                temp = student;
+        }
+        if (temp == null)
+            return;
+        name.setText(temp.getName().getName());
+        email.setText(temp.getEmail().getEmail());
+        year.setText(temp.getKind());
+        enroll.setText(temp.getStatus());
+        modifyPane.setVisible(true);
+        delete.setVisible(true);
+        cancel.setVisible(true);
+        save.setVisible(true);
+    }
+
+    public void deleteStudent() throws IOException {
+        String id = buid.getText();
+        gs.deleteStudent(id);
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        StudentsController studentsController = modify.getController();
+        studentsController.setGs(gs);
+        studentsController.setParent(parent);
+        String[] order = new String[3];
+        order[0] = menuButton.getText();
+        order[1] = text1.getText();
+        order[2] = text2.getText();
+        studentsController.initializer(order);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
+
+    public void save() throws IOException {
+        String id = buid.getText();
+        String name = this.name.getText();
+        String status = enroll.getText();
+        String email = this.email.getText();
+        String year = this.year.getText();
+        if (id.length() == 0 || name.length() == 0 || status.length() == 0 || email.length() == 0 || year.length() == 0) {
+            this.cancel();
+            return;
+        }
+        if (!status.equals("N") && !status.equals("D") && !status.equals("W") &&
+                !status.equals(Config.NORMAL_STUDENT) && !status.equals(Config.WITHDRAW_STUDENT)
+                && !status.equals(Config.DROP_STUDENT)) {
+            this.cancel();
+            return;
+        }
+        if (!year.equals("G") && !year.equals("U") &&!year.equals(Config.UNDERGRADUATE) &&!year.equals(Config.GRADUATE)) {
+            this.cancel();
+            return;
+        }
+        List<Student> students = gs.getAllStudent();
+        Student temp = null;
+        for (Student student: students) {
+            if (student.getId().getId().equals(id))
+                temp = student;
+        }
+        if (temp == null) {
+            this.cancel();
+            return;
+        }
+        if (!temp.getName().getName().equals(name))
+            gs.modifyStudentName(id, name);
+        if (!temp.getEmail().getEmail().equals(email))
+            gs.modifyStudentEmail(id, email);
+        if (year.equals("G") || year.equals(Config.GRADUATE))
+            if (!temp.getKind().equals(Config.GRADUATE))
+                gs.modifyStudentYear(id, Config.GRADUATE);
+        if (year.equals("U") || year.equals(Config.UNDERGRADUATE))
+            if (!temp.getKind().equals(Config.UNDERGRADUATE))
+                gs.modifyStudentYear(id, Config.UNDERGRADUATE);
+        if (status.equals("D") || status.equals(Config.DROP_STUDENT))
+            if (!temp.getKind().equals(Config.DROP_STUDENT))
+                gs.modifyStudentStatus(id, Config.DROP_STUDENT);
+        if (status.equals("W") || status.equals(Config.WITHDRAW_STUDENT))
+            if (!temp.getKind().equals(Config.WITHDRAW_STUDENT))
+                gs.modifyStudentStatus(id, Config.WITHDRAW_STUDENT);
+        if (status.equals("N") || status.equals(Config.NORMAL_STUDENT))
+            if (!temp.getKind().equals(Config.NORMAL_STUDENT))
+                gs.modifyStudentStatus(id, Config.NORMAL_STUDENT);
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        StudentsController studentsController = modify.getController();
+        studentsController.setGs(gs);
+        studentsController.setParent(parent);
+        String[] order = new String[3];
+        order[0] = menuButton.getText();
+        order[1] = text1.getText();
+        order[2] = text2.getText();
+        studentsController.initializer(order);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
+
+    public void cancel() {
+        buid.setText("");
+        name.setText("");
+        email.setText("");
+        year.setText("");
+        enroll.setText("");
+        modifyPane.setVisible(false);
+        delete.setVisible(false);
+        cancel.setVisible(false);
+        save.setVisible(false);
     }
 
     public void addOne() throws IOException {

@@ -93,6 +93,18 @@ public class GradingSystem {
         return currentView.modifyStudentStatus(id, status);
     }
 
+    public List<Student> modifyStudentYear(String id, String year) {
+        return currentView.modifyStudentYear(id, year);
+    }
+
+    public List<Student> modifyStudentEmail(String id, String email) {
+        return currentView.modifyStudentEmail(id, email);
+    }
+
+    public List<Student> modifyStudentName(String id, String name) {
+        return currentView.modifyStudentName(id, name);
+    }
+
     public HashMap<Assignment, List<Double>> addSingleAssignment(String name, String criteria,
                                                                  String year, String month, String day,
                                                                  double totalPoint, double percentage) {

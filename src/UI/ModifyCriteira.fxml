@@ -109,11 +109,11 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <SplitPane dividerPositions="0.5" layoutX="-1.0" layoutY="1.0" orientation="VERTICAL" prefHeight="761.0" prefWidth="867.0">
+            <SplitPane dividerPositions="0.5" layoutX="3.0" layoutY="1.0" orientation="VERTICAL" prefHeight="761.0" prefWidth="863.0" style="-fx-background-color: white;">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="857.0">
                      <children>
-                        <Button layoutX="631.0" layoutY="312.0" mnemonicParsing="false" text="Archive Course">
+                        <Button layoutX="631.0" layoutY="312.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 10 10 10 10;" text="Archive Course">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -167,18 +167,18 @@
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <Button layoutX="80.0" layoutY="109.0" mnemonicParsing="false" onAction="#addOne" text="Add">
+                        <Button layoutX="15.0" layoutY="109.0" mnemonicParsing="false" onAction="#addOne" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 10 10 10 10;" text="Add">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Button>
-                        <Button layoutX="75.0" layoutY="164.0" mnemonicParsing="false" onAction="#goBack" text="Save">
+                        <Button layoutX="16.0" layoutY="164.0" mnemonicParsing="false" onAction="#goBack" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 10 10 10 10;" text="Save">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Button>
                         <FlowPane fx:id="criteriaPane" layoutX="300.0" layoutY="15.0" prefHeight="360.0" prefWidth="360.0" />
-                        <Button layoutX="14.0" layoutY="274.0" mnemonicParsing="false" onAction="#saveTemplate" text="Save as template">
+                        <Button layoutX="15.0" layoutY="274.0" mnemonicParsing="false" onAction="#saveTemplate" prefHeight="50.0" prefWidth="220.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 10 10 10 10;" text="Save as template">
                            <font>
                               <Font size="25.0" />
                            </font>
