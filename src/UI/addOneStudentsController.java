@@ -1,28 +1,32 @@
 package UI;
 
-import LOGIC.GradingSystem;
-import LOGIC.Student;
+import LOGIC.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 
-public class StudentsController {
+public class addOneStudentsController {
     Scene parent;
     public void setParent(Scene parent) {
         this.parent = parent;
+    }
+    Scene allCourse;
+    public void setAllCourse(Scene allCourse) {
+        this.allCourse = allCourse;
     }
     GradingSystem gs;
     public void setGs(GradingSystem gs) {
@@ -40,6 +44,14 @@ public class StudentsController {
     MenuItem text1;
     @FXML
     MenuItem text2;
+    @FXML
+    TextField buid;
+    @FXML
+    TextField name;
+    @FXML
+    TextField email;
+    @FXML
+    TextField year;
 
     public void initializer(String[] order) {
         courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
@@ -127,63 +139,48 @@ public class StudentsController {
         }
     }
 
-    public void addOne() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("addOneStudent.fxml"));
-        Parent active_fxml = modify.load();
-        Scene active = new Scene(active_fxml, 1024, 768);
-        addOneStudentsController addOneStudentsController = modify.getController();
-        addOneStudentsController.setGs(gs);
-        addOneStudentsController.setParent(menuButton.getScene());
-        addOneStudentsController.setAllCourse(parent);
+    public void addNewOne() throws IOException {
         String[] order = new String[3];
         order[0] = menuButton.getText();
         order[1] = text1.getText();
         order[2] = text2.getText();
-        addOneStudentsController.initializer(order);
-        Stage window = (Stage) courseName.getScene().getWindow();
-        window.setScene(active);
-    }
-
-    public void clickOne() throws IOException {
+        String id = buid.getText();
+        String sEmail = email.getText();
+        String fullName = name.getText();
+        String gu = year.getText();
+        if (id.length() == 0 || fullName.length() == 0 || sEmail.length() == 0 || gu.length() == 0) {
+            goBack();
+            return;
+        }
+        if (!gu.equals("G") && !gu.equals("U")) {
+            goBack();
+            return;
+        }
+        Email semail = new Email(sEmail);
+        Id sid = new Id(id);
+        String[] names = fullName.split(" ");
+        Name sName;
+        if (names.length == 1)
+            sName = new Name("", names[0]);
+        else {
+            StringBuilder temp = new StringBuilder();
+            for (int i = 0; i < names.length - 1; i++)
+                temp.append(names[i]);
+            sName = new Name(temp.toString(), names[names.length - 1]);
+        }
+        String kind;
+        if (gu.equals("G"))
+            kind = Config.GRADUATE;
+        else
+            kind = Config.UNDERGRADUATE;
+        gs.addOneStudent(sName, sid, semail, kind);
         FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         StudentsController studentsController = modify.getController();
         studentsController.setGs(gs);
-        studentsController.setParent(parent);
-        String[] order = new String[3];
-        order[0] = text1.getText();
-        order[1] = text2.getText();
-        order[2] = menuButton.getText();
+        studentsController.setParent(allCourse);
         studentsController.initializer(order);
-        Stage window = (Stage) courseName.getScene().getWindow();
-        window.setScene(active);
-    }
-
-    public void clickTwo() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
-        Parent active_fxml = modify.load();
-        Scene active = new Scene(active_fxml, 1024, 768);
-        StudentsController studentsController = modify.getController();
-        studentsController.setGs(gs);
-        studentsController.setParent(parent);
-        String[] order = new String[3];
-        order[0] = text2.getText();
-        order[1] = menuButton.getText();
-        order[2] = text1.getText();
-        studentsController.initializer(order);
-        Stage window = (Stage) courseName.getScene().getWindow();
-        window.setScene(active);
-    }
-
-    public void courseMenu() throws IOException {
-        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("CourseMenu.fxml"));
-        Parent active_fxml = courseMenu.load();
-        Scene active = new Scene(active_fxml, 1024, 768);
-        CourseMenuController courseMenuController = courseMenu.getController();
-        courseMenuController.setGs(gs);
-        courseMenuController.setParent(parent);
-        courseMenuController.initializer();
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
     }
