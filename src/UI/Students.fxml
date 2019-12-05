@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -143,17 +142,17 @@
                               <Font size="15.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" textAlignment="CENTER" wrappingWidth="140.0615234375">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" textAlignment="CENTER" wrappingWidth="130.09774780273438">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" textAlignment="CENTER" wrappingWidth="232.0615234375">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" textAlignment="CENTER" wrappingWidth="187.93634033203125">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year" textAlignment="CENTER" wrappingWidth="139.0615234375">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year" textAlignment="CENTER" wrappingWidth="174.6463623046875">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -172,10 +171,7 @@
                   </HBox>
                   <ScrollPane prefHeight="509.0" prefWidth="824.0" style="-fx-background-color: white;">
                      <content>
-                        <VBox prefHeight="509.0" prefWidth="802.0" style="-fx-background-color: white;">
-                           <children>
-                              <FlowPane fx:id="mainPane" prefHeight="513.0" prefWidth="802.0" />
-                           </children></VBox>
+                        <VBox fx:id="mainPane" prefHeight="509.0" prefWidth="802.0" style="-fx-background-color: white;" />
                      </content>
                   </ScrollPane>
                </children>
