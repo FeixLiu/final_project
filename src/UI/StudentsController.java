@@ -7,6 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +30,8 @@ public class StudentsController {
 
     @FXML
     Button courseName;
+    @FXML
+    FlowPane mainPane;
 
     public void initializer() {
         courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
@@ -55,7 +61,13 @@ public class StudentsController {
             }
         });
         for (Student s: students) {
-            System.out.println(s.getId().getId());
+            Button buid = new Button(s.getId().getId());
+            buid.setFont(new Font(18));
+            buid.setPrefHeight(25);
+            buid.setPrefWidth(120);
+            buid.setMnemonicParsing(false);
+            buid.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
+            mainPane.getChildren().add(buid);
         }
     }
 

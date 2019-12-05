@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -120,10 +121,10 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <MenuButton layoutX="728.0" layoutY="45.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="90.0" style="-fx-background-color: white;" text="BUID">
+                  <MenuButton fx:id="menuBotton" layoutX="728.0" layoutY="45.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="90.0" style="-fx-background-color: white;" text="BUID">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Full Name" />
-                      <MenuItem mnemonicParsing="false" text="Email" />
+                      <MenuItem fx:id="text1" mnemonicParsing="false" text="Full Name" />
+                      <MenuItem fx:id="text2" mnemonicParsing="false" text="Email" />
                     </items>
                      <font>
                         <Font size="14.0" />
@@ -147,17 +148,17 @@
                               <Font size="15.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" textAlignment="CENTER" wrappingWidth="252.0615234375">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" textAlignment="CENTER" wrappingWidth="232.0615234375">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year" textAlignment="CENTER" wrappingWidth="131.0615234375">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year" textAlignment="CENTER" wrappingWidth="139.0615234375">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" textAlignment="CENTER" wrappingWidth="100.0615234375">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" textAlignment="CENTER" wrappingWidth="117.0615234375">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -171,7 +172,10 @@
                   </HBox>
                   <ScrollPane prefHeight="509.0" prefWidth="824.0" style="-fx-background-color: white;">
                      <content>
-                        <VBox prefHeight="509.0" prefWidth="802.0" style="-fx-background-color: white;" />
+                        <VBox prefHeight="509.0" prefWidth="802.0" style="-fx-background-color: white;">
+                           <children>
+                              <FlowPane fx:id="mainPane" prefHeight="513.0" prefWidth="802.0" />
+                           </children></VBox>
                      </content>
                   </ScrollPane>
                </children>
