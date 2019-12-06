@@ -214,12 +214,12 @@
                         <TextField fx:id="buid" layoutX="140.0" layoutY="15.0" prefHeight="25.0" prefWidth="220.0" />
                         <TextField fx:id="name" layoutX="140.0" layoutY="55.0" prefHeight="25.0" prefWidth="220.0" />
                         <TextField fx:id="email" layoutX="140.0" layoutY="95.0" prefHeight="25.0" prefWidth="220.0" />
-                        <TextField fx:id="year" layoutX="140.0" layoutY="135.0" prefHeight="25.0" prefWidth="220.0" />
-                        <Text layoutX="35.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input G for Grduate student, U for undergraduate student." wrappingWidth="440.2817687988281">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
+                        <MenuButton fx:id="year" layoutX="140.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white;" text="MenuButton">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </MenuButton>
                      </children>
                   </AnchorPane>
                </children>

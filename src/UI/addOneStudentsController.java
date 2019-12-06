@@ -51,7 +51,7 @@ public class addOneStudentsController {
     @FXML
     TextField email;
     @FXML
-    TextField year;
+    MenuButton year;
 
     public void initializer(String[] order) {
         courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
@@ -137,6 +137,37 @@ public class addOneStudentsController {
             info.getChildren().add(edit);
             mainPane.getChildren().add(info);
         }
+        year.getItems().clear();
+        year.setText("Choose Year!");
+        MenuItem graduate = new MenuItem(Config.GRADUATE);
+        graduate.setOnAction(actionEvent -> {
+            choose(Config.GRADUATE);
+        });
+        MenuItem under = new MenuItem(Config.UNDERGRADUATE);
+        under.setOnAction(actionEvent -> {
+            choose(Config.UNDERGRADUATE);
+        });
+        year.getItems().add(graduate);
+        year.getItems().add(under);
+    }
+
+    public void choose(String year) {
+        this.year.setText(year);
+        this.year.getItems().clear();
+        if (year.equals(Config.GRADUATE)) {
+            MenuItem under = new MenuItem(Config.UNDERGRADUATE);
+            under.setOnAction(actionEvent -> {
+                choose(Config.UNDERGRADUATE);
+            });
+            this.year.getItems().add(under);
+        }
+        else {
+            MenuItem graduate = new MenuItem(Config.GRADUATE);
+            graduate.setOnAction(actionEvent -> {
+                choose(Config.GRADUATE);
+            });
+            this.year.getItems().add(graduate);
+        }
     }
 
     public void addNewOne() throws IOException {
@@ -149,10 +180,6 @@ public class addOneStudentsController {
         String fullName = name.getText();
         String gu = year.getText();
         if (id.length() == 0 || fullName.length() == 0 || sEmail.length() == 0 || gu.length() == 0) {
-            goBack();
-            return;
-        }
-        if (!gu.equals("G") && !gu.equals("U")) {
             goBack();
             return;
         }
@@ -169,10 +196,14 @@ public class addOneStudentsController {
             sName = new Name(temp.toString(), names[names.length - 1]);
         }
         String kind;
-        if (gu.equals("G"))
+        if (gu.equals(Config.GRADUATE))
             kind = Config.GRADUATE;
-        else
+        else if(gu.equals(Config.UNDERGRADUATE))
             kind = Config.UNDERGRADUATE;
+        else {
+            goBack();
+            return;
+        }
         gs.addOneStudent(sName, sid, semail, kind);
         FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
         Parent active_fxml = modify.load();

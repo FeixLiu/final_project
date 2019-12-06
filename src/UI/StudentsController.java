@@ -53,9 +53,9 @@ public class StudentsController {
     @FXML
     TextField email;
     @FXML
-    TextField year;
+    MenuButton year;
     @FXML
-    TextField enroll;
+    MenuButton enroll;
     @FXML
     Button save;
     @FXML
@@ -151,6 +151,93 @@ public class StudentsController {
             info.getChildren().add(edit);
             mainPane.getChildren().add(info);
         }
+        year.getItems().clear();
+        MenuItem graduate = new MenuItem(Config.GRADUATE);
+        graduate.setOnAction(actionEvent -> {
+            yearChoose(Config.GRADUATE);
+        });
+        MenuItem under = new MenuItem(Config.UNDERGRADUATE);
+        under.setOnAction(actionEvent -> {
+            yearChoose(Config.UNDERGRADUATE);
+        });
+        year.getItems().add(graduate);
+        year.getItems().add(under);
+        enroll.getItems().clear();
+        MenuItem normal = new MenuItem(Config.NORMAL_STUDENT);
+        normal.setOnAction(actionEvent -> {
+            enrollChoose(Config.NORMAL_STUDENT);
+        });
+        MenuItem with = new MenuItem(Config.WITHDRAW_STUDENT);
+        with.setOnAction(actionEvent -> {
+            enrollChoose(Config.WITHDRAW_STUDENT);
+        });
+        MenuItem drop = new MenuItem(Config.DROP_STUDENT);
+        drop.setOnAction(actionEvent -> {
+            enrollChoose(Config.DROP_STUDENT);
+        });
+        enroll.getItems().add(normal);
+        enroll.getItems().add(with);
+        enroll.getItems().add(drop);
+    }
+
+    public void yearChoose(String year) {
+        this.year.setText(year);
+        this.year.getItems().clear();
+        if (year.equals(Config.GRADUATE)) {
+            MenuItem under = new MenuItem(Config.UNDERGRADUATE);
+            under.setOnAction(actionEvent -> {
+                yearChoose(Config.UNDERGRADUATE);
+            });
+            this.year.getItems().add(under);
+        }
+        else {
+            MenuItem graduate = new MenuItem(Config.GRADUATE);
+            graduate.setOnAction(actionEvent -> {
+                yearChoose(Config.GRADUATE);
+            });
+            this.year.getItems().add(graduate);
+        }
+    }
+
+    public void enrollChoose(String enroll) {
+        this.enroll.setText(enroll);
+        this.enroll.getItems().clear();
+        if (enroll.equals(Config.NORMAL_STUDENT)) {
+            MenuItem with = new MenuItem(Config.WITHDRAW_STUDENT);
+            with.setOnAction(actionEvent -> {
+                enrollChoose(Config.WITHDRAW_STUDENT);
+            });
+            MenuItem drop = new MenuItem(Config.DROP_STUDENT);
+            drop.setOnAction(actionEvent -> {
+                enrollChoose(Config.DROP_STUDENT);
+            });
+            this.enroll.getItems().add(with);
+            this.enroll.getItems().add(drop);
+        }
+        else if (enroll.equals(Config.WITHDRAW_STUDENT)){
+            MenuItem normal = new MenuItem(Config.NORMAL_STUDENT);
+            normal.setOnAction(actionEvent -> {
+                enrollChoose(Config.NORMAL_STUDENT);
+            });
+            MenuItem drop = new MenuItem(Config.DROP_STUDENT);
+            drop.setOnAction(actionEvent -> {
+                enrollChoose(Config.DROP_STUDENT);
+            });
+            this.enroll.getItems().add(normal);
+            this.enroll.getItems().add(drop);
+        }
+        else {
+            MenuItem normal = new MenuItem(Config.NORMAL_STUDENT);
+            normal.setOnAction(actionEvent -> {
+                enrollChoose(Config.NORMAL_STUDENT);
+            });
+            MenuItem with = new MenuItem(Config.WITHDRAW_STUDENT);
+            with.setOnAction(actionEvent -> {
+                enrollChoose(Config.WITHDRAW_STUDENT);
+            });
+            this.enroll.getItems().add(normal);
+            this.enroll.getItems().add(with);
+        }
     }
 
     public void edit(String id) {
@@ -165,8 +252,6 @@ public class StudentsController {
             return;
         name.setText(temp.getName().getName());
         email.setText(temp.getEmail().getEmail());
-        year.setText(temp.getKind());
-        enroll.setText(temp.getStatus());
         modifyPane.setVisible(true);
         delete.setVisible(true);
         cancel.setVisible(true);
@@ -237,13 +322,11 @@ public class StudentsController {
             this.cancel();
             return;
         }
-        if (!status.equals("N") && !status.equals("D") && !status.equals("W") &&
-                !status.equals(Config.NORMAL_STUDENT) && !status.equals(Config.WITHDRAW_STUDENT)
-                && !status.equals(Config.DROP_STUDENT)) {
+        if (!status.equals(Config.NORMAL_STUDENT) && !status.equals(Config.WITHDRAW_STUDENT) && !status.equals(Config.DROP_STUDENT)) {
             this.cancel();
             return;
         }
-        if (!year.equals("G") && !year.equals("U") &&!year.equals(Config.UNDERGRADUATE) &&!year.equals(Config.GRADUATE)) {
+        if (!year.equals(Config.GRADUATE) && !year.equals(Config.UNDERGRADUATE)) {
             this.cancel();
             return;
         }
@@ -261,20 +344,15 @@ public class StudentsController {
             gs.modifyStudentName(id, name);
         if (!temp.getEmail().getEmail().equals(email))
             gs.modifyStudentEmail(id, email);
-        if (year.equals("G") || year.equals(Config.GRADUATE))
-            if (!temp.getKind().equals(Config.GRADUATE))
+        if (year.equals(Config.GRADUATE) && !temp.getKind().equals(Config.GRADUATE))
                 gs.modifyStudentYear(id, Config.GRADUATE);
-        if (year.equals("U") || year.equals(Config.UNDERGRADUATE))
-            if (!temp.getKind().equals(Config.UNDERGRADUATE))
+        if (year.equals(Config.UNDERGRADUATE) && !temp.getKind().equals(Config.UNDERGRADUATE))
                 gs.modifyStudentYear(id, Config.UNDERGRADUATE);
-        if (status.equals("D") || status.equals(Config.DROP_STUDENT))
-            if (!temp.getKind().equals(Config.DROP_STUDENT))
+        if (status.equals(Config.DROP_STUDENT) && !temp.getKind().equals(Config.DROP_STUDENT))
                 gs.modifyStudentStatus(id, Config.DROP_STUDENT);
-        if (status.equals("W") || status.equals(Config.WITHDRAW_STUDENT))
-            if (!temp.getKind().equals(Config.WITHDRAW_STUDENT))
+        if (status.equals(Config.WITHDRAW_STUDENT) && !temp.getKind().equals(Config.WITHDRAW_STUDENT))
                 gs.modifyStudentStatus(id, Config.WITHDRAW_STUDENT);
-        if (status.equals("N") || status.equals(Config.NORMAL_STUDENT))
-            if (!temp.getKind().equals(Config.NORMAL_STUDENT))
+        if (status.equals(Config.NORMAL_STUDENT) && !temp.getKind().equals(Config.NORMAL_STUDENT))
                 gs.modifyStudentStatus(id, Config.NORMAL_STUDENT);
         FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
         Parent active_fxml = modify.load();
@@ -295,8 +373,8 @@ public class StudentsController {
         buid.setText("");
         name.setText("");
         email.setText("");
-        year.setText("");
-        enroll.setText("");
+        year.setText("Choose year");
+        enroll.setText("Choose enrollment");
         modifyPane.setVisible(false);
         delete.setVisible(false);
         cancel.setVisible(false);

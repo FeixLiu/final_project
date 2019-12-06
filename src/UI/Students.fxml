@@ -42,7 +42,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button onAction="#goAssignment" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Assignments">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goAssignment" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Assignments">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -57,7 +57,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button onAction="#goGrading" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Grading">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goGrading" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Grading">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -72,7 +72,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button onAction="#goStatistic" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Statistics">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goStatistic" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Statistics">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -217,34 +217,28 @@
                            <font>
                               <Font size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="year" layoutX="140.0" layoutY="95.0" prefHeight="25.0" prefWidth="220.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font></TextField>
-                        <Text layoutX="20.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input G for Grduate student, U for undergraduate student." wrappingWidth="435.2817687988281">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Text>
                         <Label fx:id="buid" layoutX="140.0" layoutY="5.0" prefHeight="24.0" prefWidth="219.0" text="BUID">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="35.0" layoutY="150.0" text="Enrollment">
+                        <Label layoutX="35.0" layoutY="125.0" text="Enrollment">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="enroll" layoutX="140.0" layoutY="150.0" prefHeight="25.0" prefWidth="220.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font></TextField>
-                        <Text layoutX="20.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input D for Drop student, W for Withdraw student, N for Normal Student" wrappingWidth="449.2817687988281">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Text>
+                        <MenuButton fx:id="year" layoutX="140.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white;" text="Choose Year">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </MenuButton>
+                        <MenuButton fx:id="enroll" layoutX="140.0" layoutY="125.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white;" text="Choose Enrollment">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </MenuButton>
                      </children>
                   </AnchorPane>
                   <Button fx:id="delete" layoutX="700.0" layoutY="60.0" mnemonicParsing="false" onAction="#deleteStudent" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" text="Delete Student" visible="false" />
