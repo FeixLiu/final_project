@@ -325,16 +325,16 @@ public class Course {
         }
     }
 
-    public void exportAsFile(String path){
+    public void exportAsFile(String path) {
         HashMap<String, HashMap<String, Double>> allGrade = grabAllGrad();
         try{
             File file =new File(path);
             if(!file.exists()){
                 file.createNewFile();
             }
-            FileWriter fileWriter = new FileWriter(file.getName(),true);
+            FileWriter fileWriter = new FileWriter(file.getPath(),true);
             BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
-            StringBuilder head = new StringBuilder("LOGIC.Name,");
+            StringBuilder head = new StringBuilder("Name,");
             for (Criteria c: criteria)
                 head.append(c.getLabel()).append(",");
             head.append("Overall").append(",");
