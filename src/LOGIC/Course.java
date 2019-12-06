@@ -408,7 +408,7 @@ public class Course {
         for (Student s: students) {
             HashMap<String, Double> temp = new HashMap<>();
             for (Assignment ass: assignments) {
-                if (!ass.getCriteria().getLabel().equals(cri) && !ass.getName().equals(name))
+                if (!ass.getCriteria().getLabel().equals(cri) || !ass.getName().equals(name))
                     continue;
                 if (ass.getChildren().size() == 0) {
                     temp.put("percentage", ass.getOneStudent(s));

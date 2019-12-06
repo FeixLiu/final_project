@@ -193,31 +193,31 @@
                      <children>
                         <Label layoutX="35.0" layoutY="15.0" text="BUID">
                            <font>
-                              <Font size="25.0" />
+                              <Font size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="35.0" layoutY="105.0" text="Email">
+                        <Label layoutX="35.0" layoutY="95.0" text="Email">
                            <font>
-                              <Font size="25.0" />
+                              <Font size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="35.0" layoutY="60.0" text="Name">
+                        <Label layoutX="35.0" layoutY="55.0" text="Name">
                            <font>
-                              <Font size="25.0" />
+                              <Font size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="35.0" layoutY="150.0" text="Year">
+                        <Label layoutX="35.0" layoutY="135.0" text="Year">
                            <font>
-                              <Font size="25.0" />
+                              <Font size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="buid" layoutX="140.0" layoutY="15.0" prefHeight="40.0" prefWidth="220.0" />
-                        <TextField fx:id="name" layoutX="140.0" layoutY="60.0" prefHeight="40.0" prefWidth="220.0" />
-                        <TextField fx:id="email" layoutX="140.0" layoutY="105.0" prefHeight="40.0" prefWidth="220.0" />
-                        <TextField fx:id="year" layoutX="140.0" layoutY="150.0" prefHeight="40.0" prefWidth="220.0" />
-                        <Text layoutX="27.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input G for Grduate student, U for undergraduate student." wrappingWidth="440.2817687988281">
+                        <TextField fx:id="buid" layoutX="140.0" layoutY="15.0" prefHeight="25.0" prefWidth="220.0" />
+                        <TextField fx:id="name" layoutX="140.0" layoutY="55.0" prefHeight="25.0" prefWidth="220.0" />
+                        <TextField fx:id="email" layoutX="140.0" layoutY="95.0" prefHeight="25.0" prefWidth="220.0" />
+                        <TextField fx:id="year" layoutX="140.0" layoutY="135.0" prefHeight="25.0" prefWidth="220.0" />
+                        <Text layoutX="35.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input G for Grduate student, U for undergraduate student." wrappingWidth="440.2817687988281">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="12.0" />
                            </font>
                         </Text>
                      </children>

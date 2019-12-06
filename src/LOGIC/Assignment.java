@@ -55,10 +55,13 @@ public class Assignment {
     }
 
     public void updateGrade() {
+        double total_child = 0;
+        for (Assignment child: children)
+            total_child += child.getPercentage();
         for (Student s: grade.keySet()) {
             double total = 0;
             for (Assignment child: children) {
-                total = total + child.getPercentage() * child.getOneStudent(s);
+                total = total + child.getPercentage() * child.getOneStudent(s) / total_child;
             }
             grade.put(s, total);
         }

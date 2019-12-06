@@ -108,6 +108,18 @@ public class CourseMenuController {
         window.setScene(active);
     }
 
+    public void archive() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Archive.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        ArchiveController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(courseName.getScene());
+        modifyCriteriaController.initial(0);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
+
     public void initializer() {
         courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
         courseStatus.setText(gs.getCurrent().getStatus());
