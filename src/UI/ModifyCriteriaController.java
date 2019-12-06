@@ -1,5 +1,6 @@
 package UI;
 
+import LOGIC.Config;
 import LOGIC.Criteria;
 import LOGIC.GradingSystem;
 import LOGIC.Template;
@@ -40,6 +41,8 @@ public class ModifyCriteriaController {
     Label under;
     @FXML
     Label graduate;
+    @FXML
+    Button archive;
 
     GradingSystem gs;
 
@@ -54,6 +57,9 @@ public class ModifyCriteriaController {
         students.setText(String.valueOf(info.get(0)));
         under.setText(String.valueOf(info.get(1)));
         graduate.setText(String.valueOf(info.get(2)));
+        String status = gs.getCurrent().getStatus();
+        if (status.equals(Config.INACTIVE_COURSE))
+            archive.setText("Modify Overall");
         List<Criteria> allCriteria = gs.getCourseCriteria();
         allCriteria.sort((o1, o2) -> Double.compare(o2.getPercentage(), o1.getPercentage()));
         for (Criteria criteria: allCriteria) {

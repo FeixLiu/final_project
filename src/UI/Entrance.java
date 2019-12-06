@@ -72,6 +72,7 @@ public class Entrance extends Application {
         }
         gs.giveGrade(grade, "Exam", "Midterm");
         gs.addOneStudent(new Name("Jun", "Xiao"), new Id("56"), new Email("djunxiao@bu.edu"), Config.UNDERGRADUATE);
+        gs.giveBonus("Yuang Liu", 12);
         gs.returnMain();
 
 

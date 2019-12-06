@@ -113,7 +113,7 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="857.0">
                      <children>
-                        <Button layoutX="631.0" layoutY="312.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 10 10 10 10;" text="Archive Course">
+                        <Button fx:id="archive" layoutX="631.0" layoutY="312.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 10 10 10 10;" text="Archive Course">
                            <font>
                               <Font size="25.0" />
                            </font>

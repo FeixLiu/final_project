@@ -1,5 +1,6 @@
 package UI;
 
+import LOGIC.Config;
 import LOGIC.Criteria;
 import LOGIC.GradingSystem;
 import javafx.fxml.FXML;
@@ -31,6 +32,8 @@ public class CourseMenuController {
     Label under;
     @FXML
     Label graduate;
+    @FXML
+    Button archive;
 
     Scene parent;
 
@@ -127,6 +130,9 @@ public class CourseMenuController {
         students.setText(String.valueOf(info.get(0)));
         under.setText(String.valueOf(info.get(1)));
         graduate.setText(String.valueOf(info.get(2)));
+        String status = gs.getCurrent().getStatus();
+        if (status.equals(Config.INACTIVE_COURSE))
+            archive.setText("Modify Final Grade");
         List<Criteria> allCriteria = gs.getCourseCriteria();
         allCriteria.sort((o1, o2) -> Double.compare(o2.getPercentage(), o1.getPercentage()));
         for (Criteria criteria: allCriteria) {
