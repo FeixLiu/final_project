@@ -38,13 +38,14 @@ public class Entrance extends Application {
         c = new Criteria("Test", 50);
         criteria = new ArrayList<>();criteria.add(a); criteria.add(b); criteria.add(c);
         gs.addCourse("640", criteria, "Fall", "2019");
-
         gs.chooseCourse("591", "2019", "Fall");
         gs.addStudentsFromFile("./src/student.csv");
+        gs.addSingleAssignment("First", "LOGIC.Assignment", "2019", "12", "21", 20, 70);
+        gs.addSingleAssignment("Second", "LOGIC.Assignment", "2019", "12", "21", 20, 50);
+        List<Double> part = new ArrayList<>(); part.add(60.0); part.add(60.0);
+        gs.addMultiAssignment("Midterm", "Exam", part, "2019", "12", "30", 50, 90);
+        gs.addMultiAssignment("Final", "Exam", part, "2019", "12", "30", 50, 80);
         gs.returnMain();
-
-
-
 
 
         FXMLLoader login_loader = new FXMLLoader(getClass().getResource("Login.fxml"));
