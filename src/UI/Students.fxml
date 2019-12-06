@@ -187,7 +187,7 @@
                <children>
                   <Button layoutX="38.0" layoutY="142.0" mnemonicParsing="false" onAction="#addOne" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" text="Add One Student" />
                   <Button layoutX="38.0" layoutY="85.0" mnemonicParsing="false" onAction="#importFromFile" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" text="Import from CSV" />
-                  <AnchorPane fx:id="modifyPane" layoutX="223.0" prefHeight="229.0" prefWidth="477.0">
+                  <AnchorPane fx:id="modifyPane" layoutX="223.0" prefHeight="229.0" prefWidth="477.0" visible="false">
                      <children>
                         <Label layoutX="35.0" layoutY="5.0" text="BUID">
                            <font>
