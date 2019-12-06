@@ -217,7 +217,7 @@ public class GradingSystem {
         currentView.giveFinalGrade(finalGrade);
     }
 
-    public HashMap<Student, Character> getFinalGrade() {
+    public HashMap<String, Character> getFinalGrade() {
         return currentView.getFinalGrade();
     }
 

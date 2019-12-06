@@ -4,9 +4,11 @@ import LOGIC.Config;
 import LOGIC.Course;
 import LOGIC.GradingSystem;
 import LOGIC.Student;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,8 +18,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +62,7 @@ public class ArchiveController {
         HashMap<String, Double> grade = gs.getStudentOverall(Config.ALL, curve);
         HashMap<String, Double> bouns = gs.getBonus();
         HashMap<String, String> comments = gs.getComment();
+        HashMap<String, Character> letterGrade = gs.getFinalGrade();
         List<Student> students = gs.getAllStudent();
         students.sort((o1, o2) -> {
             String s1;
@@ -126,6 +131,7 @@ public class ArchiveController {
             letter.setPrefWidth(160);
             letter.setId(s.getName().getName());
             letter.setAlignment(Pos.CENTER);
+            letter.setText(String.valueOf(letterGrade.get(s.getName().getName())));
             info.getChildren().add(buid);
             info.getChildren().add(fullname);
             info.getChildren().add(rawScore);
@@ -162,6 +168,20 @@ public class ArchiveController {
     }
 
     public void save() throws IOException {
+        HashMap<String, Character> finalGrade = new HashMap<>();
+        ObservableList<Node> nodes = this.finalGrade.getChildren();
+        for (Node node : nodes) {
+            HBox info = (HBox) node;
+            ObservableList<Node> temp = info.getChildren();
+            String name = temp.get(4).getId();
+            String grade = ((TextField) temp.get(4)).getText();
+            char letter = 'P';
+            if (grade.length() != 0)
+                letter = grade.charAt(0);
+            finalGrade.put(name, letter);
+        }
+        gs.giveFinalGrade(finalGrade);
+        exportAsFile();
         FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("CourseMenu.fxml"));
         Parent active_fxml = courseMenu.load();
         Scene active = new Scene(active_fxml, 1024, 768);
@@ -171,6 +191,18 @@ public class ArchiveController {
         courseMenuController.initializer();
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
+    }
+
+    public void exportAsFile() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose csv file.");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("csv files (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        Stage stage = new Stage();
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null)
+            gs.exportAsFile(file.getPath());
     }
 
     public void archive() throws IOException {

@@ -566,7 +566,11 @@ public class Course {
         return students;
     }
 
-    public HashMap<Student, Character> getFinalGrade() {
-        return finalGrade;
+    public HashMap<String, Character> getFinalGrade() {
+        HashMap<String, Character> rst = new HashMap<>();
+        for (Student s: finalGrade.keySet()) {
+            rst.put(s.getName().getName(), finalGrade.get(s));
+        }
+        return rst;
     }
 }

@@ -72,7 +72,7 @@ public class Test {
         for (String name: overall.keySet())
             finalGrade.put(name, A++);
         gs.giveFinalGrade(finalGrade);
-        HashMap<Student, Character> fi = gs.getFinalGrade();
+        HashMap<String, Character> fi = gs.getFinalGrade();
         HashMap<String, String> comment = new HashMap<>();
         comment.put("Yuang Liu", "GOOD");
         comment.put("Jun Xiao", "EXCEL");
