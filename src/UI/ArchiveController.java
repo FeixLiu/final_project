@@ -11,10 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -23,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -125,13 +123,27 @@ public class ArchiveController {
             bonus.setMnemonicParsing(false);
             bonus.setAlignment(Pos.CENTER);
             bonus.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
-            TextField letter = new TextField();
+            MenuButton letter = new MenuButton();
             letter.setFont(new Font(14));
             letter.setPrefHeight(25);
             letter.setPrefWidth(160);
             letter.setId(s.getName().getName());
             letter.setAlignment(Pos.CENTER);
             letter.setText(String.valueOf(letterGrade.get(s.getName().getName())));
+            List<String> letters = new ArrayList<>();
+            letters.add("A");
+            letters.add("B");
+            letters.add("C");
+            letters.add("D");
+            letters.add("P");
+            letters.add("F");
+            for (String l: letters) {
+                MenuItem mi = new MenuItem(l);
+                mi.setOnAction(actionEvent -> {
+                    chooseGrade(l, letter);
+                });
+                letter.getItems().add(mi);
+            }
             info.getChildren().add(buid);
             info.getChildren().add(fullname);
             info.getChildren().add(rawScore);
@@ -139,6 +151,10 @@ public class ArchiveController {
             info.getChildren().add(letter);
             finalGrade.getChildren().add(info);
         }
+    }
+
+    public void chooseGrade(String l, MenuButton letter) {
+        letter.setText(l);
     }
 
     public void showComment(String s, String name) {
@@ -174,7 +190,7 @@ public class ArchiveController {
             HBox info = (HBox) node;
             ObservableList<Node> temp = info.getChildren();
             String name = temp.get(4).getId();
-            String grade = ((TextField) temp.get(4)).getText();
+            String grade = ((MenuButton) temp.get(4)).getText();
             char letter = 'P';
             if (grade.length() != 0)
                 letter = grade.charAt(0);

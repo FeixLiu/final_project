@@ -214,7 +214,7 @@
                         <TextField fx:id="buid" layoutX="140.0" layoutY="15.0" prefHeight="25.0" prefWidth="220.0" />
                         <TextField fx:id="name" layoutX="140.0" layoutY="55.0" prefHeight="25.0" prefWidth="220.0" />
                         <TextField fx:id="email" layoutX="140.0" layoutY="95.0" prefHeight="25.0" prefWidth="220.0" />
-                        <MenuButton fx:id="year" layoutX="140.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white;" text="MenuButton">
+                        <MenuButton fx:id="year" layoutX="140.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" text="MenuButton">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Action 1" />
                             <MenuItem mnemonicParsing="false" text="Action 2" />

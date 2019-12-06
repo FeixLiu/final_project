@@ -227,13 +227,13 @@
                               <Font size="17.0" />
                            </font>
                         </Label>
-                        <MenuButton fx:id="year" layoutX="140.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white;" text="Choose Year">
+                        <MenuButton fx:id="year" layoutX="140.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" text="Choose Year">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Action 1" />
                             <MenuItem mnemonicParsing="false" text="Action 2" />
                           </items>
                         </MenuButton>
-                        <MenuButton fx:id="enroll" layoutX="140.0" layoutY="125.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" style="-fx-background-color: white;" text="Choose Enrollment">
+                        <MenuButton fx:id="enroll" layoutX="140.0" layoutY="125.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" text="Choose Enrollment">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Action 1" />
                             <MenuItem mnemonicParsing="false" text="Action 2" />
