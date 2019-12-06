@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.FlowPane;
@@ -27,18 +28,6 @@ public class InActiveCoursesController {
     @FXML
     MenuButton menuButton;
     @FXML
-    MenuItem text1;
-    @FXML
-    MenuItem text2;
-    @FXML
-    MenuItem text3;
-    @FXML
-    MenuItem text4;
-    @FXML
-    MenuItem text5;
-    @FXML
-    MenuItem text6;
-    @FXML
     FlowPane flowPane;
 
     GradingSystem gs;
@@ -49,73 +38,18 @@ public class InActiveCoursesController {
 
     public void initial(List<String> menu) {
         List<Course> inactive = gs.getInactive();
-
         menuButton.setText(menu.get(0));
-        if (menu.size() > 1) {
-            text1.setText(menu.get(1));
-            text1.setVisible(true);
-            text1.setOnAction(actionEvent -> {
+        for (int i = 1; i < menu.size(); i++) {
+            MenuItem mi = new MenuItem(menu.get(i));
+            int finalI = i;
+            mi.setOnAction(actionEvent -> {
                 try {
-                    modify(1, menu);
+                    modify(finalI, menu);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-        }
-        if (menu.size() > 2) {
-            text2.setText(menu.get(2));
-            text2.setVisible(true);
-            text2.setOnAction(actionEvent -> {
-                try {
-                    modify(2, menu);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-        if (menu.size() > 3) {
-            text3.setText(menu.get(3));
-            text3.setVisible(true);
-            text3.setOnAction(actionEvent -> {
-                try {
-                    modify(3, menu);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-        if (menu.size() > 4) {
-            text4.setText(menu.get(4));
-            text4.setVisible(true);
-            text4.setOnAction(actionEvent -> {
-                try {
-                    modify(4, menu);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-        if (menu.size() > 5) {
-            text5.setText(menu.get(5));
-            text5.setVisible(true);
-            text5.setOnAction(actionEvent -> {
-                try {
-                    modify(5, menu);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-        if (menu.size() > 6) {
-            text6.setText(menu.get(6));
-            text6.setVisible(true);
-            text6.setOnAction(actionEvent -> {
-                try {
-                    modify(6, menu);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            menuButton.getItems().add(mi);
         }
         String tab = menuButton.getText();
         for (Course cou: inactive) {

@@ -24,12 +24,6 @@
             </HBox>
             <MenuButton fx:id="menuButton" layoutX="131.0" layoutY="173.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="19fall">
               <items>
-                 <MenuItem fx:id="text1" mnemonicParsing="false" text="Full Name" visible="false" />
-                 <MenuItem fx:id="text2" mnemonicParsing="false" text="Email" visible="false" />
-                 <MenuItem fx:id="text3" mnemonicParsing="false" text="Email" visible="false" />
-                 <MenuItem fx:id="text4" mnemonicParsing="false" text="Email" visible="false" />
-                 <MenuItem fx:id="text5" mnemonicParsing="false" text="Email" visible="false" />
-                 <MenuItem fx:id="text6" mnemonicParsing="false" text="Email" visible="false" />
               </items>
             </MenuButton>
          </children>
