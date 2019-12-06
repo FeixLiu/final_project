@@ -191,6 +191,42 @@ public class StudentsController {
         window.setScene(active);
     }
 
+    public void goAssignment() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Assignments.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        AssignmentsController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(parent);
+        modifyCriteriaController.initial();
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
+
+    public void goGrading() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        GradingController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(parent);
+        modifyCriteriaController.initial();
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
+
+    public void goStatistic() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Statistics.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        StatisticsController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(parent);
+        modifyCriteriaController.initial();
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
+
     public void save() throws IOException {
         String id = buid.getText();
         String name = this.name.getText();

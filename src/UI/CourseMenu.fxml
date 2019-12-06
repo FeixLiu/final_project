@@ -42,7 +42,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Asignments">
+                  <Button onAction="#goAssignment" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Assignments">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -57,7 +57,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Grading">
+                  <Button onAction="#goGrading" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Grading">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -72,7 +72,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Statistics">
+                  <Button onAction="#goStatistic" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Statistics">
                      <font>
                         <Font size="18.0" />
                      </font>
