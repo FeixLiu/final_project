@@ -491,8 +491,11 @@ public class GradingController {
                 String key = ((Text)titles.get(j)).getText();
                 String tile = ((TextField) grades.get(j)).getText();
                 if (key.equals("Comment")) {
-                    if (!tile.equals("Comment"))
-                        comments.put(name, tile);
+                    if (!tile.equals("Comment")) {
+                        String head = this.criteria.getText() + " " + this.assignment.getText() + ": ";
+                        head = head + tile + "\n";
+                        comments.put(name, head);
+                    }
                 }
                 else {
                     if (key.contains("percentage")) {

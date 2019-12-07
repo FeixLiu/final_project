@@ -302,8 +302,11 @@ public class Course {
                 for (Student s: students) {
                     double percentage = grade.get(s.getName().getName()).get("percentage");
                     double lose = grade.get(s.getName().getName()).get("total point " + ass.getTotal());
-                    if (lose < 0)
+                    if (lose < 0) {
+                        if (ass.getTotal() < Math.abs(lose))
+                            lose = -ass.getTotal();
                         ass.setOneGrade(s, (ass.getTotal() + lose) / ass.getTotal() * 100);
+                    }
                     else
                         ass.setOneGrade(s, Math.max(0, Math.min(percentage, 100)));
                 }
@@ -315,6 +318,8 @@ public class Course {
                         double percentage = grade.get(s.getName().getName()).get(assignment.getName() + " percentage");
                         double lose = grade.get(s.getName().getName()).get(assignment.getName() + " total point " + assignment.getTotal());
                         if (lose < 0) {
+                            if (assignment.getTotal() < Math.abs(lose))
+                                lose = -assignment.getTotal();
                             assignment.setOneGrade(s, (assignment.getTotal() + lose) / assignment.getTotal() * 100);
                         }
                         else
