@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
-public class addOneStudentsController {
+public class AddOneStudentsController {
     Scene parent;
     public void setParent(Scene parent) {
         this.parent = parent;

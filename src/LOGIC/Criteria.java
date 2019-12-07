@@ -3,17 +3,17 @@ package LOGIC;
 public class Criteria {
     private Course course;
     private String label;
-    private double percentage;
+    private Percentage percentage;
 
     public Criteria(String label, double percentage) {
         this.label = label;
-        this.percentage = percentage;
+        this.percentage = new Percentage(percentage);
     }
 
     public Criteria(Course course, String label, double percentage) {
         this.course = course;
         this.label = label;
-        this.percentage = percentage;
+        this.percentage = new Percentage(percentage);
     }
 
     public void setCourse(Course course) {
@@ -25,7 +25,7 @@ public class Criteria {
     }
 
     public double getPercentage() {
-        return percentage;
+        return percentage.getPercentage();
     }
 
     public String getLabel() {
@@ -33,6 +33,6 @@ public class Criteria {
     }
 
     public void setPercentage(double percentage) {
-        this.percentage = percentage;
+        this.percentage.setPercentage(percentage);
     }
 }

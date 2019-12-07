@@ -11,10 +11,10 @@ public class Course {
     private List<Criteria> criteria;
     private List<Assignment> assignments;
     private List<Student> students;
-    private String semester;
-    private String status;
-    private String year;
-    private double curve;
+    private Semester semester;
+    private Status status;
+    private Year year;
+    private Curve curve;
     private HashMap<Student, Character> finalGrade;
 
     public Course(String name, List<Criteria> criteria, String semester, String status, String year) {
@@ -36,10 +36,10 @@ public class Course {
         Assignment bonusAssignment = new Assignment("Bonus", bonus, 100, this, new Date("2020", "5", "30"), new Date(), 0);
         assignments.add(bonusAssignment);
         this.students = new ArrayList<>();
-        this.semester = semester;
-        this.status = status;
-        this.year = year;
-        this.curve = 0;
+        this.semester = new Semester(semester);
+        this.status = new Status(status);
+        this.year = new Year(year);
+        this.curve = new Curve(0);
         this.finalGrade = new HashMap<>();
     }
 
@@ -233,7 +233,7 @@ public class Course {
                     overall += c.getPercentage() * grabGradOfOneStudentForOneCriteria(s, c.getLabel()) / total;
                 BigDecimal bd = new BigDecimal(overall);
                 overall = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                rst.put(s.getName().getName(), Math.min(overall + curve, 100));
+                rst.put(s.getName().getName(), Math.min(overall + curve.getCurve(), 100));
             }
         }
         else if(kind.equals(Config.GRADUATE)) {
@@ -245,7 +245,7 @@ public class Course {
                     overall += c.getPercentage() * grabGradOfOneStudentForOneCriteria(s, c.getLabel()) / total;
                 BigDecimal bd = new BigDecimal(overall);
                 overall = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                rst.put(s.getName().getName(), Math.min(overall + curve, 100));
+                rst.put(s.getName().getName(), Math.min(overall + curve.getCurve(), 100));
             }
         }
         else {
@@ -257,7 +257,7 @@ public class Course {
                     overall += c.getPercentage() * grabGradOfOneStudentForOneCriteria(s, c.getLabel()) / total;
                 BigDecimal bd = new BigDecimal(overall);
                 overall = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                rst.put(s.getName().getName(), Math.min(overall + curve, 100));
+                rst.put(s.getName().getName(), Math.min(overall + curve.getCurve(), 100));
             }
         }
         return rst;
@@ -519,7 +519,7 @@ public class Course {
     }
 
     public void setCurve(double curve) {
-        this.curve = curve;
+        this.curve.setCurve(curve);
     }
 
     public String getName() {
@@ -527,23 +527,23 @@ public class Course {
     }
 
     public String getStatus() {
-        return status;
+        return status.getStatus();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.status.setStatus(status);
     }
 
     public double getCurve() {
-        return curve;
+        return curve.getCurve();
     }
 
     public String getSemester() {
-        return semester;
+        return semester.getSemester();
     }
 
     public String getYear() {
-        return year;
+        return year.getYear();
     }
 
     public HashMap<Assignment, List<Double>> getAssignments() {

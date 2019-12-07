@@ -8,14 +8,14 @@ public class Student {
     private Email email;
     private Id id;
     private List<Comment> comments;
-    private String status;
+    private Status status;
     private String kind;
 
     public Student(Name name, Email email, Id id, String status, String kind) {
         this.name = name;
         this.email = email;
         this.id = id;
-        this.status = status;
+        this.status = new Status(status);
         this.kind = kind;
         comments = new ArrayList<>();
     }
@@ -41,7 +41,7 @@ public class Student {
     }
 
     public String getStatus() {
-        return status;
+        return status.getStatus();
     }
 
     public void setName(String name) {
@@ -68,7 +68,7 @@ public class Student {
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.status.setStatus(status);
     }
 
     public void setComments(String comments) {

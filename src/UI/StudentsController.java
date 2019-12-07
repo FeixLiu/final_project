@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -20,7 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 
 public class StudentsController {
@@ -401,10 +399,10 @@ public class StudentsController {
     }
 
     public void addOne() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("addOneStudent.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("AddOneStudent.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
-        addOneStudentsController addOneStudentsController = modify.getController();
+        AddOneStudentsController addOneStudentsController = modify.getController();
         addOneStudentsController.setGs(gs);
         addOneStudentsController.setParent(menuButton.getScene());
         addOneStudentsController.setAllCourse(parent);

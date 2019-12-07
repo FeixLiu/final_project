@@ -18,7 +18,7 @@ public class Name {
     }
 
     public String getName() {
-        return first + " " + last;
+        return getFirst() + " " + getLast();
     }
 
     public void setFirst(String first) {

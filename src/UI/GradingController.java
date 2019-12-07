@@ -30,6 +30,7 @@ public class GradingController {
     public void setGS(GradingSystem gs) {
         this.gs = gs;
     }
+    HashMap<String, HashMap<String, Double>> grade = null;
     @FXML
     Button courseName;
     @FXML
@@ -193,7 +194,6 @@ public class GradingController {
 
     public void initial(String assignment, String criteria, String name, String sorting) throws IOException {
         courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
-        HashMap<String, HashMap<String, Double>> grade = null;
         HashMap<Assignment, List<Double>> assignments = gs.getAllAssignment();
         if (!criteria.equals("N"))
             grade = gs.grabByCriteria(criteria);
@@ -333,7 +333,7 @@ public class GradingController {
             MenuItem miiiii = new MenuItem("All");
             miiiii.setOnAction(actionEvent -> {
                 try {
-                    chooseCri("All");
+                    chooseAss("All");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -446,8 +446,12 @@ public class GradingController {
         }
     }
 
-    public void save() {
-
+    public void save() throws IOException {
+        if (grade == null) {
+            goBack();
+            return;
+        }
+        gs.giveGrade(grade, this.criteria.getText(), this.assignment.getText());
     }
 
     public void goStudent() throws IOException {

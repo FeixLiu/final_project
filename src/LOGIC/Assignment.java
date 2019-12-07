@@ -7,25 +7,25 @@ import java.util.List;
 public class Assignment {
     private String name;
     private Criteria criteria;
-    private double percentage;
+    private Percentage percentage;
     private List<Assignment> children;
     private Assignment parent;
     private Course course;
     private Date due;
     private Date assigned;
     private HashMap<Student, Double> grade;
-    private double total;
+    private TotalCredit total;
 
     public Assignment(String name, Criteria criteria, double percentage,
                       Course course, Date due, Date assigned, double total) {
         //constructor for first level assignment
         this.name = name;
         this.criteria = criteria;
-        this.percentage = percentage;
+        this.percentage = new Percentage(percentage);
         this.course = course;
         this.due = due;
         this.assigned = assigned;
-        this.total = total;
+        this.total = new TotalCredit(total);
         parent = null;
         children = new ArrayList<>();
         grade = new HashMap<>();
@@ -36,18 +36,18 @@ public class Assignment {
         //constructor for sub assignment
         this.name = name;
         this.criteria = criteria;
-        this.percentage = percentage;
+        this.percentage = new Percentage(percentage);
         this.course = course;
         this.due = due;
         this.assigned = assigned;
-        this.total = total;
+        this.total = new TotalCredit(total);
         this.parent = parent;
         children = new ArrayList<>();
         grade = new HashMap<>();
     }
 
     public void setPercentage(double percentage) {
-        this.percentage = percentage;
+        this.percentage.setPercentage(percentage);
     }
 
     public void setDue(Date due) {
@@ -68,7 +68,7 @@ public class Assignment {
     }
 
     public void setTotal(double total) {
-        this.total = total;
+        this.total.setTotal(total);
     }
 
     public void setChildren(Assignment child) {
@@ -79,7 +79,7 @@ public class Assignment {
         for (Student stu: grade.keySet()) {
             if (!stu.getName().getName().equals(s.getName().getName()))
                 continue;
-            return grade.get(stu) * percentage;
+            return grade.get(stu) * percentage.getPercentage();
         }
         return 0;
     }
@@ -126,7 +126,7 @@ public class Assignment {
     }
 
     public double getPercentage() {
-        return percentage;
+        return percentage.getPercentage();
     }
 
     public Course getCourse() {
@@ -150,7 +150,7 @@ public class Assignment {
     }
 
     public double getTotal() {
-        return total;
+        return total.getTotal();
     }
 
     public String getName() {
