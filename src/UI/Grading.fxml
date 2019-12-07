@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -111,10 +113,32 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <AnchorPane prefHeight="102.0" prefWidth="862.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="102.0" prefWidth="862.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuButton fx:id="criteria" layoutX="50.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
+                     <items>
+                     </items>
+                  </MenuButton>
+                  <MenuButton fx:id="assignment" layoutX="250.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
+                     <items>
+                     </items>
+                  </MenuButton>
+                  <MenuButton fx:id="filter" layoutX="450.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
+                     <items>
+                     </items>
+                  </MenuButton>
+                  <MenuButton fx:id="student" layoutX="650.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
+                     <items>
+                     </items>
+                  </MenuButton>
+               </children>
+            </AnchorPane>
          </top>
          <bottom>
-            <AnchorPane prefHeight="69.0" prefWidth="862.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="69.0" prefWidth="862.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button onAction="#save" fx:id="save" layoutX="620.0" layoutY="21.0" mnemonicParsing="false" text="Save" />
+               </children></AnchorPane>
          </bottom>
          <center>
             <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
