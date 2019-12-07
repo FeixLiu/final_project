@@ -30,6 +30,13 @@ public class GradingController {
         window.setScene(parent);
     }
 
+    public void initial(String assignment, String criteria, String name, String filter) {
+        System.out.println(assignment);
+        System.out.println(criteria);
+        System.out.println(name);
+        System.out.println(filter);
+    }
+
     public void goStudent() throws IOException {
         FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
         Parent active_fxml = modify.load();

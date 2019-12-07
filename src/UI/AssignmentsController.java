@@ -105,6 +105,13 @@ public class AssignmentsController {
             Assignment assignment = cur.getKey();
             HBox info = new HBox();
             Button name = new Button(assignment.getName());
+            name.setOnAction(actionEvent -> {
+                try {
+                    clickOnName(assignment);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             name.setFont(new Font(14));
             name.setPrefHeight(25);
             name.setPrefWidth(150);
@@ -158,6 +165,18 @@ public class AssignmentsController {
             info.getChildren().add(edit);
             this.assignments.getChildren().add(info);
         }
+    }
+
+    public void clickOnName(Assignment assignment) throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        GradingController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(parent);
+        modifyCriteriaController.initial(assignment.getName(), assignment.getCriteria().getLabel(), "N", "N");
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
     }
 
     public void reload(String filter) throws IOException {

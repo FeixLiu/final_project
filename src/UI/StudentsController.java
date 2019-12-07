@@ -111,6 +111,13 @@ public class StudentsController {
             buid.setMnemonicParsing(false);
             buid.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
             Button fullname = new Button(s.getName().getName());
+            fullname.setOnAction(actionEvent -> {
+                try {
+                    clickOnName(s.getName().getName());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             fullname.setFont(new Font(14));
             fullname.setPrefHeight(25);
             fullname.setPrefWidth(130);
@@ -238,6 +245,18 @@ public class StudentsController {
             this.enroll.getItems().add(normal);
             this.enroll.getItems().add(with);
         }
+    }
+
+    public void clickOnName(String name) throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        GradingController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(parent);
+        modifyCriteriaController.initial("N", "N", name, "N");
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
     }
 
     public void edit(String id) {
