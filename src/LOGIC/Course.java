@@ -382,10 +382,9 @@ public class Course {
 
     public void giveComment(HashMap<String, String> comments) {
         for (Student s: students) {
-            try {
+            if (comments.containsKey(s.getName().getName())) {
                 s.setComments(comments.get(s.getName().getName()));
             }
-            catch (Exception ignored){}
         }
     }
 

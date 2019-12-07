@@ -5,9 +5,12 @@ import LOGIC.Config;
 import LOGIC.Criteria;
 import LOGIC.GradingSystem;
 import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -65,7 +68,7 @@ public class GradingController {
         });
         this.filter.getItems().add(mii);
         HBox criteriaInfo = new HBox();
-        criteriaInfo.setPrefHeight(25);
+        criteriaInfo.setPrefHeight(30);
         Text NAME = new Text("Filter");
         NAME.setFont(new Font(15));
         NAME.setWrappingWidth(140);
@@ -104,22 +107,30 @@ public class GradingController {
         score.getChildren().add(criteriaInfo);
         HashMap<String, Double> overall = gs.getStudentOverall(Config.ALL, 0);
         HashMap<String, HashMap<String, Double>> allGrad = gs.grabAllGrad();
+        HashMap<String, String> comments = gs.getComment();
         for (String stuName: overall.keySet()) {
             HBox info = new HBox();
-            info.setPrefHeight(25);
-            Label name = new Label(stuName);
+            info.setPrefHeight(30);
+            Button name = new Button(stuName);
             name.setFont(new Font(14));
-            name.setPrefHeight(25);
+            name.setPrefHeight(30);
             name.setPrefWidth(140);
             name.setMnemonicParsing(false);
-            name.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
+            if (comments.get(stuName).length() == 0)
+                name.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
+            else {
+                name.setStyle("-fx-background-color: #b9ffff; -fx-border-color: black; -fx-border-width: 1 1 1 1");
+                name.setOnAction(actionEvent -> {
+                    showComment(comments.get(stuName), stuName);
+                });
+            }
             name.setAlignment(Pos.CENTER);
             info.getChildren().add(name);
             HashMap<String, Double> stuGrade = allGrad.get(stuName);
             for (Criteria cri: criteria) {
                 Label score = new Label(String.valueOf(stuGrade.get(cri.getLabel())));
                 score.setFont(new Font(14));
-                score.setPrefHeight(25);
+                score.setPrefHeight(30);
                 score.setPrefWidth(140);
                 score.setMnemonicParsing(false);
                 score.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
@@ -128,7 +139,7 @@ public class GradingController {
             }
             Label all = new Label(String.valueOf(overall.get(stuName)));
             all.setFont(new Font(14));
-            all.setPrefHeight(25);
+            all.setPrefHeight(30);
             all.setPrefWidth(140);
             all.setMnemonicParsing(false);
             all.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
@@ -248,7 +259,7 @@ public class GradingController {
             title.add("Overall");
         }
         HBox criteriaInfo = new HBox();
-        criteriaInfo.setPrefHeight(25);
+        criteriaInfo.setPrefHeight(30);
         Text NAME = new Text("Name");
         NAME.setFont(new Font(15));
         NAME.setWrappingWidth(140);
@@ -388,17 +399,25 @@ public class GradingController {
                 return 0;
             }
         }));
+        HashMap<String, String> comments = gs.getComment();
         for (Map.Entry<String, HashMap<String, Double>> t: sort) {
             if (!name.equals("N") && !t.getKey().equals(name))
                 continue;
             HBox info = new HBox();
-            info.setPrefHeight(25);
-            Label thename = new Label(t.getKey());
+            info.setPrefHeight(30);
+            Button thename = new Button(t.getKey());
             thename.setFont(new Font(14));
-            thename.setPrefHeight(25);
+            thename.setPrefHeight(30);
             thename.setPrefWidth(140);
             thename.setMnemonicParsing(false);
-            thename.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
+            if (comments.get(t.getKey()).length() == 0)
+                thename.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
+            else {
+                thename.setStyle("-fx-background-color: #b9ffff; -fx-border-color: black; -fx-border-width: 1 1 1 1");
+                thename.setOnAction(actionEvent -> {
+                    showComment(comments.get(t.getKey()), t.getKey());
+                });
+            }
             thename.setAlignment(Pos.CENTER);
             info.getChildren().add(thename);
             HashMap<String, Double> stuGrade = t.getValue();
@@ -406,7 +425,7 @@ public class GradingController {
                 if (assignment.equals("N") || criteria.equals("N")) {
                     Label score = new Label(String.valueOf(stuGrade.get(cri)));
                     score.setFont(new Font(14));
-                    score.setPrefHeight(25);
+                    score.setPrefHeight(30);
                     score.setPrefWidth(140);
                     score.setMnemonicParsing(false);
                     score.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
@@ -437,7 +456,7 @@ public class GradingController {
             }
             if (!assignment.equals("N") && !criteria.equals("N")) {
                 TextField random = new TextField("Comment");
-                random.setFont(new Font(12));
+                random.setFont(new Font(14));
                 random.setPrefWidth(140);
                 random.setAlignment(Pos.CENTER_LEFT);
                 info.getChildren().add(random);
@@ -446,12 +465,91 @@ public class GradingController {
         }
     }
 
+    public void showComment(String s, String name) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Comments for " + name);
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
     public void save() throws IOException {
         if (grade == null) {
             goBack();
             return;
         }
+        ObservableList<Node> hboxs = score.getChildren();
+        ObservableList<Node> titles = ((HBox) hboxs.get(0)).getChildren();
+        HashMap<Assignment, List<Double>> assignments = gs.getAllAssignment();
+        HashMap<String, String> comments = new HashMap<>();
+        for (int i = 1; i < hboxs.size(); i++) {
+            HBox info = (HBox) hboxs.get(i);
+            ObservableList<Node> grades = info.getChildren();
+            String name = ((Button)grades.get(0)).getText();
+            for (int j = 1; j < titles.size(); j++) {
+                String key = ((Text)titles.get(j)).getText();
+                String tile = ((TextField) grades.get(j)).getText();
+                if (key.equals("Comment")) {
+                    if (!tile.equals("Comment"))
+                        comments.put(name, tile);
+                }
+                else {
+                    if (key.contains("Percentage")) {
+                        double percent;
+                        try {
+                            percent = Double.parseDouble(tile);
+                        }
+                        catch (Exception e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Wrong input!");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Wrong input format");
+                            alert.showAndWait();
+                            return;
+                        }
+                        grade.get(name).put(key, percent);
+                    }
+                    else {
+                        double lose;
+                        double origin = 0;
+                        try {
+                            lose = Double.parseDouble(tile);
+                        }
+                        catch (Exception e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Wrong input!");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Wrong input format");
+                            alert.showAndWait();
+                            return;
+                        }
+                        for (Assignment ass: assignments.keySet()) {
+                            if (ass.getName().equals(this.assignment.getText())) {
+                                origin = grade.get(name).get(key) - ass.getTotal();
+                                break;
+                            }
+                        }
+                        if (origin != lose) {
+                            grade.get(name).put(key, lose);
+                        }
+                    }
+                }
+            }
+        }
+        gs.giveComment(comments);
         gs.giveGrade(grade, this.criteria.getText(), this.assignment.getText());
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        GradingController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(parent);
+        String filter = this.filter.getText();
+        if (filter.equals("None"))
+            filter = "N";
+        modifyCriteriaController.initial(this.assignment.getText(), this.criteria.getText(), "N", filter);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
     }
 
     public void goStudent() throws IOException {
