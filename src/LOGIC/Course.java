@@ -33,7 +33,7 @@ public class Course {
             bonus = new Criteria(this, "Bonus", 0);
             this.criteria.add(bonus);
         }
-        Assignment bonusAssignment = new Assignment("Bonus LOGIC.Assignment", bonus, 100, this, new Date("2020", "5", "30"), new Date(), 0);
+        Assignment bonusAssignment = new Assignment("Bonus", bonus, 100, this, new Date("2020", "5", "30"), new Date(), 0);
         assignments.add(bonusAssignment);
         this.students = new ArrayList<>();
         this.semester = semester;
@@ -550,9 +550,18 @@ public class Course {
         HashMap<Assignment, List<Double>> all = new HashMap<>();
         for (Assignment assignment: assignments) {
             List<Double> statistical = new ArrayList<>();
-            statistical.add(Statistical.average(assignment));
-            statistical.add(Statistical.median(assignment));
-            statistical.add(Statistical.standardDev(assignment));
+            double average = Statistical.average(assignment);
+            BigDecimal bd = new BigDecimal(average);
+            average = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            statistical.add(average);
+            double median = Statistical.median(assignment);
+            bd = new BigDecimal(median);
+            median = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            statistical.add(median);
+            double standard = Statistical.standardDev(assignment);
+            bd = new BigDecimal(standard);
+            standard = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            statistical.add(standard);
             all.put(assignment, statistical);
         }
         return all;

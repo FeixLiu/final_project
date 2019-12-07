@@ -112,7 +112,7 @@
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="864.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on the edit icon to view, edit, or delete student entry.&#10;&#10;Click on student's name to view grade information.&#10; " wrappingWidth="391.9208984375">
+                  <Text layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on the edit icon to edit, or delete student entry.&#10;&#10;Click on student's name to view grade information.&#10; " wrappingWidth="391.9208984375">
                      <font>
                         <Font size="14.0" />
                      </font>
