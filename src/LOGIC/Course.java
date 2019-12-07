@@ -567,6 +567,17 @@ public class Course {
         return all;
     }
 
+    public HashMap<String, String> grabCriteriaOverall(String criteria) {
+        HashMap<String, String> rst = new HashMap<>();
+        for (Student student: students) {
+            double temp = grabGradOfOneStudentForOneCriteria(student, criteria);
+            BigDecimal bd = new BigDecimal(temp);
+            temp = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            rst.put(student.getName().getName(), String.valueOf(temp));
+        }
+        return rst;
+    }
+
     public List<Criteria> getCriteria() {
         return criteria;
     }

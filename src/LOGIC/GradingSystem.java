@@ -129,6 +129,10 @@ public class GradingSystem {
         return currentView.getComment();
     }
 
+    public HashMap<String, String> grabCriteriaOverall(String criteria) {
+        return currentView.grabCriteriaOverall(criteria);
+    }
+
     public HashMap<String, HashMap<String, Double>> grabAllGrad() {
         return currentView.grabAllGrad();
     }
