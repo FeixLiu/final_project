@@ -138,7 +138,7 @@ public class addOneStudentsController {
             mainPane.getChildren().add(info);
         }
         year.getItems().clear();
-        year.setText("Choose Year!");
+        year.setText("Choose Year");
         MenuItem graduate = new MenuItem(Config.GRADUATE);
         graduate.setOnAction(actionEvent -> {
             choose(Config.GRADUATE);

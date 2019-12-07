@@ -2,15 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane fx:controller="UI.GradingController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.GradingController">
    <left>
       <VBox prefHeight="768.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
@@ -18,7 +18,7 @@
                <children>
                   <AnchorPane prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <Button onAction="#courseMenu" fx:id="courseName" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="CourseName">
+                        <Button fx:id="courseName" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#courseMenu" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="CourseName">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -28,7 +28,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <Button onAction="#goStudent" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="Students">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goStudent" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="Students">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -43,7 +43,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button onAction="#goAssignment" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Assignments">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goAssignment" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Assignments">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -73,7 +73,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button onAction="#goStatistic" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Statistics">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goStatistic" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Statistics">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -90,7 +90,7 @@
                   </Button>
                </children>
             </VBox>
-            <Button onAction="#goBack" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="68.0" prefWidth="161.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
+            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goBack" prefHeight="68.0" prefWidth="162.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -108,4 +108,21 @@
          </children>
       </VBox>
    </left>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <AnchorPane prefHeight="102.0" prefWidth="862.0" BorderPane.alignment="CENTER" />
+         </top>
+         <bottom>
+            <AnchorPane prefHeight="69.0" prefWidth="862.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox fx:id="score" prefHeight="599.0" prefWidth="841.0" />
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </center>
 </BorderPane>

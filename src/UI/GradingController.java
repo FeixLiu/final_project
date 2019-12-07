@@ -31,10 +31,7 @@ public class GradingController {
     }
 
     public void initial(String assignment, String criteria, String name, String filter) {
-        System.out.println(assignment);
-        System.out.println(criteria);
-        System.out.println(name);
-        System.out.println(filter);
+        courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
     }
 
     public void goStudent() throws IOException {
