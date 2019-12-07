@@ -22,6 +22,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class GradingController {
@@ -439,12 +440,12 @@ public class GradingController {
                     else if(criteria.equals("Bonus"))
                         continue;
                     else {
-                        for (Assignment ass: assignments.keySet()) {
-                            if (ass.getName().equals(assignment)) {
-                                score.setText(String.valueOf(stuGrade.get(cri) - ass.getTotal()));
-                                break;
-                            }
-                        }
+                        String[] criSplit = cri.split(" ");
+                        double total = Double.parseDouble(criSplit[criSplit.length - 1]);
+                        double diff = stuGrade.get(cri) - total;
+                        BigDecimal bd = new BigDecimal(diff);
+                        diff = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                        score.setText(String.valueOf(diff));
                     }
                     score.setFont(new Font(12));
                     score.setPrefHeight(30);
@@ -494,7 +495,7 @@ public class GradingController {
                         comments.put(name, tile);
                 }
                 else {
-                    if (key.contains("Percentage")) {
+                    if (key.contains("percentage")) {
                         double percent;
                         try {
                             percent = Double.parseDouble(tile);
@@ -511,7 +512,7 @@ public class GradingController {
                     }
                     else {
                         double lose;
-                        double origin = 0;
+                        double origin;
                         try {
                             lose = Double.parseDouble(tile);
                         }
@@ -523,12 +524,9 @@ public class GradingController {
                             alert.showAndWait();
                             return;
                         }
-                        for (Assignment ass: assignments.keySet()) {
-                            if (ass.getName().equals(this.assignment.getText())) {
-                                origin = grade.get(name).get(key) - ass.getTotal();
-                                break;
-                            }
-                        }
+                        String[] criSplit = key.split(" ");
+                        double total = Double.parseDouble(criSplit[criSplit.length - 1]);
+                        origin = grade.get(name).get(key) - total;
                         if (origin != lose) {
                             grade.get(name).put(key, lose);
                         }

@@ -314,8 +314,9 @@ public class Course {
                     for (Student s: students) {
                         double percentage = grade.get(s.getName().getName()).get(assignment.getName() + " percentage");
                         double lose = grade.get(s.getName().getName()).get(assignment.getName() + " total point " + assignment.getTotal());
-                        if (lose < 0)
+                        if (lose < 0) {
                             assignment.setOneGrade(s, (assignment.getTotal() + lose) / assignment.getTotal() * 100);
+                        }
                         else
                             assignment.setOneGrade(s, Math.max(0, Math.min(percentage, 100)));
                     }
@@ -410,14 +411,27 @@ public class Course {
                 if (!ass.getCriteria().getLabel().equals(cri) || !ass.getName().equals(name))
                     continue;
                 if (ass.getChildren().size() == 0) {
-                    temp.put("percentage", ass.getOneStudent(s));
-                    temp.put("total point " + ass.getTotal(), ass.getOneStudent(s) * ass.getTotal() / 100);
+                    double t = ass.getOneStudent(s);
+                    BigDecimal bd = new BigDecimal(t);
+                    t = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    temp.put("total point " + ass.getTotal(), t);
+                    temp.put("percentage", t);
+                    t = ass.getOneStudent(s) * ass.getTotal() / 100;
+                    bd = new BigDecimal(t);
+                    t = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    temp.put("total point " + ass.getTotal(), t);
                 }
                 else {
                     List<Assignment> child = ass.getChildren();
                     for (Assignment assignment: child) {
-                        temp.put(assignment.getName() + " percentage", assignment.getOneStudent(s));
-                        temp.put(assignment.getName() + " total point " + assignment.getTotal(), assignment.getOneStudent(s) * assignment.getTotal() / 100);
+                        double t = assignment.getOneStudent(s);
+                        BigDecimal bd = new BigDecimal(t);
+                        t = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                        temp.put(assignment.getName() + " percentage", t);
+                        t = assignment.getOneStudent(s) * assignment.getTotal() / 100;
+                        bd = new BigDecimal(t);
+                        t = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                        temp.put(assignment.getName() + " total point " + assignment.getTotal(), t);
                     }
                 }
             }
