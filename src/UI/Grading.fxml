@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -115,29 +115,40 @@
          <top>
             <AnchorPane prefHeight="102.0" prefWidth="862.0" BorderPane.alignment="CENTER">
                <children>
-                  <MenuButton fx:id="criteria" layoutX="50.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
+                  <MenuButton fx:id="criteria" layoutX="80.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
                      <items>
                      </items>
                   </MenuButton>
-                  <MenuButton fx:id="assignment" layoutX="250.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
+                  <MenuButton fx:id="assignment" layoutX="380.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
                      <items>
                      </items>
                   </MenuButton>
-                  <MenuButton fx:id="filter" layoutX="450.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
+                  <MenuButton fx:id="filter" layoutX="630.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
                      <items>
                      </items>
                   </MenuButton>
-                  <MenuButton fx:id="student" layoutX="650.0" layoutY="40.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="161.0" text="MenuButton">
-                     <items>
-                     </items>
-                  </MenuButton>
+                  <Label layoutX="30.0" layoutY="44.0" text="Criteria">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="assLabel" layoutX="300.0" layoutY="44.0" text="Assignment">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="filterLabel" layoutX="595.0" layoutY="44.0" text="Sort">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </top>
          <bottom>
             <AnchorPane prefHeight="69.0" prefWidth="862.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button onAction="#save" fx:id="save" layoutX="620.0" layoutY="21.0" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="save" layoutX="620.0" layoutY="21.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 5 5 5 5;" mnemonicParsing="false" onAction="#save" text="Save" />
                </children></AnchorPane>
          </bottom>
          <center>
