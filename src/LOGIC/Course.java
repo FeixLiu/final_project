@@ -611,4 +611,12 @@ public class Course {
         }
         return rst;
     }
+
+    public void setStudents(List<Student> students) {this.students = new ArrayList<>(students);}
+
+    public void setFinalGrade(HashMap<Student, Character> finalGrade) {this.finalGrade = new HashMap<>(finalGrade);}
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = new ArrayList<>(assignments);
+    }
 }
