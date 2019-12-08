@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.CourseMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.CourseMenuController">
    <left>
       <VBox prefHeight="768.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
@@ -26,7 +26,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Button>
-                  <Button onAction="#goStudent" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="Students">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goStudent" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="Students">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -71,7 +71,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Statistics">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goStatistics" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Statistics">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -162,7 +162,7 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <Label layoutX="31.0" layoutY="30.0" text="Couse Critiera">
+                        <Label layoutX="31.0" layoutY="30.0" text="Couse Criteria">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>

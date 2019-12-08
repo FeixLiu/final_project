@@ -72,6 +72,17 @@ public class CourseMenuController {
         window.setScene(active);
     }
 
+    public void goStatistics() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("Statistics.fxml"));
+        Parent statsPage = modify.load();
+        Scene active = new Scene(statsPage, 1024, 768);
+        StatisticsController statisticsController = modify.getController();
+        statisticsController.setGs(gs);
+        statisticsController.setParent(parent);
+        statisticsController.initializer();
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
+    }
     public void initializer() {
         courseName.setText(gs.getCurrent().getName() + "\n" + gs.getCurrent().getYear() + "\n" + gs.getCurrent().getSemester());
         courseStatus.setText(gs.getCurrent().getStatus());

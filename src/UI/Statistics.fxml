@@ -2,30 +2,27 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.StatisticsController">
    <left>
       <VBox prefHeight="768.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="700.0" prefWidth="160.0" style="-fx-border-color: black;">
                <children>
-                  <AnchorPane prefHeight="100.0" prefWidth="160.0">
-                     <children>
-                        <Text layoutX="22.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CS000">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="Students">
+                  <Button fx:id="courseName" onAction="#goCourseMenu" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="CourseName" />
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goStudent" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="Students">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -87,7 +84,7 @@
                   </Button>
                </children>
             </VBox>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="68.0" prefWidth="161.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
+            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goBack" prefHeight="68.0" prefWidth="161.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -105,4 +102,69 @@
          </children>
       </VBox>
    </left>
+   <center>
+      <AnchorPane prefHeight="768.0" prefWidth="693.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="490.0" layoutY="205.0" text="statistics for selected students" underline="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TableView fx:id="table" layoutX="66.0" layoutY="57.0" prefHeight="664.0" prefWidth="399.0">
+               <columns>
+                  <TableColumn fx:id="checkbox" prefWidth="32.0">
+                     <graphic>
+                        <CheckBox fx:id="selectAll" alignment="CENTER" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" />
+                     </graphic></TableColumn>
+                  <TableColumn fx:id="lastName" editable="false" prefWidth="117.0" text="Last Name" />
+                  <TableColumn fx:id="firstName" editable="false" prefWidth="121.0" text="First Name" />
+                  <TableColumn fx:id="score" editable="false" prefWidth="127.0" text="Overall Score" />
+               </columns>
+            </TableView>
+            <Label layoutX="498.0" layoutY="262.0" text="Median">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label layoutX="498.0" layoutY="313.0" text="Mean">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label layoutX="497.0" layoutY="363.0" text="Standard Deviation">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label fx:id="median" layoutX="738.0" layoutY="262.0" text="0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="avg" layoutX="738.0" layoutY="313.0" text="0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="std_dev" layoutX="738.0" layoutY="363.0" text="0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="calcButton" layoutX="490.0" layoutY="154.0" mnemonicParsing="false" onAction="#getStatistics" prefHeight="40.0" prefWidth="168.0" text="Calculate Statistics">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <Label layoutX="66.0" layoutY="29.0" text="Filter by student type">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="statsMenu" layoutX="246.0" layoutY="23.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="142.0">
+               <items>
+                  <MenuItem fx:id="ugrad" mnemonicParsing="false" text="Undergraduate" />
+                  <MenuItem fx:id="grad" mnemonicParsing="false" text="Graduate" />
+                  <MenuItem fx:id="all" mnemonicParsing="false" text="All" />
+               </items>
+            </MenuButton>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
