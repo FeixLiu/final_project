@@ -84,6 +84,11 @@
     id: the id of the course<br>
     status: the status of the student (reference the LOGIC.Config class)
     course: the instance of current LOGIC.Course
+
+
+modifyStudentYear(String id, String year, Course course)
+modifyStudentEmail(String id, String email, LOGIC.Course course)
+modifyStudentName(String id, Name name, LOGIC.Course course)
     
 #giveComment(HashMap<String, String> comments, LOGIC.Course course)
 #####Using scene:

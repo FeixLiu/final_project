@@ -335,9 +335,38 @@ public class StudentsController {
         String status = enroll.getText();
         String email = this.email.getText();
         String year = this.year.getText();
-        if (id.length() == 0 || name.length() == 0 || status.length() == 0 || email.length() == 0 || year.length() == 0) {
-            this.cancel();
-            return;
+        List<Student> stu = gs.getAllStudent();
+        if (year.equals("Choose Year")) {
+            for (Student student: stu) {
+                if (student.getId().getId().equals(id)) {
+                    year = student.getKind();
+                    break;
+                }
+            }
+        }
+        if (status.contains("Choose")) {
+            for (Student student: stu) {
+                if (student.getId().getId().equals(id)) {
+                    status = student.getStatus();
+                    break;
+                }
+            }
+        }
+        if (name.length() == 0) {
+            for (Student student: stu) {
+                if (student.getId().getId().equals(id)) {
+                    name = student.getName().getName();
+                    break;
+                }
+            }
+        }
+        if (email.length() == 0) {
+            for (Student student: stu) {
+                if (student.getId().getId().equals(id)) {
+                    email = student.getEmail().getEmail();
+                    break;
+                }
+            }
         }
         if (!status.equals(Config.NORMAL_STUDENT) && !status.equals(Config.WITHDRAW_STUDENT) && !status.equals(Config.DROP_STUDENT)) {
             this.cancel();

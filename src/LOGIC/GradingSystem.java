@@ -11,11 +11,13 @@ public class GradingSystem {
     private List<Course> inactive;
     private List<Template> templates;
     private Course currentView;
+    private DatabaseDAO dao;
 
     public GradingSystem() {
-        this.active = new ArrayList<>();
-        this.inactive = new ArrayList<>();
-        this.templates = new ArrayList<>();
+        dao = new DatabaseDAO();
+        this.active = dao.getActive();
+        this.inactive = dao.getInactive();
+        this.templates = dao.getTemplate();
         pass = new Password("123456");
         currentView = null;
     }
@@ -71,17 +73,23 @@ public class GradingSystem {
         if (temp != null) {
             inactive.add(temp);
             active.remove(temp);
+            active.remove(temp);
             temp.setStatus(Config.INACTIVE_COURSE);
+            dao.archiveCourse(name, year, semester);
         }
     }
 
     public boolean addStudentsFromFile(String path) {
-        return currentView.addStudentsFromFile(path);
+        return currentView.addStudentsFromFile(path, dao);
     }
 
     public boolean addOneStudent(Name name, Id id, Email email, String kind) {
         if (currentView.getStatus().equals(Config.INACTIVE_COURSE))
             return false;
+        dao.addOneStudent(name, id.getId(), email.getEmail(), kind, currentView);
+        HashMap<Name, String> temp = new HashMap<>();
+        temp.put(name, Config.LATELY_ENROLL);
+        dao.giveComment(temp, currentView);
         currentView.addOneStudent(name, id, email, kind);
         return true;
     }
@@ -91,18 +99,22 @@ public class GradingSystem {
     }
 
     public List<Student> modifyStudentStatus(String id, String status) {
+        dao.modifyStudentStatus(id, status, currentView);
         return currentView.modifyStudentStatus(id, status);
     }
 
     public List<Student> modifyStudentYear(String id, String year) {
+        dao.modifyStudentKind(id, year, currentView);
         return currentView.modifyStudentYear(id, year);
     }
 
     public List<Student> modifyStudentEmail(String id, String email) {
+        dao.modifyStudentEmail(id, email, currentView);
         return currentView.modifyStudentEmail(id, email);
     }
 
     public List<Student> modifyStudentName(String id, String name) {
+        dao.modifyStudentName(id, name, currentView);
         return currentView.modifyStudentName(id, name);
     }
 
@@ -110,7 +122,7 @@ public class GradingSystem {
                                                                  String year, String month, String day,
                                                                  double totalPoint, double percentage) {
         Date due = new Date(year, month, day);
-        currentView.addSingleAssignment(name, criteria, due, totalPoint, percentage);
+        currentView.addSingleAssignment(name, criteria, due, totalPoint, percentage, dao);
         return currentView.getAssignments();
     }
 
@@ -122,7 +134,7 @@ public class GradingSystem {
                                                                 String year, String month, String day,
                                                                 double totalPoint, double percentage) {
         Date due = new Date(year, month, day);
-        currentView.addMultiAssignment(name, criteria, due, totalPoint, percentage, partPercentage);
+        currentView.addMultiAssignment(name, criteria, due, totalPoint, percentage, partPercentage, dao);
         return currentView.getAssignments();
     }
 
@@ -143,10 +155,16 @@ public class GradingSystem {
     }
 
     public void giveGrade(HashMap<String, HashMap<String, Double>> grade, String criteria, String name) {
-        currentView.giveGrade(grade, criteria, name);
+        currentView.giveGrade(grade, criteria, name, dao);
     }
 
     public void giveComment(HashMap<String, String> comments) {
+        HashMap<Name, String> temp = new HashMap<>();
+        for (Student student: currentView.getStudents()) {
+            if (comments.get(student.getName().getName()) != null)
+                temp.put(student.getName(), comments.get(student.getName().getName()));
+        }
+        dao.giveComment(temp, currentView);
         currentView.giveComment(comments);
     }
 
@@ -159,11 +177,12 @@ public class GradingSystem {
     }
 
     public List<Student> deleteStudent(String id) {
+        dao.deleteStudent(id, currentView);
         return currentView.deleteStudent(id);
     }
 
     public void addCourse(String name, List<Criteria> criteria, String semester, String year) {
-        Course course = new Course(name, criteria, semester, Config.ACTIVE_COURSE, year);
+        Course course = new Course(name, criteria, semester, Config.ACTIVE_COURSE, year, dao);
         active.add(course);
         for (Criteria cri: criteria)
             cri.setCourse(course);
@@ -183,11 +202,11 @@ public class GradingSystem {
 
     public List<Criteria> modifyCriteria(String name, double percentage) {
         //return currentView.modifyCriteria(name, percentage / 100);
-        return currentView.modifyCriteria(name, percentage);
+        return currentView.modifyCriteria(name, percentage, dao);
     }
 
     public List<Criteria> deleteCriteria(String name) {
-        return currentView.deleteCriteria(name);
+        return currentView.deleteCriteria(name, dao);
     }
 
     public List<Student> getAllStudent() {
@@ -229,7 +248,7 @@ public class GradingSystem {
     }
 
     public void giveFinalGrade(HashMap<String, Character> finalGrade) {
-        currentView.giveFinalGrade(finalGrade);
+        currentView.giveFinalGrade(finalGrade, dao);
     }
 
     public HashMap<String, Character> getFinalGrade() {
@@ -241,6 +260,7 @@ public class GradingSystem {
             if (template.getName().equals(name))
                 return;
         List<Criteria> criteria = currentView.getCriteria();
+        dao.saveAsTemplate(name, currentView);
         templates.add(new Template(name, criteria));
     }
 
@@ -249,10 +269,10 @@ public class GradingSystem {
     }
 
     public void modifyAssignmentPercentage(String name, double percentage, String criteria) {
-        currentView.modifyAssignmentPercentage(name, percentage, criteria);
+        currentView.modifyAssignmentPercentage(name, percentage, criteria, dao);
     }
 
     public void modifySubAssignmentPercentage(String name, List<Double> percentage, String criteria) {
-        currentView.modifySubAssignmentPercentage(name, percentage, criteria);
+        currentView.modifySubAssignmentPercentage(name, percentage, criteria, dao);
     }
 }

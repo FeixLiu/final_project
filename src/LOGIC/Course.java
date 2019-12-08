@@ -2,6 +2,7 @@ package LOGIC;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Course {
     private Curve curve;
     private HashMap<Student, Character> finalGrade;
 
-    public Course(String name, List<Criteria> criteria, String semester, String status, String year) {
+    public Course(String name, List<Criteria> criteria, String semester, String status, String year, DatabaseDAO dao) {
         this.name = name;
         //flat(criteria);
         this.criteria = new ArrayList<>(criteria);
@@ -41,6 +42,34 @@ public class Course {
         this.year = new Year(year);
         this.curve = new Curve(0);
         this.finalGrade = new HashMap<>();
+        dao.addCourse(name, this.criteria, semester, year);
+        dao.updateAssignment(assignments, this);
+    }
+
+    public Course(String name, List<Criteria> criteria, String semester, String status, String year) {
+        this.name = name;
+        //flat(criteria);
+        this.criteria = new ArrayList<>(criteria);
+//        this.assignments = new ArrayList<>();
+//        Criteria bonus = null;
+//        for (Criteria cri : this.criteria) {
+//            if (cri.getLabel().equals("Bonus")) {
+//                bonus = cri;
+//                break;
+//            }
+//        }
+//        if (bonus == null) {
+//            bonus = new Criteria(this, "Bonus", 0);
+//            this.criteria.add(bonus);
+//        }
+//        Assignment bonusAssignment = new Assignment("Bonus", bonus, 100, this, new Date("2020", "5", "30"), new Date(), 0);
+//        assignments.add(bonusAssignment);
+        this.students = new ArrayList<>();
+        this.semester = new Semester(semester);
+        this.status = new Status(status);
+        this.year = new Year(year);
+        this.curve = new Curve(0);
+        this.finalGrade = new HashMap<>();
     }
 
     private void flat(List<Criteria> criteria) {
@@ -51,7 +80,7 @@ public class Course {
             c.setPercentage(c.getPercentage() / total);
     }
 
-    public boolean addStudentsFromFile(String path) {
+    public boolean addStudentsFromFile(String path, DatabaseDAO dao) {
         ArrayList<String> arrayList = new ArrayList<>();
         try {
             FileReader fr = new FileReader(path);
@@ -74,6 +103,7 @@ public class Course {
             Email sEmail = new Email(temp[2]);
             Id id = new Id(temp[3]);
             Student newStu = new Student(sName, sEmail, id, Config.NORMAL_STUDENT, temp[4]);
+            dao.addOneStudent(sName, id.getId(), sEmail.getEmail(), temp[4], this);
             students.add(newStu);
             grade.put(newStu, 0.0);
             finalGrade.put(newStu, 'N');
@@ -132,7 +162,7 @@ public class Course {
         return getStudents();
     }
 
-    public void addSingleAssignment(String name, String criteria, Date due, double totalPoint, double percentage) {
+    public void addSingleAssignment(String name, String criteria, Date due, double totalPoint, double percentage, DatabaseDAO dao) {
         Criteria temp = null;
         for (Criteria c: this.criteria) {
             if (c.getLabel().equals(criteria)) {
@@ -146,6 +176,7 @@ public class Course {
         assignments.add(assignment);
         for (Student s: students)
             assignment.setOneGrade(s, 0);
+        dao.updateAssignment(assignments, this);
         //updateAssignmentPercentage(criteria);
     }
 
@@ -161,8 +192,14 @@ public class Course {
         }
     }
 
-    public void giveFinalGrade(HashMap<String, Character> finalGrade) {
+    public void giveFinalGrade(HashMap<String, Character> finalGrade, DatabaseDAO dao) {
         this.finalGrade.replaceAll((s, v) -> finalGrade.get(s.getName().getName()));
+        HashMap<Name, Character> temp = new HashMap<>();
+        for (Student student: students) {
+            if (finalGrade.get(student.getName().getName()) != null)
+                temp.put(student.getName(), finalGrade.get(student.getName().getName()));
+        }
+        dao.giveFinalGrade(temp, this);
     }
 
     public HashMap<String, Double> getBonus() {
@@ -186,7 +223,8 @@ public class Course {
         }
     }
 
-    public void addMultiAssignment(String name, String criteria, Date due, double totalPoint, double percentage, List<Double> partPercentage) {
+    public void addMultiAssignment(String name, String criteria, Date due, double totalPoint, double percentage,
+                                   List<Double> partPercentage, DatabaseDAO dao) {
         double total = 0;
         for (double pp: partPercentage)
             total += pp;
@@ -212,12 +250,15 @@ public class Course {
             String cur = part + i;
 //            LOGIC.Assignment child = new LOGIC.Assignment(cur, temp, partPercentage.get(i - 1), this, due, new LOGIC.Date(),
 //                    totalPoint * partPercentage.get(i - 1), father);
-            Assignment child = new Assignment(cur, temp, partPercentage.get(i - 1), this, due, new Date(),
-                    totalPoint * partPercentage.get(i - 1) / total, father);
+            double t = totalPoint * partPercentage.get(i - 1) / total;
+            BigDecimal bd = new BigDecimal(t);
+            t = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            Assignment child = new Assignment(cur, temp, partPercentage.get(i - 1), this, due, new Date(), t, father);
             father.setChildren(child);
             for (Student s: students)
                 child.setOneGrade(s, 0);
         }
+        dao.updateAssignment(assignments, this);
         //updateAssignmentPercentage(criteria);
     }
 
@@ -294,7 +335,7 @@ public class Course {
         return comments;
     }
 
-    public void giveGrade(HashMap<String, HashMap<String, Double>> grade, String cri, String name) {
+    public void giveGrade(HashMap<String, HashMap<String, Double>> grade, String cri, String name, DatabaseDAO dao) {
         for (Assignment ass : assignments) {
             if (!ass.getCriteria().getLabel().equals(cri) || !ass.getName().equals(name))
                 continue;
@@ -329,6 +370,7 @@ public class Course {
                 ass.updateGrade();
             }
         }
+        dao.updateAssignment(assignments, this);
     }
 
     public void exportAsFile(String path) {
@@ -362,10 +404,11 @@ public class Course {
         }
     }
 
-    public void modifyAssignmentPercentage(String name, double percentage, String criteria) {
+    public void modifyAssignmentPercentage(String name, double percentage, String criteria, DatabaseDAO dao) {
         for (Assignment assignment: assignments)
             if (assignment.getName().equals(name) && assignment.getCriteria().getLabel().equals(criteria))
                 assignment.setPercentage(percentage);
+        dao.updateAssignment(assignments, this);
 //        double total = 0.0;
 //        for (LOGIC.Assignment assignment: assignments) {
 //            if (assignment.getCriteria().getLabel().equals(criteria))
@@ -377,13 +420,14 @@ public class Course {
 //        }
     }
 
-    public void modifySubAssignmentPercentage(String name, List<Double> percentage, String criteria) {
+    public void modifySubAssignmentPercentage(String name, List<Double> percentage, String criteria, DatabaseDAO dao) {
         for (Assignment assignment: assignments) {
             if (assignment.getName().equals(name) && assignment.getCriteria().getLabel().equals(criteria)) {
                 assignment.updateChildren(percentage);
                 break;
             }
         }
+        dao.updateAssignment(assignments, this);
     }
 
     public void giveComment(HashMap<String, String> comments) {
@@ -497,7 +541,7 @@ public class Course {
         return number;
     }
 
-    public List<Criteria> modifyCriteria(String name, double percentage) {
+    public List<Criteria> modifyCriteria(String name, double percentage, DatabaseDAO dao) {
         Criteria temp = null;
         for (Criteria c: criteria) {
             if (c.getLabel().equals(name)) {
@@ -514,10 +558,11 @@ public class Course {
 //            totalPercentage += c.getPercentage();
 //        for (LOGIC.Criteria c: criteria)
 //            c.setPercentage(c.getPercentage() / totalPercentage);
+        dao.updateCriteria(criteria, this);
         return this.getCriteria();
     }
 
-    public List<Criteria> deleteCriteria(String name) {
+    public List<Criteria> deleteCriteria(String name, DatabaseDAO dao) {
         Criteria temp = null;
         for (Criteria c: criteria) {
             if (c.getLabel().equals(name)) {
@@ -533,6 +578,7 @@ public class Course {
 //            totalPercentage += c.getPercentage();
 //        for (LOGIC.Criteria c: criteria)
 //            c.setPercentage(c.getPercentage() / totalPercentage);
+        dao.updateCriteria(criteria, this);
         return this.getCriteria();
     }
 
@@ -612,9 +658,13 @@ public class Course {
         return rst;
     }
 
-    public void setStudents(List<Student> students) {this.students = new ArrayList<>(students);}
+    public void setStudents(List<Student> students) {
+        this.students = new ArrayList<>(students);
+    }
 
-    public void setFinalGrade(HashMap<Student, Character> finalGrade) {this.finalGrade = new HashMap<>(finalGrade);}
+    public void setFinalGrade(HashMap<Student, Character> finalGrade) {
+        this.finalGrade = new HashMap<>(finalGrade);
+    }
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = new ArrayList<>(assignments);

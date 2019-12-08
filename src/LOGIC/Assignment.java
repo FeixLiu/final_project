@@ -98,13 +98,10 @@ public class Assignment {
     }
 
     public void updateChildren(List<Double> percentage) {
-        double total = 0.0;
-        for (double per: percentage)
-            total += per;
-        for (int i = 0; i < children.size(); i++)
-            percentage.set(i, percentage.get(i) / total);
         for (int i = 0; i < children.size(); i++)
             children.get(i).setPercentage(percentage.get(i));
+        for (int i = 0; i < children.size(); i++)
+            children.get(i).setTotal(total.getTotal() * percentage.get(i) / 100);
         updateGrade();
     }
 

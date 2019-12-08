@@ -725,7 +725,9 @@ public class DatabaseDAO {
 
                         Name studentName = new Name(firstName, lastName);
                         Student student = new Student(studentName, new Email(email), new Id(studentId), studentStatus, kind);
-                        student.setComments(comment);
+                        if (comment != null) {
+                            student.setComments(comment);
+                        }
                         students.add(student);
                         finalGrade.put(student, studentFianlGrade == null ? ' ' : new Character(studentFianlGrade.charAt(0)));
                     }
@@ -881,7 +883,9 @@ public class DatabaseDAO {
 
                         Name studentName = new Name(firstName, lastName);
                         Student student = new Student(studentName, new Email(email), new Id(studentId), studentStatus, kind);
-                        student.setComments(comment);
+                        if (comment != null) {
+                            student.setComments(comment);
+                        }
                         students.add(student);
                         finalGrade.put(student, studentFianlGrade == null ? ' ' : new Character(studentFianlGrade.charAt(0)));
                     }
@@ -979,5 +983,64 @@ public class DatabaseDAO {
         }
         return courses;
     }
+
+    public void modifyStudentKind(String id, String kind, Course course) {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+            stmt = c.createStatement();
+            stmt.executeUpdate("UPDATE Student set kind =" + sqlText(kind) + " where id=" + sqlText(id) + ";");
+
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println("modifyStudentKind() failed");
+            System.exit(0);
+        }
+    }
+
+    public void modifyStudentEmail(String id, String email, Course course) {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+            stmt = c.createStatement();
+            stmt.executeUpdate("UPDATE Student set email =" + sqlText(email) + " where id=" + sqlText(id) + ";");
+
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println("modifyStudentEmail() failed");
+            System.exit(0);
+        }
+    }
+
+    public void modifyStudentName(String id, String name, Course course) {
+        String firstName = name.split(" ", 0)[0];
+        String lastName = name.split(" ", 0)[1];
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+            stmt = c.createStatement();
+            stmt.executeUpdate("UPDATE Student set firstName =" + sqlText(firstName) + " where id=" + sqlText(id) + ";");
+            stmt.executeUpdate("UPDATE Student set lastName =" + sqlText(lastName) + " where id=" + sqlText(id) + ";");
+
+
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println("modifyStudentName() failed");
+            System.exit(0);
+        }
+    }
+
 
 }

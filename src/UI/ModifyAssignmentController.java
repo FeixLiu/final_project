@@ -94,7 +94,7 @@ public class ModifyAssignmentController {
             List<Double> share = new ArrayList<>();
             for (int i = 0; i < nodes.size(); i = i + 2) {
                 try {
-                    share.add(Double.parseDouble(((TextField)nodes.get(i)).getText()));
+                    share.add(Double.parseDouble(((TextField)nodes.get(i + 1)).getText()));
                 }
                 catch (Exception e) {
                     goBack();

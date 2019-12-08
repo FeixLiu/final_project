@@ -18,6 +18,8 @@ public class Name {
     }
 
     public String getName() {
+        if (getFirst().length() == 0 || getLast().length() == 0)
+            return getFirst().length() == 0 ? getLast() : getFirst();
         return getFirst() + " " + getLast();
     }
 
