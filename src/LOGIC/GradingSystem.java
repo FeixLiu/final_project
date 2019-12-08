@@ -1,5 +1,6 @@
 package LOGIC;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -194,12 +195,22 @@ public class GradingSystem {
     }
 
     public List<Double> getStudentStatistical(List<String> unselect, HashMap<String, Double> currentStudent) {
+        HashMap<String, Double> copy = new HashMap<>(currentStudent);
         for (String name: unselect)
-            currentStudent.remove(name);
+            copy.remove(name);
         List<Double> rst = new ArrayList<>();
-        rst.add(Statistical.average(currentStudent));
-        rst.add(Statistical.median(currentStudent));
-        rst.add(Statistical.standardDev(currentStudent));
+        double temp = Statistical.average(copy);
+        BigDecimal bd = new BigDecimal(temp);
+        temp = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        rst.add(temp);
+        temp = Statistical.median(copy);
+        bd = new BigDecimal(temp);
+        temp = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        rst.add(temp);
+        temp = Statistical.standardDev(copy);
+        bd = new BigDecimal(temp);
+        temp = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        rst.add(temp);
         return rst;
     }
 

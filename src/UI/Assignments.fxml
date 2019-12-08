@@ -94,7 +94,7 @@
                   </Button>
                </children>
             </VBox>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goBack" prefHeight="68.0" prefWidth="161.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
+            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goBack" prefHeight="68.0" prefWidth="165.0" style="-fx-background-color: white; -fx-border-width: 0 1 1 1; -fx-border-color: black;" text="All Courses">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>

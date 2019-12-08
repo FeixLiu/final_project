@@ -117,11 +117,7 @@
          <top>
             <AnchorPane prefHeight="102.0" prefWidth="862.0" BorderPane.alignment="CENTER">
                <children>
-                  <MenuButton layoutX="231.0" layoutY="38.0" mnemonicParsing="false" text="All">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Graduate" />
-                      <MenuItem mnemonicParsing="false" text="Undergraduate" />
-                    </items>
+                  <MenuButton fx:id="menuButton" layoutX="231.0" layoutY="38.0" mnemonicParsing="false">
                   </MenuButton>
                   <Text layoutX="40.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter By Student's Type" wrappingWidth="209.15562438964844">
                      <font>
@@ -152,7 +148,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="av">
+                              <Button fx:id="average" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="av">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -166,7 +162,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="mid">
+                              <Button fx:id="mid" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="mid">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -180,7 +176,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="std">
+                              <Button fx:id="std" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="std">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -194,11 +190,11 @@
          <center>
             <ScrollPane prefHeight="666.0" prefWidth="435.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox prefHeight="700.0" prefWidth="440.0">
+                  <VBox fx:id="overall" prefHeight="700.0" prefWidth="440.0">
                      <children>
                         <HBox prefHeight="25.0" prefWidth="440.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="Button" />
+                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="Select" />
                               <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="Student's Name" />
                               <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: white; -fx-border-color: transparent;" text="Overall" />
                            </children>

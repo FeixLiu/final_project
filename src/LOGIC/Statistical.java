@@ -5,6 +5,8 @@ import java.util.*;
 public class Statistical {
     public static double average(Assignment assignment) {
         HashMap<Student, Double> all = assignment.getGrade();
+        if (all.size() == 0)
+            return 0;
         double total = 0;
         for (double d: all.values())
             total += d;
@@ -13,6 +15,8 @@ public class Statistical {
 
     public static double median(Assignment assignment) {
         HashMap<Student, Double> all = assignment.getGrade();
+        if (all.size() == 0)
+            return 0;
         List<Double> allGrade = new ArrayList<>(all.values());
         Collections.sort(allGrade);
         if (allGrade.size() % 2 != 0)
@@ -24,12 +28,16 @@ public class Statistical {
         double average = Statistical.average(assignment);
         double total = 0;
         HashMap<Student, Double> all = assignment.getGrade();
+        if (all.size() == 0)
+            return 0;
         for (double d: all.values())
             total += (d - average) * (d - average);
         return Math.sqrt(total / all.size());
     }
 
     public static double average(HashMap<String, Double> student) {
+        if (student.size() == 0)
+            return 0;
         double total = 0;
         for (double grade: student.values())
             total += grade;
@@ -37,6 +45,8 @@ public class Statistical {
     }
 
     public static double median(HashMap<String, Double> student) {
+        if (student.size() == 0)
+            return 0;
         List<Double> allGrade = new ArrayList<>(student.values());
         Collections.sort(allGrade);
         if (allGrade.size() % 2 != 0)
@@ -45,6 +55,8 @@ public class Statistical {
     }
 
     public static double standardDev(HashMap<String, Double> student) {
+        if (student.size() == 0)
+            return 0;
         double average = Statistical.average(student);
         double total = 0;
         for (double d: student.values())

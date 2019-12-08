@@ -149,7 +149,11 @@ public class AssignmentsController {
             standard.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
             Button edit = new Button();
             edit.setOnAction(actionEvent -> {
-                edit(assignment);
+                try {
+                    edit(assignment);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
             edit.setStyle("-fx-background-color: transparent; -fx-border-width: 1 1 1 1;");
             Image im = new Image("UI/Icon/baseline_create_black_17dp.png");
@@ -191,12 +195,37 @@ public class AssignmentsController {
         window.setScene(active);
     }
 
-    public void edit(Assignment assignment) {
-
+    public void edit(Assignment assignment) throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("ModifyAssignment.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        ModifyAssignmentController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(parent);
+        modifyCriteriaController.initial(assignment);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
     }
 
-    public void add() {
-
+    public void add() throws IOException {
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("AddAssignment.fxml"));
+        Parent active_fxml = modify.load();
+        Scene active = new Scene(active_fxml, 1024, 768);
+        AddAssignmentController modifyCriteriaController = modify.getController();
+        modifyCriteriaController.setGS(gs);
+        modifyCriteriaController.setParent(parent);
+        List<String> temp = new ArrayList<>();
+        temp.add("");
+        temp.add("");
+        temp.add("");
+        temp.add("");
+        List<String> cri = new ArrayList<>();
+        List<Criteria> criteria = gs.getCourseCriteria();
+        for (Criteria c: criteria)
+            cri.add(c.getLabel());
+        modifyCriteriaController.initial(true, temp, cri);
+        Stage window = (Stage) courseName.getScene().getWindow();
+        window.setScene(active);
     }
 
 
