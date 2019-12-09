@@ -1,4 +1,4 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.*;
 import javafx.fxml.FXML;
@@ -205,7 +205,7 @@ public class AddOneStudentsController {
             return;
         }
         gs.addOneStudent(sName, sid, semail, kind);
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Students.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         StudentsController studentsController = modify.getController();

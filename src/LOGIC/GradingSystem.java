@@ -259,7 +259,7 @@ public class GradingSystem {
         for (Template template: templates)
             if (template.getName().equals(name))
                 return;
-        List<Criteria> criteria = currentView.getCriteria();
+        List<Criteria> criteria = new ArrayList<>(currentView.getCriteria());
         dao.saveAsTemplate(name, currentView);
         templates.add(new Template(name, criteria));
     }

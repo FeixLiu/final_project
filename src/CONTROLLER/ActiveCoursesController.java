@@ -1,10 +1,7 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.Course;
-import LOGIC.Criteria;
 import LOGIC.GradingSystem;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ActiveCoursesController {
@@ -58,7 +54,7 @@ public class ActiveCoursesController {
     public void chooseCourse(String name) throws IOException {
         String[] info = name.split("\n");
         gs.chooseCourse(info[0], info[1], info[2]);
-        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("CourseMenu.fxml"));
+        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("/UI/CourseMenu.fxml"));
         Parent active_fxml = courseMenu.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         CourseMenuController courseMenuController = courseMenu.getController();
@@ -70,7 +66,7 @@ public class ActiveCoursesController {
     }
 
     public void addCourse() throws IOException {
-        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
+        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("/UI/AddCourse.fxml"));
         Parent active_fxml = courseMenu.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         AddCourseController courseMenuController = courseMenu.getController();
@@ -82,7 +78,7 @@ public class ActiveCoursesController {
     }
 
     public void inactive() throws IOException {
-        FXMLLoader inactiveCourse = new FXMLLoader(getClass().getResource("InActiveCourses.fxml"));
+        FXMLLoader inactiveCourse = new FXMLLoader(getClass().getResource("/UI/InActiveCourses.fxml"));
         Parent active_fxml = inactiveCourse.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         InActiveCoursesController inactiveCoursesController = inactiveCourse.getController();

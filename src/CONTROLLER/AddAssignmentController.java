@@ -1,4 +1,4 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.GradingSystem;
 import javafx.collections.ObservableList;
@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -122,7 +121,7 @@ public class AddAssignmentController {
     }
 
     public void transfer() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("AddAssignment.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/AddAssignment.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         AddAssignmentController modifyCriteriaController = modify.getController();
@@ -233,7 +232,7 @@ public class AddAssignmentController {
     }
 
     public void goBack() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Assignments.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Assignments.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         AssignmentsController modifyCriteriaController = modify.getController();

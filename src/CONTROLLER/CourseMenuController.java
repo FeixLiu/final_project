@@ -1,4 +1,4 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.Config;
 import LOGIC.Criteria;
@@ -11,12 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class CourseMenuController {
@@ -48,7 +45,7 @@ public class CourseMenuController {
     }
 
     public void modifyCriteria() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("ModifyCriteira.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/ModifyCriteira.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         ModifyCriteriaController modifyCriteriaController = modify.getController();
@@ -60,7 +57,7 @@ public class CourseMenuController {
     }
 
     public void goStudent() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Students.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         StudentsController studentsController = modify.getController();
@@ -76,7 +73,7 @@ public class CourseMenuController {
     }
 
     public void goAssignment() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Assignments.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Assignments.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         AssignmentsController modifyCriteriaController = modify.getController();
@@ -88,7 +85,7 @@ public class CourseMenuController {
     }
 
     public void goGrading() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Grading.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         GradingController modifyCriteriaController = modify.getController();
@@ -100,7 +97,7 @@ public class CourseMenuController {
     }
 
     public void goStatistic() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Statistics.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Statistics.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         StatisticsController modifyCriteriaController = modify.getController();
@@ -112,7 +109,7 @@ public class CourseMenuController {
     }
 
     public void archive() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Archive.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Archive.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         ArchiveController modifyCriteriaController = modify.getController();

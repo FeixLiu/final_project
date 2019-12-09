@@ -1,4 +1,4 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.Criteria;
 import LOGIC.GradingSystem;
@@ -130,7 +130,7 @@ public class AddCourseController {
         List<Criteria> toshow = null;
         if (temp != null)
             toshow = temp.getCriteria();
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/AddCourse.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         AddCourseController modifyCriteriaController = modify.getController();
@@ -170,7 +170,7 @@ public class AddCourseController {
                 temp = cri;
         }
         all.remove(temp);
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("AddCourse.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/AddCourse.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         AddCourseController modifyCriteriaController = modify.getController();
@@ -216,7 +216,7 @@ public class AddCourseController {
             temp.add(new Criteria(cri, criteria.get(cri)));
         }
         gs.addCourse(name, temp, semester, year);
-        FXMLLoader activeCourse = new FXMLLoader(getClass().getResource("ActiveCourses.fxml"));
+        FXMLLoader activeCourse = new FXMLLoader(getClass().getResource("/UI/ActiveCourses.fxml"));
         Parent active_fxml = activeCourse.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         ActiveCoursesController activeCoursesController = activeCourse.getController();

@@ -1,11 +1,9 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.Assignment;
 import LOGIC.Config;
 import LOGIC.Criteria;
 import LOGIC.GradingSystem;
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -151,7 +149,7 @@ public class GradingController {
     }
 
     public void chooseCri(String cri) throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Grading.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         GradingController modifyCriteriaController = modify.getController();
@@ -165,7 +163,7 @@ public class GradingController {
     }
 
     public void chooseAss(String ass) throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Grading.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         GradingController modifyCriteriaController = modify.getController();
@@ -182,7 +180,7 @@ public class GradingController {
     }
 
     public void chooseFilter(String filter) throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Grading.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         GradingController modifyCriteriaController = modify.getController();
@@ -250,7 +248,7 @@ public class GradingController {
             break;
         }
         if (temp == null) {
-            goBack();
+            this.initial();
             return;
         }
         List<String> title = new ArrayList<>(temp.keySet());
@@ -539,7 +537,7 @@ public class GradingController {
         }
         gs.giveComment(comments);
         gs.giveGrade(grade, this.criteria.getText(), this.assignment.getText());
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Grading.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Grading.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         GradingController modifyCriteriaController = modify.getController();
@@ -554,7 +552,7 @@ public class GradingController {
     }
 
     public void goStudent() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Students.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Students.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         StudentsController studentsController = modify.getController();
@@ -570,7 +568,7 @@ public class GradingController {
     }
 
     public void courseMenu() throws IOException {
-        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("CourseMenu.fxml"));
+        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("/UI/CourseMenu.fxml"));
         Parent active_fxml = courseMenu.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         CourseMenuController courseMenuController = courseMenu.getController();
@@ -582,7 +580,7 @@ public class GradingController {
     }
 
     public void goAssignment() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Assignments.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Assignments.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         AssignmentsController modifyCriteriaController = modify.getController();
@@ -594,7 +592,7 @@ public class GradingController {
     }
 
     public void goStatistic() throws IOException {
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("Statistics.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/Statistics.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         StatisticsController modifyCriteriaController = modify.getController();

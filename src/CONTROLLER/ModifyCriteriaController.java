@@ -1,9 +1,8 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.Config;
 import LOGIC.Criteria;
 import LOGIC.GradingSystem;
-import LOGIC.Template;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +19,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -112,7 +110,7 @@ public class ModifyCriteriaController {
 
     public void deleteCriteria(String name) throws IOException {
         gs.deleteCriteria(name);
-        FXMLLoader modify = new FXMLLoader(getClass().getResource("ModifyCriteira.fxml"));
+        FXMLLoader modify = new FXMLLoader(getClass().getResource("/UI/ModifyCriteira.fxml"));
         Parent active_fxml = modify.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         ModifyCriteriaController modifyCriteriaController = modify.getController();
@@ -155,7 +153,7 @@ public class ModifyCriteriaController {
             if (!flag)
                 gs.modifyCriteria(name, criteria.get(name));
         }
-        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("CourseMenu.fxml"));
+        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("/UI/CourseMenu.fxml"));
         Parent active_fxml = courseMenu.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         CourseMenuController courseMenuController = courseMenu.getController();

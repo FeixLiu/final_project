@@ -579,6 +579,12 @@ public class Course {
 //        for (LOGIC.Criteria c: criteria)
 //            c.setPercentage(c.getPercentage() / totalPercentage);
         dao.updateCriteria(criteria, this);
+        List<Assignment> outdated = new ArrayList<>();
+        for (Assignment assignment: assignments)
+            if (assignment.getCriteria().getLabel().equals(name))
+                outdated.add(assignment);
+        assignments.removeAll(outdated);
+        dao.updateAssignment(assignments, this);
         return this.getCriteria();
     }
 

@@ -313,7 +313,7 @@ public class DatabaseDAO {
             c = DriverManager.getConnection("jdbc:sqlite:database.db");
 
             stmt = c.createStatement();
-            stmt.executeUpdate("DELETE from Criteria;");
+            stmt.executeUpdate("DELETE from Criteria where courseId=" + getCourseId(course) +";");
 
 
             long courseId = 0;
@@ -530,11 +530,18 @@ public class DatabaseDAO {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:database.db");
 
-            //delete all assignments
-            //delete all assignment grades
             stmt = c.createStatement();
-            stmt.executeUpdate("DELETE from Assignment;");
-            stmt.executeUpdate("DELETE from StudentAssignment;");
+
+            ArrayList<Long> outdatedAssignmentId = new ArrayList<>();
+            ResultSet rsAssignment = stmt.executeQuery("SELECT * from Assignment where courseId=" + courseId + ";");
+            while (rsAssignment.next()) {
+                long aId = rsAssignment.getLong("assignmentId");
+                outdatedAssignmentId.add(aId);
+            }
+            stmt.executeUpdate("DELETE from Assignment where courseId=" + courseId + ";");
+            for (Long aId : outdatedAssignmentId) {
+                stmt.executeUpdate("DELETE from StudentAssignment where assignmentId=" + aId + ";");
+            }
 
 
 

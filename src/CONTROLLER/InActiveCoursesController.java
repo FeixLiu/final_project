@@ -1,4 +1,4 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.Course;
 import LOGIC.GradingSystem;
@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.FlowPane;
@@ -37,6 +36,10 @@ public class InActiveCoursesController {
     }
 
     public void initial(List<String> menu) {
+        if (menu.size() == 0) {
+            menuButton.setText("");
+            return;
+        }
         List<Course> inactive = gs.getInactive();
         menuButton.setText(menu.get(0));
         for (int i = 1; i < menu.size(); i++) {
@@ -75,7 +78,7 @@ public class InActiveCoursesController {
     }
 
     public void modify(int index, List<String> menu) throws IOException {
-        FXMLLoader inactiveCourse = new FXMLLoader(getClass().getResource("InActiveCourses.fxml"));
+        FXMLLoader inactiveCourse = new FXMLLoader(getClass().getResource("/UI/InActiveCourses.fxml"));
         Parent active_fxml = inactiveCourse.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         InActiveCoursesController inactiveCoursesController = inactiveCourse.getController();
@@ -94,7 +97,7 @@ public class InActiveCoursesController {
     public void chooseCourse(String name) throws IOException {
         String[] info = name.split("\n");
         gs.chooseCourse(info[0], info[1], info[2]);
-        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("CourseMenu.fxml"));
+        FXMLLoader courseMenu = new FXMLLoader(getClass().getResource("/UI/CourseMenu.fxml"));
         Parent active_fxml = courseMenu.load();
         Scene active = new Scene(active_fxml, 1024, 768);
         CourseMenuController courseMenuController = courseMenu.getController();

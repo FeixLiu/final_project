@@ -1,4 +1,4 @@
-package UI;
+package CONTROLLER;
 
 import LOGIC.*;
 import javafx.fxml.FXML;
@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -31,7 +30,7 @@ public class LoginController {
 
     public void loginClicked() throws IOException {
         if(gs.logIn(pinText.getText())) {
-            FXMLLoader activeCourse = new FXMLLoader(getClass().getResource("ActiveCourses.fxml"));
+            FXMLLoader activeCourse = new FXMLLoader(getClass().getResource("/UI/ActiveCourses.fxml"));
             Parent active_fxml = activeCourse.load();
             Scene active = new Scene(active_fxml, 1024, 768);
             ActiveCoursesController activeCoursesController = activeCourse.getController();
