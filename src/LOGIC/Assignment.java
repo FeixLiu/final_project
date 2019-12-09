@@ -14,7 +14,7 @@ public class Assignment {
     private Date due;
     private Date assigned;
     private HashMap<Student, Double> grade;
-    private TotalCredit total;
+    private Credit total;
 
     public Assignment(String name, Criteria criteria, double percentage,
                       Course course, Date due, Date assigned, double total) {
@@ -25,7 +25,7 @@ public class Assignment {
         this.course = course;
         this.due = due;
         this.assigned = assigned;
-        this.total = new TotalCredit(total);
+        this.total = new Credit(total);
         parent = null;
         children = new ArrayList<>();
         grade = new HashMap<>();
@@ -40,7 +40,7 @@ public class Assignment {
         this.course = course;
         this.due = due;
         this.assigned = assigned;
-        this.total = new TotalCredit(total);
+        this.total = new Credit(total);
         this.parent = parent;
         children = new ArrayList<>();
         grade = new HashMap<>();

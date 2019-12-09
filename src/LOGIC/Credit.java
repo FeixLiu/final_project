@@ -1,9 +1,9 @@
 package LOGIC;
 
-public class TotalCredit {
+public class Credit {
     private double total;
 
-    public TotalCredit(double total) {
+    public Credit(double total) {
         this.total = total;
     }
 
