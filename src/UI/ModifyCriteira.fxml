@@ -18,7 +18,7 @@
          <children>
             <VBox prefHeight="700.0" prefWidth="160.0" style="-fx-border-color: black;">
                <children>
-                  <Button fx:id="courseName" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="CourseName">
+                  <Button fx:id="courseName" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #ccc; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="CourseName">
                      <font>
                         <Font size="18.0" />
                      </font>

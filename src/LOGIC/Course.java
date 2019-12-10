@@ -445,7 +445,10 @@ public class Course {
             for (Assignment ass: assignments) {
                 if (!ass.getCriteria().getLabel().equals(cri))
                     continue;
-                temp.put(ass.getName(), ass.getOneStudent(s));
+                double t = ass.getOneStudent(s);
+                BigDecimal bd = new BigDecimal(t);
+                t = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                temp.put(ass.getName(), t);
             }
             rst.put(s.getName().getName(), temp);
         }

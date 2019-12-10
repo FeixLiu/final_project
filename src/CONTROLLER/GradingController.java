@@ -450,6 +450,9 @@ public class GradingController {
                     score.setPrefWidth(140);
                     score.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
                     score.setAlignment(Pos.CENTER);
+                    score.setOnMouseClicked(mouseEvent -> {
+                        changeColor(info);
+                    });
                     info.getChildren().add(score);
                 }
             }
@@ -459,9 +462,24 @@ public class GradingController {
                 random.setPrefWidth(140);
                 random.setAlignment(Pos.CENTER_LEFT);
                 info.getChildren().add(random);
+                random.setOnMouseClicked(mouseEvent -> {
+                    changeColor(info);
+                });
             }
             score.getChildren().add(info);
         }
+    }
+
+    public void changeColor(HBox info) {
+        for (Node node: score.getChildren()) {
+            ObservableList<Node> temp = ((HBox)node).getChildren();
+            for (int i = 1; i < temp.size() - 1; i++)
+                temp.get(i).setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 1 1 1");
+            temp.get(temp.size() - 1).setStyle("");
+        }
+        ObservableList<Node> temp = info.getChildren();
+        for (int i = 1; i < temp.size(); i++)
+            temp.get(i).setStyle("-fx-background-color: #d5ffc2; -fx-border-color: black; -fx-border-width: 1 1 1 1");
     }
 
     public void showComment(String s, String name) {
