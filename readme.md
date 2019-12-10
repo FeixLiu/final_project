@@ -30,7 +30,12 @@ The entrance of the program is /CONTROLLER/Entrance.java. You can run this progr
         Participation   30
         Bonus           0
     We allow this kind of distribution, the final score will be calculated by this:
-        score(Exam) * 60 / 140 + score(Homework) * 50 / 140 + score(Participation) * 30 / 140 + score(Bonus) * 0 / 140
+        score(Exam)           *   60  /  140 + 
+        score(Homework)       *   50  /  140 + 
+        score(Participation)  *   30  /  140 + 
+        score(Bonus)          *   0   /  140
+    Where 140 = 60 + 50 + 30 + 0
+    The same to calcualte the overall score for each criteira and multi-parts assignment
     
 ### Some configurations: 
     The password for professor is 123456
