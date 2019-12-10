@@ -140,7 +140,6 @@ public class StatisticsController {
                         for (TableData person: allPersons) {
                             if(person.getKind().equals(Config.GRADUATE)) {
                                 filteredPersons.add(person);
-                                toggleAll();
                             }
                         }
                         table.setItems(filteredPersons);
