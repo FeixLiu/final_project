@@ -102,11 +102,13 @@ public class StatisticsController {
         table.setItems(allPersons);
         table.setOnMouseClicked(mouseEvent -> {
             int index = table.getSelectionModel().getSelectedIndex();
-            String name = table.getItems().get(index).getFullName();
-            try {
-                clickOnName(name);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (index != -1) {
+                String name = table.getItems().get(index).getFullName();
+                try {
+                    clickOnName(name);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         getStatistics();
@@ -120,7 +122,6 @@ public class StatisticsController {
                 for (TableData person: allPersons) {
                     person.getSelect().setSelected(false);
                 }
-                selectAll.setSelected(false);
                 // Alter the displayed students
                 ObservableList<TableData> filteredPersons = FXCollections.observableArrayList();
                 switch (selected) {
@@ -131,17 +132,27 @@ public class StatisticsController {
                             }
                         }
                         table.setItems(filteredPersons);
+                        selectAll.setSelected(true);
+                        toggleAll();
+                        update();
                         break;
                     case "Graduate":
                         for (TableData person: allPersons) {
                             if(person.getKind().equals(Config.GRADUATE)) {
                                 filteredPersons.add(person);
+                                toggleAll();
                             }
                         }
                         table.setItems(filteredPersons);
+                        selectAll.setSelected(true);
+                        toggleAll();
+                        update();
                         break;
                     case "All":
                         table.setItems(allPersons);
+                        selectAll.setSelected(true);
+                        toggleAll();
+                        update();
                         break;
                 }
             }
