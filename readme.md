@@ -9,8 +9,9 @@ Grading System Group 19
 ### How to run:
 The entrance of the program is /CONTROLLER/Entrance.java. You can run this program by
 
-	javac BankEntrance.java
-	java BankEntrance
+	cd CONTROLLER
+	javac Entrance.java
+	java Entrance
 	
 ### Database
     We use sqlite database.
