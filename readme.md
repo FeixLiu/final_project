@@ -44,7 +44,8 @@ The entrance of the program is /CONTROLLER/Entrance.java. You can run this progr
     The student has two kinds: graduate or undergraduate
     The student has three status: enrolled, withdraw or drop
     The course has two status: active or inactive
-    The template is some kind of pointer to the course, which means when modify the criteria of that course, the template will be changed
+    The template is some kind of pointer to the course, 
+        which means when modify the criteria of that course, the template will be changed
 
 ### A general work flow (the UI can be seen from doc design)
     1.	Login
