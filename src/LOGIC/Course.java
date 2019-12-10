@@ -455,6 +455,22 @@ public class Course {
         return rst;
     }
 
+    public HashMap<Student, Double> grabAllOverall() {
+        double total = 0;
+        for (Criteria cri: criteria)
+            total += cri.getPercentage();
+        HashMap<Student, Double> rst = new HashMap<>();
+        for (Student s: students) {
+            double overall = 0.0;
+            for (Criteria c: criteria)
+                overall += c.getPercentage() * grabGradOfOneStudentForOneCriteria(s, c.getLabel()) / total;
+            BigDecimal bd = new BigDecimal(overall);
+            overall = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            rst.put(s, Math.min(overall + curve.getCurve(), 100));
+        }
+        return rst;
+    }
+
     public HashMap<String, HashMap<String, Double>> grabByCriteriaAndName(String cri, String name) {
         HashMap<String, HashMap<String, Double>> rst = new HashMap<>();
         for (Student s: students) {

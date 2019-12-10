@@ -154,6 +154,10 @@ public class GradingSystem {
         return currentView.grabByCriteria(criteria);
     }
 
+    public HashMap<Student, Double> grabAllOverall() {
+        return currentView.grabAllOverall();
+    }
+
     public void giveGrade(HashMap<String, HashMap<String, Double>> grade, String criteria, String name) {
         currentView.giveGrade(grade, criteria, name, dao);
     }

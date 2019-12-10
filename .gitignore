@@ -12,3 +12,5 @@ src/.DS_Store/*
 src/UI/.DS_Store
 src/UI/.DS_Store/*
 .DS_Store
+backup
+backup/*

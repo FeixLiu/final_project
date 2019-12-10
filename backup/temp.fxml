@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER.StatisticsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.StatisticsController">
     <left>
         <VBox prefHeight="768.0" prefWidth="160.0" BorderPane.alignment="CENTER">
             <children>
@@ -37,7 +37,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" onAction="#goAssignment" text="Assignments">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Asignments">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -52,7 +52,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" onAction="#goGrading" text="Grading">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" text="Grading">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -148,6 +148,10 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
+                <Button fx:id="calcButton" layoutX="490.0" layoutY="154.0" mnemonicParsing="false" onAction="#getStatistics" prefHeight="40.0" prefWidth="168.0" text="Calculate Statistics">
+                    <font>
+                        <Font size="15.0" />
+                    </font></Button>
                 <Label layoutX="66.0" layoutY="29.0" text="Filter by student type">
                     <font>
                         <Font size="16.0" />

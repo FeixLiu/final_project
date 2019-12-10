@@ -150,10 +150,12 @@ public class AddCourseController {
         cri.setPrefHeight(40);
         cri.setPrefWidth(200);
         cri.setFont(new Font(25));
+        cri.setText("Criteria Name");
         TextField percentage = new TextField();
         percentage.setPrefHeight(40);
         percentage.setPrefWidth(100);
         percentage.setFont(new Font(25));
+        percentage.setText("0");
         Button delete = new Button();
         delete.setStyle("-fx-background-color: transparent; -fx-border-width: 0 0 0 0;");
         delete.setPrefHeight(40);
