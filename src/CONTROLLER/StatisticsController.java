@@ -99,6 +99,13 @@ public class StatisticsController {
             TableData entry = new TableData(student, overall.get(student), this);
             allPersons.add(entry);
         }
+        allPersons.sort(((o1, o2) -> {
+            if (o1.getScore() > o2.getScore())
+                return -1;
+            else if (o1.getScore() < o2.getScore())
+                return 1;
+            return 0;
+        }));
         table.setItems(allPersons);
         table.setOnMouseClicked(mouseEvent -> {
             int index = table.getSelectionModel().getSelectedIndex();
