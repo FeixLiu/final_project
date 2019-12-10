@@ -21,7 +21,12 @@
             <children>
                 <VBox prefHeight="700.0" prefWidth="160.0" style="-fx-border-color: black;">
                     <children>
-                        <Button fx:id="courseName" onAction="#goCourseMenu" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="CourseName" />
+                        <Button fx:id="courseName" onAction="#goCourseMenu" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="CourseName">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Button>
+
                         <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#goStudent" prefHeight="80.0" prefWidth="160.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1 0 1 0;" text="Students">
                             <font>
                                 <Font size="18.0" />
@@ -88,7 +93,7 @@
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@Icon/icons8-assignment-return-100.png" />
+                                <Image url="@Icon/baseline_arrow_back_black_24dp.png" />
                             </image>
                         </ImageView>
                     </graphic>

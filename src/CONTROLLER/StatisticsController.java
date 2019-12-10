@@ -247,6 +247,7 @@ public class StatisticsController {
         CourseMenuController courseMenuController = modify.getController();
         courseMenuController.setGs(gs);
         courseMenuController.setParent(parent);
+        courseMenuController.initializer();
         Stage window = (Stage) courseName.getScene().getWindow();
         window.setScene(active);
     }
