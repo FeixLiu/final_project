@@ -1,10 +1,10 @@
 Grading System Group 19
 ==========
-### Cowokers and BUID:
-    Name: Yinyun Cao    BUID:U36509179
-    Name: Qichao Hong   BUID:U83816176
-	Name: Yuang Liu     BUID:U99473611
-	Name: Zhitong Wu    BUID:U93211428
+### Coworkers and BUID:
+    Name: Yinyun  Cao     BUID:U36509179
+    Name: Qichao  Hong    BUID:U83816176
+	Name: Yuang   Liu     BUID:U99473611
+	Name: Zhitong Wu      BUID:U93211428
 	
 ### How to run:
 The entrance of the program is /CONTROLLER/Entrance.java. You can run this program by
