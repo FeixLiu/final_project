@@ -68,7 +68,7 @@ public class GradingController {
         this.filter.getItems().add(mii);
         HBox criteriaInfo = new HBox();
         criteriaInfo.setPrefHeight(30);
-        Text NAME = new Text("Filter");
+        Text NAME = new Text("Name");
         NAME.setFont(new Font(15));
         NAME.setWrappingWidth(140);
         NAME.setTextAlignment(TextAlignment.CENTER);
